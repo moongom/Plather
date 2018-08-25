@@ -1,6 +1,6 @@
 <div class="row margin" text-center>
-                    <div class="col s3"></div>
-                    <form [formGroup]="signupForm" class="col s4" (ngSubmit)="register()" novalidate>
+                    <div class="col-1"></div>
+                    <form [formGroup]="signupForm" class="col-10" (ngSubmit)="register()" novalidate>
                         <div class="form-group">
                             <input formControlName="Email"
                             required
@@ -69,12 +69,12 @@
                                 <div class="row">
                                   <div class="col s4"></div>
                                   <div class="col s4">
-                                      <button mat-button color="primary">회원가입</button>
+                                      <button mat-raised-button color="black">회원가입</button>
                                   </div>
                                   <div class="col s4"></div>
                                 </div>
 
 
                     </form>
-                    <div class="col s3"></div>
+                    <div class="col-1"></div>
                   </div>

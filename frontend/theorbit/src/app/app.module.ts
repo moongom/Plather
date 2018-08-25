@@ -84,6 +84,7 @@ import { SignupService } from './signup.service';
 
   imports: [
 
+    HttpClientModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,

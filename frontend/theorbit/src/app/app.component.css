@@ -1,0 +1,43 @@
+.waves-light{
+  background-color: black;
+}
+div.btn{
+  background-color: black;
+}
+
+div.navbar{
+  width: 100%;
+  background-color: #efefef;
+}
+
+div.navbar-25{
+  display: inline-block;
+  vertical-align: middle;
+  width: 25%;
+}
+
+div.navbar-50{
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+}
+
+input.navbar-form{
+  background-color: rgb(255,255,255, 0.6);
+  border-radius: 10px;
+  width: 100%;
+  padding-left: 9%;
+}
+
+.navbar-form-icon{
+  top: 15px;
+  position: absolute;
+  left: 27%;
+}
+
+.deleteline{
+  color:black;
+  text-decoration: none;
+}
+
+

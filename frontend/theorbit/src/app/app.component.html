@@ -1,0 +1,101 @@
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<!-- MaterializeCss Icon -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+<!-- Tob Bar  -->
+<div class="row navbar" style="margin-bottom: 10px;">
+  <div class="navbar-25" [ngStyle]="{'background-color': '#efefef'}">
+    <a routerLink="/" class="deleteline"><p [ngStyle]="{'font-size': '20px', 'margin-left': '20px'}">Plather</p></a>
+  </div>
+  <div class="navbar-50">
+    <mat-icon class="navbar-form-icon">search</mat-icon>
+    <form>
+      <input matInput class="navbar-form">
+    </form>
+  </div>
+  <div class="navbar-25">
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-left: 50%;">
+        <mat-icon>home</mat-icon>
+        <span>김희재</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Edit Profile</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>voicemail</mat-icon>
+          <span>Payment</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>voicemail</mat-icon>
+          <span>Notice</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>voicemail</mat-icon>
+          <span>Stack</span>
+        </button>
+        <button mat-menu-item (click)="openLoginDialog()">
+          <mat-icon>voicemail</mat-icon>
+          <span>Sign up</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>voicemail</mat-icon>
+          <span>Login</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>voicemail</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</div>
+<!-- Tob Bar  -->
+
+<!-- Side Bar가 필요한 경우의 navbar -->
+<div *ngIf="sidenavTest">
+  <router-outlet></router-outlet>
+</div>
+<mat-sidenav-container *ngIf="sidenavTest==false" [ngStyle]="{'height': '1000px'}">
+  <!-- Side Bar가 필요없는 경우의 navbar -->
+  <!-- Main Content -->
+  <mat-sidenav-content>
+
+    <router-outlet></router-outlet>
+
+    <!-- Footer -->
+    <footer class="page-footer"  style="background-color: #CDCDCD;">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Plather</h5>
+            <p class="grey-text text-lighten-4">문곰의 제 4회 서강대학교 해커톤 프로젝트입니다.</p>
+          </div>
+          <div class="col l4 offset-l2 s12"></div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2018 Copyright Moongom
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

@@ -1,0 +1,55 @@
+<mat-sidenav-container >
+  <mat-sidenav mode="side" opened style="width: 230px;" class="fixedclass">
+    <mat-accordion>
+      <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Filter
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row" *ngFor="let st of superTags; let i=index">
+          <mat-checkbox id="filter_{{ i }}" (change)="onFilterChange($event)" [checked]="true">{{ st }}</mat-checkbox>
+        </div>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            다른 메뉴
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>기타 메뉴</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-sidenav>
+  <!-- Side Bar -->
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <!-- Profile & Horizontal Line -->
+    <usertimeline></usertimeline>
+    <!-- Under Horizontal Line  -->
+    <usertimeline-specific></usertimeline-specific>
+
+    <!-- Footer -->
+    <footer class="page-footer"  style="background-color: #CDCDCD;">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Plather</h5>
+            <p class="grey-text text-lighten-4">문곰의 제 4회 서강대학교 해커톤 프로젝트입니다.</p>
+          </div>
+          <div class="col l4 offset-l2 s12"></div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2018 Copyright Moongom
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer -->
+  </mat-sidenav-content>
+  <!-- Main Content -->
+</mat-sidenav-container>

@@ -1,0 +1,107 @@
+<mat-sidenav-container [ngStyle]="{'height': '1000px'}">
+  <mat-sidenav mode="side" opened style="width: 230px;">
+    <mat-accordion>
+      <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            계정 설정
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+          <a href="#" style="color: black">회원 정보 수정</a><br>
+          <a href="#" style="color: black">공개 범위 설정</a><br>
+          <a href="#" style="color: black">회원 탈퇴</a><br>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            다른 메뉴
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>기타 메뉴</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-sidenav>
+  <!-- Side Bar -->
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <div class="row">
+      <div class= "col-4"></div>
+      <div class= "col-4 user-profile" style="text-align: center;">
+        <div class="button-row">
+          <button id="float-btn" mat-fab (click)="openDialog()" color="black" style="font-size: 20px; background-color: gray;">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <img id="profile-img" class="img-responsive" src="assets/images/user_profile_default.png">
+        <br><span class="user-profile-name">김희재</span><br>
+        <span class="user-profile-org">Sogang Univ</span><br>
+      </div>
+      <div class= "col-4"></div>
+    </div>
+    <div class="row">
+      <div class= "col-1"></div>
+      <div class= "col-5">
+        <mat-card class="card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>자기 소개</mat-card-title>
+            <mat-card-subtitle>고양이</mat-card-subtitle>
+          </mat-card-header>
+          <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+          <mat-card-content>
+            <p>
+              개에 대해 할 말은 많지만 일단 급한 불부터 끄자. 피타고라스를 공포로 몰아넣은 저 개부터 쫓아 버려야겠어. 체격에서 불리하니까 효과적인 전략으로 대응하는 수밖에
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class= "col-5">
+        <mat-card class="card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>경력 기술</mat-card-title>
+            <mat-card-subtitle>강아지 사료</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>- 고양이</p>
+            <p>- 베르나르 베르베르</p>
+            <p>- 피타고라스가 <웃음>이라고 했던 바로 그 소리</p>
+            <p>- 집사는 평소보다 더 신경이 곤두서 있다.</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class= "col-1"></div>
+    </div>
+
+
+    <!-- <input
+      style="display: none"
+      type="file" (change)="onFileChanged($event)"
+      #fileInput>
+    <button (click)="fileInput.click()">Select File</button>
+    <button (click)="onUpload()">Upload!</button> -->
+
+    <!-- Footer -->
+    <footer class="page-footer"  style="background-color: #CDCDCD;">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Plather</h5>
+            <p class="grey-text text-lighten-4">문곰의 제 4회 서강대학교 해커톤 프로젝트입니다.</p>
+          </div>
+          <div class="col l4 offset-l2 s12"></div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2018 Copyright Moongom
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer -->
+  </mat-sidenav-content>
+  <!-- Main Content -->
+</mat-sidenav-container>

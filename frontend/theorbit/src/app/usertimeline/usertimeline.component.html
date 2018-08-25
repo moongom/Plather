@@ -1,0 +1,53 @@
+<div class="row">
+  <div class= "col-4"></div>
+  <div class= "col-4 user-profile">
+    <img class="img-responsive" src="assets/images/user_profile_default.png">
+    <br><span class="user-profile-name">김희재</span><br>
+    <span class="user-profile-org">Sogang Univ</span><br>
+  </div>
+  <div class= "col-4"></div>
+</div>
+<div class="row">
+  <div class= "col-4"></div>
+  <div class= "col-4 user-profile">
+    <img class="img-responsive" class="left-triangle" id="left-triangle-move" src="assets/images/left_triangle_btn.png">
+    <span id="current-date"></span>
+    <img class="img-responsive" class="right-triangle" id="right-triangle-move" src="assets/images/right_triangle_btn.png">
+  </div>
+  <div class= "col-4"></div>
+</div>
+<div class="row">
+  <div class= "col-4"></div>
+  <div class= "col-4 user-profile">
+    <img class="img-responsive" class="left-triangle" id="left-triangle-select" src="assets/images/left_triangle_btn.png">
+    <span id="period-select"></span>
+    <img class="img-responsive" class="right-triangle" id="right-triangle-select" src="assets/images/right_triangle_btn.png">
+  </div>
+  <div class= "col-4"></div>
+</div>
+<div id="horizontalLineDiv" >
+  <div style="display: none;">
+    <p class="range-field" style="position:abosolute; margin-top: 0px; width: 150px;">
+      <input type="range" id="range-input" min="0" max="3" />
+    </p>
+  </div>
+  <div id="mousePointerArea" style="height:100px;">
+    <div id="cardArea" style="position:absolute;"></div>
+    <div class="horizontalLine" style="position:absolute; height:4px;">
+      <div id="dateGraduation"></div>
+      <div class="row">
+        <!-- <div id='startDatePointer' style="position: absolute;">{{startDate|date:'yyyy/MM/dd'}}</div> -->
+        <!-- <div
+        *ngFor="let activity of activities; let i = index"
+        [attr.id] = "'activity_' + i"
+        [ngStyle]="{'position':'absolute', 'left':datemargin(i)+'%'}">
+         {{activity.category}}
+        </div> -->
+        <div id="activities"></div>
+        <!-- <div id="endDatePointer" style="position: absolute;">
+          {{today|date:'yyyy/MM/dd'}}
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

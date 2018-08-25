@@ -1,0 +1,50 @@
+.horizontalLine{
+  position: absolute;
+  width:90%;
+  left: 5%;
+  height:2px;
+  background: #727272;
+  margin-top:100px;
+}
+
+#startDatePointer{
+  position: absolute;
+}
+
+.left-triangle{
+  width:20px;
+  margin-right: 30px;
+}
+
+.right-triangle{
+  width: 20px;
+  margin-left: 30px;
+}
+
+.activities{
+  position: absolute;
+}
+
+div.user-profile{
+  text-align: center;
+}
+
+span#current-date{
+  color: #727272;
+  font-size: 30px;
+}
+
+span#period-select{
+  color: #727272;
+  font-size: 15px;
+}
+
+.user-profile .user-profile-name{
+  color: #727272;
+  font-size: 30px;
+}
+
+.user-profile .user-profile-org{
+  color: #727272;
+  font-size: 20px;
+}

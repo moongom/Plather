@@ -1,0 +1,32 @@
+<div class="row" text-center>
+  <div class="col-1"></div>
+  <form [formGroup]="signupForm" class="col-10" (ngSubmit)="register(signupForm)">
+    <div class="input-field">
+      <input formControlName="ID" id="ID" type="text" class="form-control validate" style="background-color: #F9F9F9; border-radius: 10px;" placeholder="ID" >
+    </div>
+
+    <div class="input-field">
+      <input formControlName="Password" id="Password" type="password" class="form-control validate" style="background-color: #F9F9F9; border-radius: 10px;" placeholder="Password">
+    </div>
+
+    <div class="input-field ">
+      <input formControlName="Password_Confirm" id="Password_Confirm" type="password" style="background-color: #F9F9F9; border-radius: 10px;" class="form-control validate" placeholder="Password_Confirm">
+    </div>
+    <div class="input-field">
+      <input formControlName="Email" id="Email" type="text" class="form-control validate" style="background-color: #F9F9F9; border-radius: 10px;" placeholder="Email">
+    </div>
+
+    <div class="input-field">
+      <input formControlName="Phone" id="Phone" type="text" class="form-control validate" style="background-color: #F9F9F9; border-radius: 10px;" placeholder="Phone">
+    </div>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col s4"></div>
+      <div class="col s4">
+        <button mat-raised-button color="gray">회원가입</button>
+      </div>
+      <div class="col s4"></div>
+    </div>
+
+  </form>
+  <div class="col-1"></div>
+</div>

@@ -1,0 +1,28 @@
+.user-profile .user-profile-name{
+  color: #727272;
+  font-size: 30px;
+}
+
+.user-profile .user-profile-org{
+  color: #727272;
+  font-size: 20px;
+}
+
+.user-profile .user-profile-name{
+  color: #727272;
+  font-size: 30px;
+}
+
+.user-profile .user-profile-org{
+  color: #727272;
+  font-size: 20px;
+}
+
+.card{
+  height: 273px;
+  overflow-y: scroll;
+}
+
+.button-row{
+  position: absolute;
+}

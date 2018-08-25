@@ -119,9 +119,9 @@ export class UsertimelineComponent implements OnInit {
     this.elementRef.nativeElement.querySelector('#current-date').innerText = this.startDate.getFullYear();
     this.elementRef.nativeElement.querySelector('#period-select').innerText = "Four Years";
 
-    
+
     (<HTMLElement>document.querySelectorAll('.fixedclass')[0]).style.top = (<HTMLElement>document.querySelectorAll('.navbar')[0]).offsetHeight + 13 + "px";
-   
+
   }
 
   randomDate(start, end) {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Signup2Component } from './signup2/signup2.component'
+import { LoginComponent } from './login/login.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -29,8 +30,24 @@ export class AppComponent {
   animal: string;
   name: string;
 
-  openLoginDialog(): void {
+  openSignup2Dialog(): void {
     const dialogRef = this.dialog.open(Signup2Component, {
+      width: '400px',
+      panelClass: 'full-dialog'
+
+      // data: { name: this.name, animal: this.animal }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+
+  }
+
+  openLoginDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+
       width: '400px',
       panelClass: 'full-dialog'
 

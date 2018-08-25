@@ -19,8 +19,8 @@ except ImportError:  # pragma: no cover - tests simulate this
 ###############################################################################
 
 
-def parse_tags(tag_string, tag_max_count=0, supertag_max_count=0, is_supertag=False,
-               sort_tag=False, tag_supertag_coexists=False):
+def parse_tags(tag_string, tag_max_count=10, supertag_max_count=5, is_supertag=False,
+               sort_tag=False, tag_supertag_coexists=True):
     """
     parse tags for supertags(##), and tags(#) and it's use case
     varies. It can allow both, or do only one depending on the variable

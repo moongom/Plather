@@ -161,6 +161,13 @@ def pk_tag_list_delete_relation(pk_tag_list_delete, is_supertag):
 
 
 def pk_tag_list_funct_combined(is_supertag, tag_list_to_add, tag_list_to_delete, user_id, post_id):
+    print('pk_tag_list_funct_starts')
+    print('is supertag')
+    print(is_supertag)
+    print('add list')
+    print(tag_list_to_add)
+    print('delete list')
+    print(tag_list_to_delete)
     if post_id:
         if is_supertag:
             pk_supertag_list_to_add = tag_model_creator(
@@ -222,13 +229,16 @@ def json_to_many_to_many(self, value, instance):
             print(tags_in_value)
 
             if instance.__dict__.get('tags_json') is not None:
-                print(instance.__dict__.get('tags_json').get('%s' % opt))
+                print(instance.__dict__.get('tags_json'))
                 if instance.__dict__.get('tags_json').get('%s' % opt) is not None:
+                    print(instance.__dict__.get('tags_json').get('%s' % opt))
                     tags_in_instance = instance.__dict__.get(
                         'tags_json').get('%s' % opt)
                 else:
-                    continue
+                    print('it came here')
+                    pass
             else:
+                print('set tags in instance as []')
                 tags_in_instance = []
             # set as empty list if none
 

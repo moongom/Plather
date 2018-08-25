@@ -21,12 +21,9 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-<<<<<<< HEAD
     url(r'^.*', TemplateView.as_view(template_name="ang_home.html"), name='home'),
-=======
     url(r'^', include('Post.urls')),
     url(r'^', include('Account.urls')),
->>>>>>> 22c212f7881ce849790ca4cc7480182c63c5b1ca
 ]
 
 if settings.DEBUG:

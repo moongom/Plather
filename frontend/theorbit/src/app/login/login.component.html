@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-1"></div>
-  <form [formGroup]="loginForm" class="col-10" (ngSubmit)="login(signupForm)" novalidate>
+  <form [formGroup]="loginForm" class="col-10" (ngSubmit)="login()" novalidate>
     <div class="form-group">
       <input formControlName="ID" id="ID" type="text" class="form-control" placeholder="ID" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.ID.errors }" />
       <div *ngIf="submitted && loginForm.controls.ID.errors" class="invalid-feedback redcolor">

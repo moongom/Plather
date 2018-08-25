@@ -25,7 +25,7 @@ export class SignupService {
   public token: String;
   register(signuptype:SignUpType){
     httpOptions.headers.append('X-CSRFToken', this.getCookie('csrftoken'))
-    return this.http.post(endpoint, {user_id:signuptype.ID, nickname:signuptype.Nickname, password:signuptype.Password, password_confirm:signuptype.Password_Confirm, email:signuptype.Email, phone:signuptype.Phone}, httpOptions)
+    return this.http.post(endpoint, {email:signuptype.Email, screen_name:signuptype.Nickname, password:signuptype.Password, password_confirm:signuptype.Password_Confirm,  phone:signuptype.Phone}, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

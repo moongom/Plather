@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class Signup1Component implements OnInit {
 
   constructor(private router:Router) { }
-
+  service=null;
+  private=null;
   ngOnInit() {
   }
 

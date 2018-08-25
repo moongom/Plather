@@ -2,17 +2,18 @@
                     <div class="col s3"></div>
                     <form [formGroup]="signupForm" class="col s4" (ngSubmit)="register()" novalidate>
                         <div class="form-group">
-                          <input formControlName="ID"
-                          id="ID"
-                          type="text"
-                          class="form-control"
-                          placeholder="ID"
-                          [ngClass]="{ 'is-invalid': submitted && f.ID.errors }" />
-                        <div *ngIf="submitted && f.ID.errors" class="invalid-feedback redcolor">
-                            <div *ngIf="f.ID.errors.required">ID is required</div>
-                            <div *ngIf="f.ID.errors.minlength">ID should more than 4 lengths</div>
-                        </div>
-                    </div>
+                            <input formControlName="Email"
+                            required
+                            id="Email"
+                            type="text"
+                            class="form-control"
+                            placeholder="Email"
+                            [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
+                  <div *ngIf="submitted && f.Email.errors" class="invalid-feedback redcolor">
+                      <div *ngIf="f.Email.errors.required">Email is required</div>
+                      <div *ngIf="f.Email.errors.email">Email must be a valid email address</div>
+                  </div>
+                          </div>    
 
                     <div class="form-group">
                                 <input formControlName="Nickname"
@@ -52,19 +53,6 @@
                         </div>
                     </div>
                               </div>
-                              <div class="form-group">
-                                  <input formControlName="Email"
-                                  required
-                                  id="Email"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Email"
-                                  [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
-                        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback redcolor">
-                            <div *ngIf="f.Email.errors.required">Email is required</div>
-                            <div *ngIf="f.Email.errors.email">Email must be a valid email address</div>
-                        </div>
-                                </div>
 
                                 <div class="form-group">
                                     <input formControlName="Phone"

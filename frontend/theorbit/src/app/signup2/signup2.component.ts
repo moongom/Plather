@@ -26,10 +26,9 @@ export class Signup2Component implements OnInit, OnDestroy {
       validator: matchOtherValidator.validate.bind(this)
     });
     this.signupForm = this.fb.group({
-      ID: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      Email: new FormControl('', [Validators.required, Validators.email]),
       Nickname: new FormControl('', [Validators.required, Validators.minLength(4)] ),
       passwordFormGroup: this.passwordFormGroup,
-      Email: new FormControl('', [Validators.required, Validators.email]),
       Phone: new FormControl('', [Validators.required])
   }
 )

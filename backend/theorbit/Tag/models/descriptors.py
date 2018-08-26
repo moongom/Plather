@@ -54,10 +54,12 @@ def tag_model_deleter(delete_tag_list=[], is_supertag=None):
     Reminder!
     don't use this, don't delete already made TagModels. Just here if so we can use it if needed!
     """
+    if delete_tag_list is []:
+        return []
     return_tag_delete_pk_list = []
     tags_tracker_filters_for_delete = Q()
 
-    print('tag model deleter tag_or_supertag')
+    print('tag model deleter is now really deleting')
     for tag_name in [tag_name for tag_name in (delete_tag_list or [])]:
         tags_tracker_filters_for_delete |= Q(name=tag_name)
     if is_supertag:
@@ -242,7 +244,7 @@ def json_to_many_to_many(self, value, instance):
                 tags_in_instance = []
             # set as empty list if none
 
-            print('tags_in_instance')
+            print('instance tags jn')
             print(tags_in_instance)
 
             tag_list_to_add.extend(
@@ -340,5 +342,8 @@ class JSONTagFieldDescriptor(object):
                 else:
                     print('1.2.4')
                     # empty dict in field, but there is something to insert
+                    # or getting a instance with a valid tags_json value
+                    # this case, it wants to set the instance__dict__[field] as value
+                    # so there is no field in the instance
                     json_to_many_to_many(self, value, instance)
                     instance.__dict__[self.field_name] = value

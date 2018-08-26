@@ -44,7 +44,7 @@ DATABASES = {
         # django.db.backends.postgresql_psycopg2
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'dbwls930212',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -55,4 +55,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-

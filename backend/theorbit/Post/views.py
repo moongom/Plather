@@ -10,12 +10,15 @@ from Post.serializers import GeneralPostserializer
 from Post.permissions import IsOwnerOrReadOnly
 
 
-class UserPageLandingPostView(generics.ListAPIView):
+# for use with the UserDetail page
+class UserPagePostList(generics.ListAPIView):
     serializer_class = GeneralPostserializer
+    # lookup_url_kwarg = "id"
+    #  defaults to pk if not explcit
 
-    def get_queryset(self):
-        user = self.request.user
-        return GeneralPost.objects.filter(user_id=user.id).all()
+    def get_queryset(self, *args, **kwargs):
+        id = self.kwargs.get(self.lookup_url_kwarg)
+        return GeneralPost.objects.filter(user_id=id)
 
 
 class GeneralPostDetailView(generics.RetrieveUpdateDestroyAPIView):

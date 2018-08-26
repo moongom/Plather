@@ -10,11 +10,11 @@ import { LogInType } from './models/logintype';
 
 
 
-const endpoint = ''
+const endpoint_login = 'http://localhost:8000/api/login/'
+const endpoint_register= 'http://localhost:8000/api/register/'
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-};
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,28 +24,39 @@ export class SignupService {
   constructor(private http: HttpClient) { }
   public token: String;
   register(signuptype:SignUpType){
-    httpOptions.headers.append('X-CSRFToken', this.getCookie('csrftoken'))
-    return this.http.post(endpoint, {email:signuptype.Email, screen_name:signuptype.Nickname, password:signuptype.Password, password_confirm:signuptype.Password_Confirm,  phone:signuptype.Phone}, httpOptions)
+    return this.http.post(endpoint_register, {email:signuptype.Email, screen_name:signuptype.Nickname, password:signuptype.Password, password_confirm:signuptype.Password_Confirm,  phone:signuptype.Phone}, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-CSRFToken': this.getCookie('csrftoken') }),
+    })
       .pipe(
         catchError(this.handleError)
       );
   }
 
+
   login(logintype:LogInType){
-    httpOptions.headers.append('X-CSRFToken', this.getCookie('csrftoken'))
-    return this.http.post<any>(endpoint, {user_id:logintype.ID, password:logintype.Password}, httpOptions)
-    .pipe(map(user => {
+
+    // var httpOptions = {
+    //   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-CSRFToken': this.getCookie('csrftoken') }),
+    // };
+
+    return this.http.post<any>(endpoint_login, {email:logintype.Email, password:logintype.Password},{
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-CSRFToken': this.getCookie('csrftoken') }),
+    })
+    .pipe(map(response => {
       // login successful if there's a jwt token in the response
-      if (user && user.token) {
+      if (response) {
+        this.token=response;
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify(this.token));
+          
       }
 
-      return user;
+      return this.token;
   }));
 }
 logout() {
   // remove user from local storage to log user out
+  this.token=null;
   localStorage.removeItem('currentUser');
 }
 

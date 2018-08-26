@@ -3,6 +3,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { Signup2Component } from './signup2/signup2.component'
 import { LoginComponent } from './login/login.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { SignupService } from './signup.service';
 
 @Component({
 
@@ -15,7 +16,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class AppComponent {
   sidenavTest = false;
   title = 'theorbit';
-  constructor(router:Router, public dialog: MatDialog){
+  constructor(router:Router, public dialog: MatDialog, private logoutservice:SignupService){
     // 특정 url에 떨어질 때에만 사이드바가 형성되게 한다.
     router.events.forEach((event) => {
       if(event instanceof NavigationStart) {
@@ -60,5 +61,11 @@ export class AppComponent {
     });
 
   }
+
+  logout(){
+    this.logoutservice.logout()
+  }
+
+  
 
 }

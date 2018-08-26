@@ -43,14 +43,14 @@ export class Signup2Component implements OnInit, OnDestroy {
       return
     }
   }
-  register(){
+  register(signuptype:SignUpType){
     this.submitted=true;
     if (this.signupForm.invalid) {
       console.log(this.signupForm.value)
       return;
   }
   else{
-    this.signup.register(this.signupForm.value).subscribe();
+    this.signup.register(signuptype).subscribe();
     console.log(this.signupForm.value)
     console.log('success')
     alert('회원가입이 완료됐습니다.')

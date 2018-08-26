@@ -1,7 +1,7 @@
 """
 code very loosely based on Tagulous. Inspired the usage of descriptors!
 """
-
+import json
 
 from django.apps import apps
 from django.utils import six
@@ -19,6 +19,10 @@ from Tag.models.models import FilterTagModel, SuperTagModel, GlobalTagRelation, 
 """
 We get this from the Tag.models.models TagModel, but following the defaults in constants is better
 Then, get the Tagoptions that is in the TagModel. It will then act as migrated. This is a TODO
+"""
+
+"""
+Tag Relation is not being set when creating a new instance with field
 """
 
 
@@ -81,10 +85,16 @@ def tag_model_deleter(delete_tag_list=[], is_supertag=None):
 
 
 def tag_pk_finder_for_tag_relation_delete(delete_tag_list=[], is_supertag=None):
-    return_tag_delete_pk_list = []
-    tags_tracker_filters_for_delete = Q()
+
     print('tag pk finder for tag relation delete')
     print(is_supertag)
+    print(delete_tag_list)
+    if delete_tag_list is []:
+        return []
+
+    return_tag_delete_pk_list = []
+    tags_tracker_filters_for_delete = Q()
+
     for tag_name in [tag_name for tag_name in (delete_tag_list or [])]:
         tags_tracker_filters_for_delete |= Q(name=tag_name)
     print(str(tags_tracker_filters_for_delete))
@@ -139,27 +149,31 @@ def pk_tag_list_delete_relation(pk_tag_list_delete, is_supertag):
     print('tag model relation deleter tag_or_supertag')
     print(is_supertag)
     print(pk_tag_list_delete)
-    if is_supertag:
-        if pk_tag_list_delete != []:
-            print('pk_tag_list_delete was not empty!')
-            tags_tracker_filters_for_delete = Q()
-            for tag_id in pk_tag_list_delete:
-                tags_tracker_filters_for_delete | Q(supertag_tag_id=tag_id)
-            GlobalTagRelation.objects.filter(
-                tags_tracker_filters_for_delete).delete()
-            UserTagRelation.objects.filter(
-                tags_tracker_filters_for_delete).delete()
+    if pk_tag_list_delete is []:
+        return None
     else:
-        if pk_tag_list_delete != []:
-            print('pk_tag_list_delete was not empty!')
-            tags_tracker_filters_for_delete = Q()
-            for tag_id in pk_tag_list_delete:
-                tags_tracker_filters_for_delete | Q(filter_tag_id=tag_id)
-            GlobalTagRelation.objects.filter(
-                tags_tracker_filters_for_delete).delete()
-            UserTagRelation.objects.filter(
-                tags_tracker_filters_for_delete).delete()
+        if is_supertag:
+            if pk_tag_list_delete != []:
+                print('pk_tag_list_delete was not empty!')
+                tags_tracker_filters_for_delete = Q()
+                for tag_id in pk_tag_list_delete:
+                    tags_tracker_filters_for_delete | Q(supertag_tag_id=tag_id)
+                GlobalTagRelation.objects.filter(
+                    tags_tracker_filters_for_delete).delete()
+                UserTagRelation.objects.filter(
+                    tags_tracker_filters_for_delete).delete()
+        else:
+            if pk_tag_list_delete != []:
+                print('pk_tag_list_delete was not empty!')
+                tags_tracker_filters_for_delete = Q()
+                for tag_id in pk_tag_list_delete:
+                    tags_tracker_filters_for_delete | Q(filter_tag_id=tag_id)
+                GlobalTagRelation.objects.filter(
+                    tags_tracker_filters_for_delete).delete()
+                UserTagRelation.objects.filter(
+                    tags_tracker_filters_for_delete).delete()
     print('tag model relation deleter tag_or_supertag done')
+    return None
 
 
 def pk_tag_list_funct_combined(is_supertag, tag_list_to_add, tag_list_to_delete, user_id, post_id):
@@ -170,25 +184,37 @@ def pk_tag_list_funct_combined(is_supertag, tag_list_to_add, tag_list_to_delete,
     print(tag_list_to_add)
     print('delete list')
     print(tag_list_to_delete)
+    print('post_id')
+    print(post_id)
     if post_id:
         if is_supertag:
-            pk_supertag_list_to_add = tag_model_creator(
-                create_tag_list=tag_list_to_add, is_supertag=True)
-            pk_supertag_list_to_delete = tag_pk_finder_for_tag_relation_delete(
-                delete_tag_list=tag_list_to_delete, is_supertag=True)
-            pk_tag_list_create_relation(
-                pk_tag_list_create=pk_supertag_list_to_add, is_supertag=True, user_id=user_id, post_id=post_id)
-            pk_tag_list_delete_relation(
-                pk_tag_list_delete=pk_supertag_list_to_delete, is_supertag=True)
+            if tag_list_to_add:
+                print('tag_list_to_add_is_not_none!')
+                pk_supertag_list_to_add = tag_model_creator(
+                    create_tag_list=tag_list_to_add, is_supertag=True)
+                pk_tag_list_create_relation(
+                    pk_tag_list_create=pk_supertag_list_to_add, is_supertag=True, user_id=user_id, post_id=post_id)
+
+            if tag_list_to_delete:
+                print('tag_list_to_delete_is_not_none!')
+                pk_supertag_list_to_delete = tag_pk_finder_for_tag_relation_delete(
+                    delete_tag_list=tag_list_to_delete, is_supertag=True)
+                pk_tag_list_delete_relation(
+                    pk_tag_list_delete=pk_supertag_list_to_delete, is_supertag=True)
         else:
-            pk_tag_list_to_add = tag_model_creator(
-                create_tag_list=tag_list_to_add, is_supertag=False)
-            pk_tag_list_to_delete = tag_pk_finder_for_tag_relation_delete(
-                delete_tag_list=tag_list_to_delete, is_supertag=False)
-            pk_tag_list_create_relation(
-                pk_tag_list_create=pk_tag_list_to_add, is_supertag=False, user_id=user_id, post_id=post_id)
-            pk_tag_list_delete_relation(
-                pk_tag_list_delete=pk_tag_list_to_delete, is_supertag=False)
+            if tag_list_to_add:
+                print('tag_list_to_add_is_not_none!')
+                pk_tag_list_to_add = tag_model_creator(
+                    create_tag_list=tag_list_to_add, is_supertag=False)
+                pk_tag_list_create_relation(
+                    pk_tag_list_create=pk_tag_list_to_add, is_supertag=False, user_id=user_id, post_id=post_id)
+
+            if tag_list_to_delete:
+                print('tag_list_to_delete_is_not_none!')
+                pk_tag_list_to_delete = tag_pk_finder_for_tag_relation_delete(
+                    delete_tag_list=tag_list_to_delete, is_supertag=False)
+                pk_tag_list_delete_relation(
+                    pk_tag_list_delete=pk_tag_list_to_delete, is_supertag=False)
     else:
         if is_supertag:
             tag_model_creator(
@@ -212,10 +238,14 @@ def json_to_many_to_many(self, value, instance):
         pk_tag_list_to_delete = []
         pk_supertag_list_to_add = []
         pk_supertag_list_to_delete = []
-
         post_id = instance.id
         user_id = instance.user_id
         # we need to add the new tags, and delete the obsolete ones.
+
+        value = json.loads(value)
+        # load it to json and make it a dict
+        # don't know why but recieves as a string probably due to serializer
+
         for opt in ('tag', 'supertag'):
             print('2.2')
             print(opt)
@@ -238,7 +268,7 @@ def json_to_many_to_many(self, value, instance):
                         'tags_json').get('%s' % opt)
                 else:
                     print('it came here')
-                    pass
+                    tags_in_instance = []
             else:
                 print('set tags in instance as []')
                 tags_in_instance = []

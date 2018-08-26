@@ -32,7 +32,7 @@ class GeneralPostDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class GeneralPostCreateView(generics.CreateAPIView):
     serializer_class = GeneralPostserializer
-    permission_classes = (IsAuthenticated)
+    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

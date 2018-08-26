@@ -17,60 +17,70 @@ class TagJsonFieldSerializer(serializers.BaseSerializer):
         # Empty string easiest case
         if not data:
             return dict
-        tag_string = data
-
-        # Prep variables for the parser
-        tags = {}
-
-        # declare empty tags list
-        tag = []
-        supertag = []
-
-        # prepare regex arguments
-        # the followings find words that comes after only 1 or 2 hashes
-        tag_finder = re.compile(r"(?<!#)[＃#]{1}(\w+)", re.UNICODE)
-        supertag_finder = re.compile(r"(?<!#)[＃#]{2}(\w+)", re.UNICODE)
-
-        if supertag_tag_coexist:
-            tag = list(set(tag_finder.findall(tag_string)))
-            supertag = list(set(supertag_finder.findall(tag_string)))
         else:
-            if is_supertag:
+            print('some string through tag parser')
+            tag_string = data
+            print(tag_string)
+            # Prep variables for the parser
+            tags = {}
+
+            # declare empty tags list
+            tag = []
+            supertag = []
+
+            # prepare regex arguments
+            # the followings find words that comes after only 1 or 2 hashes
+            tag_finder = re.compile(r"(?<!#)[＃#]{1}(\w+)", re.UNICODE)
+            supertag_finder = re.compile(r"(?<!#)[＃#]{2}(\w+)", re.UNICODE)
+
+            if supertag_tag_coexist:
+                tag = list(set(tag_finder.findall(tag_string)))
                 supertag = list(set(supertag_finder.findall(tag_string)))
             else:
-                tag = list(set(tag_finder.findall(tag_string)))
+                if is_supertag:
+                    supertag = list(set(supertag_finder.findall(tag_string)))
+                else:
+                    tag = list(set(tag_finder.findall(tag_string)))
 
-        # sort it? Do we need this when we put it in the sql? delete if not
-        # needed
-        tags.update({'tag': tag.sort(), 'supertag': supertag.sort()})
+            # sort it? Do we need this when we put it in the sql? delete if not
+            # needed
+            # sort it like this because sort() returns none
+            tag.sort()
+            supertag.sort()
 
-        # Check the count
-        for tag_key in tags:
-            if eval('%s_max_count' % tag_key) and len(tags[tag_key]) > eval('%s_max_count' % tag_key):
-                raise serializzers.ValidationError('%s field can only have %s argument%s' % (
-                    tag_key, tag_key + max_count,
-                    '' if max_count == 1 else 's',
-                ))
-        tags = json.dumps(tags)
-        return tags
+            tags.update({'tag': tag, 'supertag': supertag})
+
+            # Check the count
+            for tag_key in tags:
+                print(type(tags))
+                print(tags)
+                print(tags[tag_key])
+                if eval('%s_max_count' % tag_key) and len(tags[tag_key]) > eval('%s_max_count' % tag_key):
+                    raise serializzers.ValidationError('%s field can only have %s argument%s' % (
+                        tag_key, tag_key + max_count, '' if max_count == 1 else 's',))
+            tags = json.dumps(tags)
+            print(tags)
+            return tags
 
     def to_representation(self, instance):
         """
-        rendering tags, dont use string concatenation. 
+        rendering tags, dont use string concatenation.
         join is few hundred times faster
         """
-        if instance == {}:
-            return ''
-        filter_tag_string = '#'
-        super_tag_string = '##'
-        print(type(instance))
         instance = json.loads(instance)
-        # make sure instance is not string
-        for opt in ('tag', 'supertag'):
-            if opt is 'tag':
-                filter_tag_string = ''.join(
-                    [filter_tag_string, ' #'.join(instance.get(opt))])
-            else:
-                super_tag_string = ''.join(
-                    [super_tag_string, ' ##'.join(instance.get(opt))])
+        print('to representation')
+        if not instance:
+            print('empty dict')
+            return ''
+        else:
+            filter_tag_string = '#'
+            super_tag_string = '##'
+            # make sure instance is not string
+            for opt in ('tag', 'supertag'):
+                if opt is 'tag':
+                    filter_tag_string = ''.join(
+                        [filter_tag_string, ' #'.join(instance.get(opt))])
+                else:
+                    super_tag_string = ''.join(
+                        [super_tag_string, ' ##'.join(instance.get(opt))])
         return ' '.join([filter_tag_string, super_tag_string])

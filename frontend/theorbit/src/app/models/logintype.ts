@@ -1,4 +1,4 @@
 export class LogInType {
-    ID:String;
+    Email:String;
     Password:String;
 }

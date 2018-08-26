@@ -1,6 +1,6 @@
 <div class="row margin" text-center>
                     <div class="col-1"></div>
-                    <form [formGroup]="signupForm" class="col-10" (ngSubmit)="register()" novalidate>
+                    <form [formGroup]="signupForm" class="col-10" (ngSubmit)="register(signupForm.value)" novalidate>
                         <div class="form-group">
                             <input formControlName="Email"
                             required

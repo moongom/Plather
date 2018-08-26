@@ -21,9 +21,10 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^.*', TemplateView.as_view(template_name="ang_home.html"), name='home'),
     url(r'^', include('Post.urls')),
     url(r'^', include('Account.urls')),
+    url(r'^.*', TemplateView.as_view(template_name="ang_home.html"), name='home'),
+
 ]
 
 if settings.DEBUG:

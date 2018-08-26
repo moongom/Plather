@@ -59,8 +59,7 @@ class LoginSerializer(serializers.Serializer):
 
 class CreateUserSerializer(serializers.ModelSerializer):
     # for user creation!
-    account = serializers.BooleanField()
-
+    
     class Meta:
         model = User
         fields = ('email', 'screen_name', 'password', 'phone_number')
@@ -69,8 +68,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User(
             email=validated_data['email'],
-            username=validated_data['username'],
+            screen_name=validated_data['screen_name'],
             phone_number=validated_data['phone_number'])
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TokenModel
+        fields = ('key',)

@@ -18,14 +18,14 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes
-
+from django.conf import settings
 from django.contrib.auth.hashers import make_password
 
 import logging
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode as uid_decoder
 
-from Account.serializers import CreateUserSerializer, LoginSerializer, PublicUserSerializer
+from Account.serializers import CreateUserSerializer, LoginSerializer, PublicUserSerializer, TokenSerializer
 
 from Post.permissions import IsOwnerOrReadOnly
 
@@ -135,7 +135,7 @@ class LogoutView(APIView):
 class RegisterView(GenericAPIView):
     permission_classes = (AllowAny,)
     serializer_class = CreateUserSerializer
-
+    
     @sensitive_post_parameters_m
     def dispatch(self, *args, **kwargs):
         return super(RegisterView, self).dispatch(*args, **kwargs)
@@ -155,17 +155,19 @@ class RegisterView(GenericAPIView):
         user.set_password(password)
 
         user.save()
+        return user
 
-        current_site = get_current_site(self.request)
-        subject = (_('Welcome To %s! Confirm Your Email') % current_site.name)
-        message = render_to_string('registration/user_activate_email.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': PasswordResetTokenGenerator().make_token(user),
-        })
-        email = EmailMessage(subject, message, to=[user.email])
-        email.send()
+        # current_site = get_current_site(self.request)
+        
+        # subject = (_('Welcome To %s! Confirm Your Email') % current_site.name)
+        # message = render_to_string('registration/user_activate_email.html', {
+        #     'user': user,
+        #     'domain': current_site.domain,
+        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        #     'token': PasswordResetTokenGenerator().make_token(user),
+        # })
+        # email = EmailMessage(subject, message, to=[user.email])
+        # email.send()
 
     def post(self, request, *args, **kwargs):
         self.request = request

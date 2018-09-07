@@ -29,6 +29,7 @@ export class UsertimelineComponent implements OnInit {
   mousePointerArea;
   unit = 50000;
   currentVisibleCard;
+  currentlyClicked = false;
   cardMargin;
   listImageHeight = 100;
   scrollTimeout = Date.now();
@@ -89,7 +90,7 @@ export class UsertimelineComponent implements OnInit {
 
     this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mousedown', this.startDragging.bind(this));
 
-    this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseup', this.stopDragging.bind(this));
+    // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseup', this.stopDragging.bind(this));
 
     // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('wheel', this.doScroll.bind(this));
 
@@ -640,7 +641,7 @@ export class UsertimelineComponent implements OnInit {
         cardWidth = graduations[i].offsetLeft;
 
         cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1.5 +'px; visibility: hidden;" >\
+        '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1 +'px; visibility: hidden; z-index: 1000;" >\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
          </div>';
@@ -650,7 +651,7 @@ export class UsertimelineComponent implements OnInit {
         cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
 
           cardAreaHTML +=
-          '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft - cardWidth/2) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden;">\
+          '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft - cardWidth/2) + 'px; width:'+  cardWidth * 1.7 +'px; visibility:hidden; z-index: 1000;">\
             <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
             </div>\
           </div>';
@@ -660,6 +661,62 @@ export class UsertimelineComponent implements OnInit {
     }
 
     this.elementRef.nativeElement.querySelector('#cardArea').innerHTML = cardAreaHTML;
+
+    var cards = this.elementRef.nativeElement.querySelectorAll('.card');
+
+    for( var i = 0 ; i < cards.length ; i++ ){
+
+      this.elementRef.nativeElement.querySelectorAll('.card')[i].addEventListener('click', this.doClickCard.bind(this));
+
+    }
+
+  }
+
+  changeCardFormat(index){
+
+    var activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].firstElementChild.children;
+
+    var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
+    var past_width = selected_card.offsetWidth;
+    var past_left = selected_card.offsetLeft;
+
+    if( this.isClicked[index] ){
+      // 카드의 너비를 줄여야 하는 경우
+
+      selected_card.style.width = past_width / 2 + "px";
+      selected_card.style.left = selected_card.offsetLeft + past_width / 4 + "px";
+
+      for(var i = 0 ; i < activityParent.length ; i++){
+
+      	activityParent[i].classList.remove("s6");
+      	activityParent[i].classList.remove("m6");
+      	activityParent[i].classList.remove("l6");
+      	activityParent[i].classList.add("s12");
+      	activityParent[i].classList.add("m12");
+      	activityParent[i].classList.add("sl12");
+
+      }
+    }else{
+      // 카드의 너비를 늘려야 하는 경우
+
+      selected_card.style.width = past_width * 2 + "px";
+      selected_card.style.left = selected_card.offsetLeft - past_width / 2 + "px";
+
+      for(var i = 0 ; i < activityParent.length ; i++){
+
+        activityParent[i].classList.remove("s12");
+        activityParent[i].classList.remove("m12");
+        activityParent[i].classList.remove("s12");
+      	activityParent[i].classList.add("s6");
+      	activityParent[i].classList.add("m6");
+      	activityParent[i].classList.add("l6");
+
+
+      }
+    }
+
+    selected_card.style.visibility = "visible";
+
   }
 
   addActivityToCard(activities){
@@ -718,56 +775,63 @@ export class UsertimelineComponent implements OnInit {
 
   doMouseOverCard(e){
 
-    var d = this.elementRef.nativeElement.querySelectorAll('.dateGraduation');
-    var cards = this.elementRef.nativeElement.querySelectorAll('.card');
 
-    for( var i = 0 ; i < cards.length ; i++ ){
+    if( !(this.currentlyClicked) ){
 
-      if( cards[i].children[0].innerHTML.replace(/\s/g, '') == "" ){
+      var d = this.elementRef.nativeElement.querySelectorAll('.dateGraduation');
+      var cards = this.elementRef.nativeElement.querySelectorAll('.card');
 
-        cards[i].children[0].innerHTML += "<p>활동 내역이 없습니다.</p>" ;
-        cards[i].style.width = cards[i].offsetWidth / 2 + "px";
-        cards[i].style.left = parseInt(cards[i].style.left.replace("px", "")) +  cards[i].offsetWidth / 2 + "px";
+      for( var i = 0 ; i < cards.length ; i++ ){
+
+        if( cards[i].children[0].innerHTML.replace(/\s/g, '') == "" ){
+          // 카드 내용이 비었을 경우에는 활동 내역이 없다는 문구를 출력한다.
+          cards[i].children[0].innerHTML += "<p>활동 내역이 없습니다.</p>" ;
+          cards[i].style.width = cards[i].offsetWidth / 2 + "px";
+          cards[i].style.left = parseInt(cards[i].style.left.replace("px", "")) +  cards[i].offsetWidth / 2 + "px";
+
+        }
+
+
+      }
+      if(d[0].offsetLeft > e.clientX){
+
+        this.currentVisibleCard = 0;
+
+      }else{
+
+        for( var i = 0 ; i < d.length ; i++ ){
+
+          if( d[i].offsetLeft  > e.clientX ){
+
+            this.currentVisibleCard = i - 1;
+            break;
+
+          }
+          if( i == d.length-1 ){
+
+            this.currentVisibleCard = d.length - 1;
+
+          }
+        }
+
 
       }
 
+      if( this.currentVisibleCard < cards.length ){
 
-    }
-    if(d[0].offsetLeft > e.clientX){
+        cards[this.currentVisibleCard].style.visibility = "visible";
+        cards[this.currentVisibleCard].classList.add("animated");
+        cards[this.currentVisibleCard].classList.add("zoomIn");
 
-      this.currentVisibleCard = 0;
-
-    }else{
-
-      for( var i = 0 ; i < d.length ; i++ ){
-
-        if( d[i].offsetLeft  > e.clientX ){
-
-          this.currentVisibleCard = i - 1;
-          break;
-
-        }
-        if( i == d.length-1 ){
-
-          this.currentVisibleCard = d.length - 1;
-
-        }
       }
-
-
-    }
-
-    if( this.currentVisibleCard < cards.length ){
-
-      cards[this.currentVisibleCard].style.visibility = "visible";
-      cards[this.currentVisibleCard].classList.add("animated");
-      cards[this.currentVisibleCard].classList.add("zoomIn");
 
     }
 
   }
 
   doClickCard(e){
+
+    this.currentlyClicked = true;
 
     var d = this.elementRef.nativeElement.querySelectorAll('dateGraduation');
     var cards = this.elementRef.nativeElement.querySelectorAll('card');
@@ -785,11 +849,19 @@ export class UsertimelineComponent implements OnInit {
       }
 
     }
+    if( this.isClicked[this.currentVisibleCard] ){
+      this.isClicked[this.currentVisibleCard] = false;
+    }else{
+      this.isClicked[this.currentVisibleCard] = true;
+    }
+    // 카드의 너비를 조정한다.
+    this.changeCardFormat(this.currentVisibleCard);
 
-    this.isClicked[this.currentVisibleCard] = true;
   }
 
   doMouseOutCard(e){
+
+    this.currentlyClicked = false;
     var d = this.elementRef.nativeElement.querySelectorAll('.dateGraduation');
     var cards = this.elementRef.nativeElement.querySelectorAll('.card');
     var minLength = Infinity;

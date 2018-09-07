@@ -49,6 +49,7 @@ export class UsertimelineComponent implements OnInit {
 
     this.totalDate=this.endDate-this.startDate;
 
+
   }
 
   ngAfterViewInit() {
@@ -639,7 +640,7 @@ export class UsertimelineComponent implements OnInit {
         cardWidth = graduations[i].offsetLeft;
 
         cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left: 0px; top:'+ (this.cardMargin) + 'px; width:'+  cardWidth * 1.5 +'px; visibility: hidden;" >\
+        '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1.5 +'px; visibility: hidden;" >\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
          </div>';
@@ -649,7 +650,7 @@ export class UsertimelineComponent implements OnInit {
         cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
 
           cardAreaHTML +=
-          '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft - cardWidth/2) + 'px; top:' + (this.cardMargin) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden;">\
+          '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft - cardWidth/2) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden;">\
             <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
             </div>\
           </div>';
@@ -825,7 +826,11 @@ export class UsertimelineComponent implements OnInit {
       dateGraduations[i-1].style.height = parseInt(dateGraduations[i-1].style.height.replace("px", "")) + (10 * activities_count) + "px";
       dateGraduations[i-1].style.borderRadius = parseInt(dateGraduations[i-1].style.borderRadius.replace("px", "")) + (10 * activities_count) + "px";
       dateGraduations[i-1].style.top = parseInt(dateGraduations[i-1].style.width.replace("px", "")) / 2  * -1  + "px";
-      cards[i].style.top = this.cardMargin - (this.listImageHeight + 1) * activities_count / 2 - 250 + 'px';
+
+      // cards[i].style.top = this.cardMargin - (this.listImageHeight + 1) * activities_count / 2 - 250 + 'px';
+      cards[i].style.top = 0 - (activities_count / 2) * 100 + 'px';
+
+
     }
 
   }

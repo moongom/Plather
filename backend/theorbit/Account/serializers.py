@@ -23,6 +23,7 @@ class PublicUserSerializer(serializers.ModelSerializer):
         fields = (
             'email',
             'screen_name',)
+        depth = 1
 
 
 # this is for login situations!! - set readonly and writeonly

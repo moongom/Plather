@@ -47,7 +47,7 @@ export class SignupService {
       if (response) {
         this.token=response;
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(this.token));
+        localStorage.setItem('currentUser', JSON.stringify({ email: logintype.Email}));
           
       }
 

@@ -3,7 +3,7 @@ from django.contrib.auth import (
     logout as django_logout,
     get_user_model,
 )
-from rest_framework import status
+from rest_framework import status,generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, RetrieveAPIView
@@ -42,11 +42,15 @@ def create_token(token_model, user, serializer):
     token, _ = token_model.objects.get_or_create(user=user)
     return token
 
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = PublicUserSerializer
 
 class UserDetailView(RetrieveAPIView):
     queryset = User.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = PublicUserSerializer
+    lookup_field = 'email'
 
 
 class LoginView(GenericAPIView):
@@ -84,6 +88,8 @@ class LoginView(GenericAPIView):
     def login(self):
         self.user = self.serializer.validated_data['user']
         self.token = create_token(self.token_model, self.user, self.serializer)
+        print(self.user)
+        print(self.token)
         if getattr(settings, 'REST_SESSION_LOGIN', True):
             self.process_login()
 

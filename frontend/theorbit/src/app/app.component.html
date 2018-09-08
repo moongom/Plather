@@ -26,11 +26,11 @@
       <input matInput class="navbar-form">
     </form>
   </div>
-  <div class="navbar-25">
+  <div class="navbar-25" *ngIf ="screen_name; else noscreen">
     <div>
       <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-left: 50%;">
         <mat-icon>home</mat-icon>
-        <span>김희재</span>
+        <span>{{screen_name}}</span>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
@@ -49,21 +49,49 @@
           <mat-icon>voicemail</mat-icon>
           <span>Stack</span>
         </button>
-        <button mat-menu-item (click)="openSignup2Dialog()">
-          <mat-icon>voicemail</mat-icon>
-          <span>Sign up</span>
-        </button>
-        <button mat-menu-item (click)="openLoginDialog()">
-          <mat-icon>voicemail</mat-icon>
-          <span>Login</span>
-        </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="logout()">
           <mat-icon>voicemail</mat-icon>
           <span>Logout</span>
         </button>
       </mat-menu>
     </div>
   </div>
+  <ng-template #noscreen>
+    <div class="navbar-25">
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-left: 50%;">
+          <mat-icon>home</mat-icon>
+          <span>User</span>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Edit Profile</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Payment</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Notice</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Stack</span>
+          </button>
+          <button mat-menu-item (click)="openSignup2Dialog()">
+            <mat-icon>voicemail</mat-icon>
+            <span>Sign up</span>
+          </button>
+          <button mat-menu-item (click)="openLoginDialog()">
+            <mat-icon>voicemail</mat-icon>
+            <span>Login</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </ng-template>
 </div>
 <!-- Tob Bar  -->
 

@@ -307,7 +307,7 @@ export class UsertimelineComponent implements OnInit {
     this.isDragging = true;
     this.dragStart = e.clientX;
 
-    if( e['path'][1].id == "dateGraduation" ){
+    if( e['srcElement'].parentElement.id == "dateGraduation" ){
       // 만약 행성이 클릭된 경우, 카드를 사라지지 않게 한다.
 
       var cards = this.elementRef.nativeElement.querySelectorAll('card')
@@ -720,8 +720,8 @@ export class UsertimelineComponent implements OnInit {
 
       var params = [];
 
-      var selected_card = e['path'][3];
-      var included_activities = e['path'][3].childNodes[4].children;
+      var selected_card = e['srcElement'].parentElement.parentElement.parentElement;
+      var included_activities = selected_card.childNodes[4].children;
 
       for( var i = 0 ; i < included_activities.length ; i++ ){
         let activity_id = included_activities[i].dataset.activity_id;
@@ -732,8 +732,7 @@ export class UsertimelineComponent implements OnInit {
     }.bind(this));
 
     this.elementRef.nativeElement.querySelector('#close-button-'+index).addEventListener('click', function(e){
-
-      var selected_card = e['path'][3];
+      var selected_card = e['srcElement'].parentElement.parentElement.parentElement;
       var past_width = selected_card.offsetWidth;
       var past_left = selected_card.offsetLeft;
       activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].children[1].children;

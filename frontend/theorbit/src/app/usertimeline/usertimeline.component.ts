@@ -668,6 +668,8 @@ export class UsertimelineComponent implements OnInit {
 
       this.elementRef.nativeElement.querySelectorAll('.card')[i].addEventListener('click', this.doClickCard.bind(this));
 
+      this.isClicked[i] = false;
+
     }
 
   }
@@ -677,45 +679,82 @@ export class UsertimelineComponent implements OnInit {
     var activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].firstElementChild.children;
 
     var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
+
     var past_width = selected_card.offsetWidth;
     var past_left = selected_card.offsetLeft;
 
-    if( this.isClicked[index] ){
-      // 카드의 너비를 줄여야 하는 경우
+    // 카드에 최소화, 최대화 버튼 추가
+    selected_card.insertAdjacentHTML("afterbegin",
 
+      '\
+      <div class = "card-buttons" style = "float: right;">\
+        <div class = "row">\
+          <div class = "col s9 m9 l9"></div>\
+          <div class = "col s3 m3 l3"></div>\
+            <img src="/assets/images/maximize_button.png" id="maximize-button" style="width: 20px; height: 20px;">\
+            <img src="/assets/images/close_button.png" id="close-button" style="width: 20px; height: 20px;">\
+          </div>\
+        </div>\
+      </div>\
+      '
+    );
+
+    this.elementRef.nativeElement.querySelector('#maximize-button').addEventListener('click', function(e){
+      var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
+      var past_width = selected_card.offsetWidth;
+      var past_left = selected_card.offsetLeft;
+
+    }.bind(this));
+
+    this.elementRef.nativeElement.querySelector('#close-button').addEventListener('click', function(e){
+      var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
+      var past_width = selected_card.offsetWidth;
+      var past_left = selected_card.offsetLeft;
+      activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].children[1].children;
+
+      // 카드의 너비를 늘려야 하는 경우
+      if( activityParent.length > 1 ){
+        selected_card.style.width = past_width * 2 + "px";
+        selected_card.style.left = selected_card.offsetLeft - past_width / 2 + "px";
+
+        for(var i = 0 ; i < activityParent.length ; i++){
+
+          activityParent[i].classList.remove("s12");
+          activityParent[i].classList.remove("m12");
+          activityParent[i].classList.remove("s12");
+        	activityParent[i].classList.add("s6");
+        	activityParent[i].classList.add("m6");
+        	activityParent[i].classList.add("l6");
+
+        }
+      }
+      
+      selected_card.style.visibility = "hidden";
+      selected_card.classList.remove('card-pinned');
+      selected_card.removeChild(selected_card.childNodes[1]);
+
+    }.bind(this));
+
+    // 카드의 너비를 줄여야 하는 경우
+    if( activityParent.length > 1 ){
       selected_card.style.width = past_width / 2 + "px";
       selected_card.style.left = selected_card.offsetLeft + past_width / 4 + "px";
 
       for(var i = 0 ; i < activityParent.length ; i++){
 
-      	activityParent[i].classList.remove("s6");
-      	activityParent[i].classList.remove("m6");
-      	activityParent[i].classList.remove("l6");
-      	activityParent[i].classList.add("s12");
-      	activityParent[i].classList.add("m12");
-      	activityParent[i].classList.add("sl12");
-
-      }
-    }else{
-      // 카드의 너비를 늘려야 하는 경우
-
-      selected_card.style.width = past_width * 2 + "px";
-      selected_card.style.left = selected_card.offsetLeft - past_width / 2 + "px";
-
-      for(var i = 0 ; i < activityParent.length ; i++){
-
-        activityParent[i].classList.remove("s12");
-        activityParent[i].classList.remove("m12");
-        activityParent[i].classList.remove("s12");
-      	activityParent[i].classList.add("s6");
-      	activityParent[i].classList.add("m6");
-      	activityParent[i].classList.add("l6");
-
+        activityParent[i].classList.remove("s6");
+        activityParent[i].classList.remove("m6");
+        activityParent[i].classList.remove("l6");
+        activityParent[i].classList.add("s12");
+        activityParent[i].classList.add("m12");
+        activityParent[i].classList.add("s12");
 
       }
     }
 
     selected_card.style.visibility = "visible";
+    this.isClicked[this.currentVisibleCard] = true;
+    selected_card.classList.add('card-pinned');
 
   }
 
@@ -831,7 +870,7 @@ export class UsertimelineComponent implements OnInit {
 
   doClickCard(e){
 
-    this.currentlyClicked = true;
+    // this.currentlyClicked = true;
 
     var d = this.elementRef.nativeElement.querySelectorAll('dateGraduation');
     var cards = this.elementRef.nativeElement.querySelectorAll('card');
@@ -849,13 +888,11 @@ export class UsertimelineComponent implements OnInit {
       }
 
     }
-    if( this.isClicked[this.currentVisibleCard] ){
-      this.isClicked[this.currentVisibleCard] = false;
-    }else{
-      this.isClicked[this.currentVisibleCard] = true;
+
+    if( this.isClicked[this.currentVisibleCard] == false ){
+      // 카드의 너비를 조정한다.
+      this.changeCardFormat(this.currentVisibleCard);
     }
-    // 카드의 너비를 조정한다.
-    this.changeCardFormat(this.currentVisibleCard);
 
   }
 
@@ -875,9 +912,10 @@ export class UsertimelineComponent implements OnInit {
     }
     for(var i = 0 ; i < cards.length ; i++){
 
-      if( this.isClicked[i] == false || this.isClicked[i] == undefined ){
-
+      // if( this.isClicked[i] == false || this.isClicked[i] == undefined ){
+      if( cards[i].classList.contains('card-pinned') == false ){
         cards[i].style.visibility = "hidden";
+        this.isClicked[i] = false;
         // cards[this.currentVisibleCard].classList.remove("animated");
         // cards[this.currentVisibleCard].classList.remove("zoomIn");
 

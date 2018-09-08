@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterContentInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Signup2Component } from './signup2/signup2.component'
 import { LoginComponent } from './login/login.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { SignupService } from './signup.service';
+import { AccountService } from './account.service';
 
 @Component({
 
@@ -14,9 +15,12 @@ import { SignupService } from './signup.service';
 })
 
 export class AppComponent {
+  email;
   sidenavTest = false;
   title = 'theorbit';
-  constructor(router:Router, public dialog: MatDialog, private logoutservice:SignupService){
+  screen_name;
+  constructor(router:Router, public dialog: MatDialog, private logoutservice:SignupService, 
+    private accountservice:AccountService){
     // 특정 url에 떨어질 때에만 사이드바가 형성되게 한다.
     router.events.forEach((event) => {
       if(event instanceof NavigationStart) {
@@ -25,13 +29,37 @@ export class AppComponent {
           || event.url == "/profile"
         );
       }
+      if (localStorage.getItem('currentUser')){
+        this.email = JSON.parse(localStorage.getItem('currentUser')).email;
+        this.accountservice.getUser()
+        .subscribe(data =>{
+            this.screen_name = data.screen_name;
+            console.log(this.screen_name)
+          }
+        )
+      }
+      else{
+        console.log('there are no data')
+      }
+      
     });
+    
+    
+    
   }
 
+<<<<<<< HEAD
   ngOnInit() {
 
 
   }
+=======
+  animal: string;
+  name: string;
+  user: string;
+
+
+>>>>>>> 44023cd2f55bc3827aa8423d889f915564ec7ed2
 
   openSignup2Dialog(): void {
     const dialogRef = this.dialog.open(Signup2Component, {

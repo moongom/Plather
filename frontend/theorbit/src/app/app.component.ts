@@ -28,9 +28,6 @@ export class AppComponent {
     });
   }
 
-  animal: string;
-  name: string;
-
   openSignup2Dialog(): void {
     const dialogRef = this.dialog.open(Signup2Component, {
       width: '400px',
@@ -41,7 +38,7 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+
     });
 
   }
@@ -57,7 +54,7 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+
     });
 
   }
@@ -66,6 +63,6 @@ export class AppComponent {
     this.logoutservice.logout()
   }
 
-  
+
 
 }

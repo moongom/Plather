@@ -59,6 +59,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  MAT_DIALOG_DATA,
 
 } from '@angular/material';
 import { AlertService } from './alert.service';

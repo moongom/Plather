@@ -1,3 +1,11 @@
-<p>
-  show-specific-activities works!
-</p>
+<div class="container">
+  <div *ngFor="let post of data.activities; let i=index">
+    <div>
+      <p>{{ post.tag }}</p><br>
+      <p>{{ post.supertag }}</p><br>
+      <p>{{ post.date }}</p><br>
+      <p>----------------------------------------------------------------------</p>
+    </div>
+  </div>
+
+<div>

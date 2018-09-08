@@ -129,14 +129,15 @@ export class UsertimelineComponent implements OnInit {
   }
 
   // 확대 버튼을 누르면 포트폴리오 모달을 띄운다.
-  openDialog(): void {
+  openDialog( params ): void {
     const dialogRef = this.dialog.open(ShowSpecificActivitiesComponent, {
       width: '1000px',
-      // data: { name: this.name, animal: this.animal }
+      height: '800px',
+      data: { activities: params }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('ShowSpecificActivitiesComponent Modal was closed');
 
     });
 
@@ -717,8 +718,16 @@ export class UsertimelineComponent implements OnInit {
 
     this.elementRef.nativeElement.querySelector('#maximize-button-'+index).addEventListener('click', function(e){
 
+      var params = [];
+
       var selected_card = e['path'][3];
-      this.openDialog();
+      var included_activities = e['path'][3].childNodes[4].children;
+
+      for( var i = 0 ; i < included_activities.length ; i++ ){
+        let activity_id = included_activities[i].dataset.activity_id;
+        params.push( this.activities[activity_id] );
+      }
+      this.openDialog( params );
 
     }.bind(this));
 
@@ -796,7 +805,7 @@ export class UsertimelineComponent implements OnInit {
           var cardHTML = cards[cardIndex].children[0].innerHTML;
 
           cardHTML += '\
-              <div class="col s6 m6 l6" style="padding: 0px;">\
+              <div class="col s6 m6 l6 card-activity" style="padding: 0px;" data-activity_id=' + i + '>\
                 <div class="card-image" style="float:left; margin-bottom: 0px;">\
                   <img src="http://via.placeholder.com/100x100" style="width: ' + this.listImageHeight + 'px;">\
                 </div>\

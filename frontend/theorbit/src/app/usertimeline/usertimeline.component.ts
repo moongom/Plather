@@ -14,6 +14,7 @@ import { ShowSpecificActivitiesComponent } from '../show-specific-activities/sho
 export class UsertimelineComponent implements OnInit {
 
   constructor(private elementRef:ElementRef, public dialog: MatDialog) { }
+
   initCount = 1;
   miniDate;
   maximDate;
@@ -52,7 +53,6 @@ export class UsertimelineComponent implements OnInit {
     this.endDate = new Date(new Date().getFullYear() + 1, 0, 1)
 
     this.totalDate=this.endDate-this.startDate;
-
 
   }
 
@@ -98,7 +98,7 @@ export class UsertimelineComponent implements OnInit {
     // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('wheel', this.doScroll.bind(this));
 
     // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
-    //
+
     // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseleave', this.doMouseLeaveCard.bind(this));
 
     this.elementRef.nativeElement.querySelector('#left-triangle-move').addEventListener('click', this.clickLeftTriangleMove.bind(this));
@@ -113,7 +113,7 @@ export class UsertimelineComponent implements OnInit {
 
     this.elementRef.nativeElement.querySelector('#range-input').addEventListener('change', this.filterByRange.bind(this));
 
-    document.onmousemove = this.handleMouseMove.bind(this);
+    // document.onmousemove = this.handleMouseMove.bind(this);
 
     this.horizontalLine = this.elementRef.nativeElement.querySelector('.horizontalLine');
     this.horizontalLine.style.width = (window.innerWidth - (<HTMLElement>document.querySelectorAll('.mat-sidenav')[0]).offsetWidth) * 0.9 + "px";
@@ -138,6 +138,7 @@ export class UsertimelineComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+
       console.log('ShowSpecificActivitiesComponent Modal was closed');
 
     });
@@ -145,7 +146,9 @@ export class UsertimelineComponent implements OnInit {
   }
 
   randomDate(start, end) {
+
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+
   }
 
 
@@ -221,33 +224,36 @@ export class UsertimelineComponent implements OnInit {
   }
 
   clickRightTriangleMove(e){
-
+    
     if(this.rangeVal == 0){
        // 4 years
-       this.endDate = new Date(this.endDate.getFullYear() + 4, 0, 1);
-       this.startDate = new Date(this.endDate.getFullYear() - 4, 0, 1);
+       this.startDate = new Date(this.startDate.getFullYear() + 4, 0, 1);
+       this.endDate = new Date(this.startDate.getFullYear() + 4, 0, 1);
+
 
     }else if(this.rangeVal == 1){
 
       // 1 years
-      this.endDate = new Date(this.endDate.getFullYear() + 1, 0, 1);
-      this.startDate = new Date(this.endDate.getFullYear() - 1, 0, 1);
+      this.startDate = new Date(this.startDate.getFullYear() + 1, 0, 1);
+      this.endDate = new Date(this.startDate.getFullYear() + 1, 0, 1);
+
 
     }else if(this.rangeVal == 2){
        // 4 months
-      this.endDate = new Date(this.endDate.getFullYear(), this.endDate.getMonth() + 4, 1);
-      this.startDate = new Date(this.endDate.getFullYear() , this.endDate.getMonth() + -4, 1);
+      this.startDate = new Date(this.startDate.getFullYear() , this.startDate.getMonth() + 4, 1);
+      this.endDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + 4, 1);
+
 
     }else if(this.rangeVal == 3){
 
        // 1 month
-      this.endDate = new Date(this.endDate.getFullYear() , this.endDate.getMonth(), this.endDate.getDate() + 30);
-      this.startDate = new Date(this.endDate.getFullYear() , this.endDate.getMonth(), this.endDate.getDate() - 30);
+      this.startDate = new Date(this.startDate.getFullYear() , this.startDate.getMonth(), this.startDate.getDate() + 30);
+      this.endDate = new Date(this.startDate.getFullYear() , this.startDate.getMonth(), this.startDate.getDate() + 30);
+
 
     }
 
     this.totalDate = this.endDate - this.startDate;
-
     this.elementRef.nativeElement.querySelector('#current-date').innerText = this.startDate.getFullYear();
 
     this.pointDate(this.activities)
@@ -260,13 +266,18 @@ export class UsertimelineComponent implements OnInit {
   }
 
   clickLeftTriangleSelect(e){
+
     this.rangeVal = parseInt(this.elementRef.nativeElement.querySelector('#range-input').value);
 
     if( this.rangeVal > 0 ){
+
       this.elementRef.nativeElement.querySelector('#range-input').value= this.rangeVal - 1;
-      this.rangeVal--;
+      this.rangeVal = this.rangeVal - 1;
+
     }else{
+
       return;
+
     }
 
     if( this.rangeVal == 0 ){
@@ -282,13 +293,18 @@ export class UsertimelineComponent implements OnInit {
   }
 
   clickRightTriangleSelect(e){
+
     this.rangeVal = parseInt(this.elementRef.nativeElement.querySelector('#range-input').value);
 
     if( this.rangeVal < 3 ){
-      this.elementRef.nativeElement.querySelector('#range-input').value= this.rangeVal + 1;
-      this.rangeVal++;
+
+      this.elementRef.nativeElement.querySelector('#range-input').value = this.rangeVal + 1;
+      this.rangeVal = this.rangeVal + 1;
+
     }else{
+
       return;
+
     }
 
     if( this.rangeVal == 0 ){
@@ -327,7 +343,7 @@ export class UsertimelineComponent implements OnInit {
     }
   }
 
-  handleMouseMove(e:MouseEvent){
+  // handleMouseMove(e:MouseEvent){
     // 드래그 이벤트 / 마우스 움직임을 관리하는 함수
 
     // var horizontalLine = document.getElementsByClassName('horizontalLine')[0];
@@ -372,11 +388,7 @@ export class UsertimelineComponent implements OnInit {
     //
     //    }else if(this.rangeVal == 3){
     //
-    //
-    //
     //    }
-    //
-    //
     //
     //
     //   this.totalDate = this.endDate - this.startDate;
@@ -389,9 +401,8 @@ export class UsertimelineComponent implements OnInit {
     //   this.markDateGraduation();
     //   this.markCard();
     //   this.addActivityToCard(this.activities);
-
     // }
-  }
+  // }
 
   stopDragging(e:MouseEvent){
     var horizontalLine = document.getElementsByClassName('horizontalLine')[0];
@@ -486,6 +497,7 @@ export class UsertimelineComponent implements OnInit {
   }
 
   doScroll(e){
+
     this.scrollTimeout = Date.now();
     e.preventDefault();
 
@@ -706,6 +718,42 @@ export class UsertimelineComponent implements OnInit {
     var past_width = selected_card.offsetWidth;
     var past_left = selected_card.offsetLeft;
 
+    // 활동이 6개 이상이면 더이상 출력하지 않는다.
+    for(var j = 0 ; j < selected_card.children[0].children.length ; j++){
+
+      if( j > 2){
+        selected_card.children[0].children[j].style.display = "none";
+      }
+
+    }
+    if( selected_card.children[0].children.length > 3 ){
+
+      selected_card.insertAdjacentHTML('beforeend', '\
+      <div class="row plus_button_section">\
+        <div class="col s10 m10 l10">\
+          \<img id="plus_button_'+ index +'" src = "/assets/images/plus_button.png" style="width:20px;height:20px;float:right;"/>\
+        </div>\
+      </div>\
+      ');
+
+      this.elementRef.nativeElement.querySelector('#plus_button_' + index).addEventListener('click', function(e){
+        var params = [];
+
+        var selected_card = e['srcElement'].parentElement.parentElement.parentElement;
+        var included_activities = selected_card.childNodes[4].children;
+
+
+        for( var i = 0 ; i < included_activities.length ; i++ ){
+
+          let activity_id = included_activities[i].dataset.activity_id;
+          params.push( this.activities[activity_id] );
+
+        }
+
+        this.openDialog( params );
+      }.bind(this))
+
+    }
 
     // 카드에 최소화, 최대화 버튼 추가
     selected_card.insertAdjacentHTML("afterbegin",
@@ -728,12 +776,17 @@ export class UsertimelineComponent implements OnInit {
       var params = [];
 
       var selected_card = e['srcElement'].parentElement.parentElement.parentElement;
-      var included_activities = selected_card.childNodes[4].children;
+
+      var included_activities = selected_card.querySelectorAll(".card-activity");
+
 
       for( var i = 0 ; i < included_activities.length ; i++ ){
+
         let activity_id = included_activities[i].dataset.activity_id;
         params.push( this.activities[activity_id] );
+
       }
+
       this.openDialog( params );
 
     }.bind(this));
@@ -743,6 +796,9 @@ export class UsertimelineComponent implements OnInit {
       var past_width = selected_card.offsetWidth;
       var past_left = selected_card.offsetLeft;
       activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].children[1].children;
+
+      selected_card.querySelector('.plus_button_section') != null ? selected_card.querySelector('.plus_button_section').remove() : console.log("Plus Button not exist");
+      selected_card.querySelector('.card-buttons').remove();
 
       // 카드의 너비를 늘려야 하는 경우
       if( activityParent.length > 1 ){
@@ -757,13 +813,13 @@ export class UsertimelineComponent implements OnInit {
         	activityParent[i].classList.add("s6");
         	activityParent[i].classList.add("m6");
         	activityParent[i].classList.add("l6");
+          activityParent[i].style.display = "block";
 
         }
       }
 
       selected_card.style.visibility = "hidden";
       selected_card.classList.remove('card-pinned');
-      selected_card.removeChild(selected_card.childNodes[1]);
 
     }.bind(this));
 
@@ -809,7 +865,7 @@ export class UsertimelineComponent implements OnInit {
 
         var cardIndex = Math.floor(activityDate / dateGraduationWidth) + 1;
 
-        if(cards.length > cardIndex && cardIndex > 0){
+        if(cards.length > cardIndex && cardIndex > 0 ){
 
           var cardHTML = cards[cardIndex].children[0].innerHTML;
 
@@ -852,7 +908,6 @@ export class UsertimelineComponent implements OnInit {
     if( !(this.currentlyClicked) ){
       if( !(this.isScreenBlack) ){
         // 화면이 밝으면
-        console.log("turn off the light");
         (<HTMLElement>document.querySelectorAll('.black-background')[0]).style.display = "block";
         // this.elementRef.nativeElement.querySelectorAll('.black-background')[0].style.display = "block";
         this.isScreenBlack = true;
@@ -868,6 +923,22 @@ export class UsertimelineComponent implements OnInit {
           cards[i].children[0].innerHTML += "<p>활동 내역이 없습니다.</p>" ;
           cards[i].style.width = cards[i].offsetWidth / 2 + "px";
           cards[i].style.left = parseInt(cards[i].style.left.replace("px", "")) +  cards[i].offsetWidth / 2 + "px";
+
+        }else{
+
+          // 활동이 6개 이상이면 더이상 출력하지 않는다.
+          for(var j = 0 ; j < cards[i].children[0].children.length ; j++){
+
+            if( j > 6){
+              cards[i].children[0].children[j].style.display = "none";
+            }
+
+          }
+          if( cards[i].children[0].children.length > 6 ){
+
+            cards[i].children[0].insertAdjacentHTML('beforeend', '<p style="float: right">더보기</p>');
+
+          }
 
         }
 
@@ -944,7 +1015,6 @@ export class UsertimelineComponent implements OnInit {
     var minLength = Infinity;
 
     if( this.isScreenBlack ){
-      console.log("turn on light");
       // this.elementRef.nativeElement.querySelectorAll('.black-background')[0].style.display = "none";
       (<HTMLElement>document.querySelectorAll('.black-background')[0]).style.display = "none";
       this.isScreenBlack = false;

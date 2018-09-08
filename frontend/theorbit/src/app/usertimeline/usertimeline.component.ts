@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
-
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
 
@@ -9,9 +9,10 @@ import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
 
 })
 
+
 export class UsertimelineComponent implements OnInit {
 
-  constructor(private elementRef:ElementRef) { }
+  constructor(private elementRef:ElementRef, public dialog: MatDialog) { }
   initCount = 1;
   miniDate;
   maximDate;
@@ -123,6 +124,20 @@ export class UsertimelineComponent implements OnInit {
 
 
     (<HTMLElement>document.querySelectorAll('.fixedclass')[0]).style.top = (<HTMLElement>document.querySelectorAll('.navbar')[0]).offsetHeight + 13 + "px";
+
+  }
+
+  // 확대 버튼을 누르면 포트폴리오 모달을 띄운다.
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ActivityPostComponent, {
+      width: '1000px',
+      // data: { name: this.name, animal: this.animal }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
 
   }
 
@@ -700,6 +715,7 @@ export class UsertimelineComponent implements OnInit {
     );
 
     this.elementRef.nativeElement.querySelector('#maximize-button').addEventListener('click', function(e){
+
       var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
       var past_width = selected_card.offsetWidth;
       var past_left = selected_card.offsetLeft;
@@ -707,7 +723,8 @@ export class UsertimelineComponent implements OnInit {
     }.bind(this));
 
     this.elementRef.nativeElement.querySelector('#close-button').addEventListener('click', function(e){
-      var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
+      
+      var selected_card = e['path'][3];
       var past_width = selected_card.offsetWidth;
       var past_left = selected_card.offsetLeft;
       activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].children[1].children;
@@ -728,7 +745,7 @@ export class UsertimelineComponent implements OnInit {
 
         }
       }
-      
+
       selected_card.style.visibility = "hidden";
       selected_card.classList.remove('card-pinned');
       selected_card.removeChild(selected_card.childNodes[1]);

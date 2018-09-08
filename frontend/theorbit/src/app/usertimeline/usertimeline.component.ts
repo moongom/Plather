@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ShowSpecificActivitiesComponent } from '../show-specific-activities/show-specific-activities.component';
 
 @Component({
 
@@ -129,14 +130,14 @@ export class UsertimelineComponent implements OnInit {
 
   // 확대 버튼을 누르면 포트폴리오 모달을 띄운다.
   openDialog(): void {
-    const dialogRef = this.dialog.open(ActivityPostComponent, {
+    const dialogRef = this.dialog.open(ShowSpecificActivitiesComponent, {
       width: '1000px',
       // data: { name: this.name, animal: this.animal }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+
     });
 
   }
@@ -706,15 +707,15 @@ export class UsertimelineComponent implements OnInit {
         <div class = "row">\
           <div class = "col s9 m9 l9"></div>\
           <div class = "col s3 m3 l3"></div>\
-            <img src="/assets/images/maximize_button.png" id="maximize-button" style="width: 20px; height: 20px;">\
-            <img src="/assets/images/close_button.png" id="close-button" style="width: 20px; height: 20px;">\
+            <img src="/assets/images/maximize_button.png" id="maximize-button-'+ index +'" style="width: 20px; height: 20px;">\
+            <img src="/assets/images/close_button.png" id="close-button-'+ index +'" style="width: 20px; height: 20px;">\
           </div>\
         </div>\
       </div>\
       '
     );
 
-    this.elementRef.nativeElement.querySelector('#maximize-button').addEventListener('click', function(e){
+    this.elementRef.nativeElement.querySelector('#maximize-button-'+index).addEventListener('click', function(e){
 
       var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
       var past_width = selected_card.offsetWidth;
@@ -722,9 +723,10 @@ export class UsertimelineComponent implements OnInit {
 
     }.bind(this));
 
-    this.elementRef.nativeElement.querySelector('#close-button').addEventListener('click', function(e){
-      
+    this.elementRef.nativeElement.querySelector('#close-button-'+index).addEventListener('click', function(e){
+
       var selected_card = e['path'][3];
+      console.log(selected_card);
       var past_width = selected_card.offsetWidth;
       var past_left = selected_card.offsetLeft;
       activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].children[1].children;

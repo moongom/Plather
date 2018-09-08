@@ -14,9 +14,6 @@ export class UsertimelineSpecificComponent implements OnInit {
 
   }
 
-  animal: string;
-  name: string;
-
   openDialog(): void {
     const dialogRef = this.dialog.open(ActivityPostComponent, {
       width: '1000px',
@@ -25,7 +22,6 @@ export class UsertimelineSpecificComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
     });
 
   }

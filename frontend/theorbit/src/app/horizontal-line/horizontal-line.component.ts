@@ -1,6 +1,5 @@
 import { AfterViewInit, ViewChild, Component, OnInit, ElementRef } from '@angular/core';
 import { UsertimelineComponent } from '../usertimeline/usertimeline.component'
-import { UsertimelineSpecificComponent } from '../usertimeline-specific/usertimeline-specific.component'
 
 
 @Component({

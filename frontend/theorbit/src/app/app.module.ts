@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { Signup1Component } from './signup1/signup1.component';
 import { Signup2Component } from './signup2/signup2.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ShowSpecificActivitiesComponent } from './show-specific-activities/show-specific-activities.component';
 
 import {
   MatAutocompleteModule,

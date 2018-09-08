@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 <!-- Tob Bar  -->
-<div class="row navbar" style="margin-bottom: 10px;">
+<div class="row navbar" style="margin-bottom: 10px; z-index: 2;">
   <div class="navbar-25" [ngStyle]="{'background-color': '#efefef'}">
     <a routerLink="/" class="deleteline"><p [ngStyle]="{'font-size': '20px', 'margin-left': '20px'}">Plather</p></a>
   </div>
@@ -27,43 +27,43 @@
     </form>
   </div>
   <div class="navbar-25">
-    <div>
-      <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-left: 50%;">
-        <mat-icon>home</mat-icon>
-        <span>김희재</span>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>settings</mat-icon>
-          <span>Edit Profile</span>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-left: 50%;">
+          <mat-icon>home</mat-icon>
+          <span>김희재</span>
         </button>
-        <button mat-menu-item>
-          <mat-icon>voicemail</mat-icon>
-          <span>Payment</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>voicemail</mat-icon>
-          <span>Notice</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>voicemail</mat-icon>
-          <span>Stack</span>
-        </button>
-        <button mat-menu-item (click)="openSignup2Dialog()">
-          <mat-icon>voicemail</mat-icon>
-          <span>Sign up</span>
-        </button>
-        <button mat-menu-item (click)="openLoginDialog()">
-          <mat-icon>voicemail</mat-icon>
-          <span>Login</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>voicemail</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Edit Profile</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Payment</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Notice</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Stack</span>
+          </button>
+          <button mat-menu-item (click)="openSignup2Dialog()">
+            <mat-icon>voicemail</mat-icon>
+            <span>Sign up</span>
+          </button>
+          <button mat-menu-item (click)="openLoginDialog()">
+            <mat-icon>voicemail</mat-icon>
+            <span>Login</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
     </div>
-  </div>
 </div>
 <!-- Tob Bar  -->
 
@@ -98,4 +98,3 @@
     </footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
-

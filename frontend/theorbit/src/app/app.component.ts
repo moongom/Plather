@@ -28,6 +28,11 @@ export class AppComponent {
     });
   }
 
+  ngOnInit() {
+
+
+  }
+
   openSignup2Dialog(): void {
     const dialogRef = this.dialog.open(Signup2Component, {
       width: '400px',

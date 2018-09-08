@@ -7,6 +7,18 @@
   margin-top:100px;
 }
 
+.black-background{
+  position: fixed;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 3;
+  width:3000px;
+  height: 3000px;
+  top: -1000px;
+  left: -1000px;
+  display: none;
+  pointer-events: none;
+}
+
 #startDatePointer{
   position: absolute;
 }

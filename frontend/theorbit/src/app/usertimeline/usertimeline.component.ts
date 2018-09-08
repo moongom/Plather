@@ -37,6 +37,7 @@ export class UsertimelineComponent implements OnInit {
   scrollTimeout = Date.now();
   isClicked = [];
   activities = [];
+  isScreenBlack = false;
   tagName = [ "테니스", "수영", "요가", "메이크업", "디자인", "퀼트", "회화", "소믈리에", "발레", "채식주의자", "서브웨이", "문곰과 귤", "인문역량강화사업", "그래픽 디자인" ];
   superTagName = ['스포츠', '프로그래밍', '취미생활'];
 
@@ -96,9 +97,9 @@ export class UsertimelineComponent implements OnInit {
 
     // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('wheel', this.doScroll.bind(this));
 
-    this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseover', this.doMouseOverCard.bind(this));
-
-    this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseout', this.doMouseOutCard.bind(this));
+    // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
+    //
+    // this.elementRef.nativeElement.querySelector('#mousePointerArea').addEventListener('mouseleave', this.doMouseLeaveCard.bind(this));
 
     this.elementRef.nativeElement.querySelector('#left-triangle-move').addEventListener('click', this.clickLeftTriangleMove.bind(this));
 
@@ -641,6 +642,10 @@ export class UsertimelineComponent implements OnInit {
 
 
     dateGraduation.innerHTML = html;
+
+    for( var i = 0 ; i < dateGraduation.children.length ; i++ ){
+      dateGraduation.children[i].addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
+    }
   }
 
   markCard(){
@@ -684,6 +689,7 @@ export class UsertimelineComponent implements OnInit {
     for( var i = 0 ; i < cards.length ; i++ ){
 
       this.elementRef.nativeElement.querySelectorAll('.card')[i].addEventListener('click', this.doClickCard.bind(this));
+      this.elementRef.nativeElement.querySelectorAll('.card')[i].addEventListener('mouseleave', this.doMouseLeaveCard.bind(this));
 
       this.isClicked[i] = false;
 
@@ -699,6 +705,7 @@ export class UsertimelineComponent implements OnInit {
 
     var past_width = selected_card.offsetWidth;
     var past_left = selected_card.offsetLeft;
+
 
     // 카드에 최소화, 최대화 버튼 추가
     selected_card.insertAdjacentHTML("afterbegin",
@@ -778,6 +785,9 @@ export class UsertimelineComponent implements OnInit {
     }
 
     selected_card.style.visibility = "visible";
+    selected_card.classList.remove('zoomIn');
+    selected_card.classList.add('animated');
+    selected_card.classList.add('fadeIn');
     this.isClicked[this.currentVisibleCard] = true;
     selected_card.classList.add('card-pinned');
 
@@ -837,10 +847,16 @@ export class UsertimelineComponent implements OnInit {
 
   }
 
-  doMouseOverCard(e){
-
+  doMouseEnterCard(e){
 
     if( !(this.currentlyClicked) ){
+      if( !(this.isScreenBlack) ){
+        // 화면이 밝으면
+        console.log("turn off the light");
+        (<HTMLElement>document.querySelectorAll('.black-background')[0]).style.display = "block";
+        // this.elementRef.nativeElement.querySelectorAll('.black-background')[0].style.display = "block";
+        this.isScreenBlack = true;
+      }
 
       var d = this.elementRef.nativeElement.querySelectorAll('.dateGraduation');
       var cards = this.elementRef.nativeElement.querySelectorAll('.card');
@@ -921,12 +937,18 @@ export class UsertimelineComponent implements OnInit {
 
   }
 
-  doMouseOutCard(e){
-
+  doMouseLeaveCard(e){
     this.currentlyClicked = false;
     var d = this.elementRef.nativeElement.querySelectorAll('.dateGraduation');
     var cards = this.elementRef.nativeElement.querySelectorAll('.card');
     var minLength = Infinity;
+
+    if( this.isScreenBlack ){
+      console.log("turn on light");
+      // this.elementRef.nativeElement.querySelectorAll('.black-background')[0].style.display = "none";
+      (<HTMLElement>document.querySelectorAll('.black-background')[0]).style.display = "none";
+      this.isScreenBlack = false;
+    }
 
     if( this.isClicked.length == 0 ){
 
@@ -963,7 +985,7 @@ export class UsertimelineComponent implements OnInit {
       dateGraduations[i-1].style.top = parseInt(dateGraduations[i-1].style.width.replace("px", "")) / 2  * -1  + "px";
 
       // cards[i].style.top = this.cardMargin - (this.listImageHeight + 1) * activities_count / 2 - 250 + 'px';
-      cards[i].style.top = 0 - (activities_count / 2) * 100 + 'px';
+      cards[i].style.top = 0 - (activities_count / 2) * 150 + 'px';
 
 
     }

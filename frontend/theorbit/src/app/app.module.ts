@@ -78,10 +78,11 @@ import { SignupService } from './signup.service';
     LandingPageComponent,
     LoginComponent,
     Signup1Component,
-    Signup2Component
+    Signup2Component,
+    ShowSpecificActivitiesComponent,
   ],
 
-  entryComponents: [ActivityPostComponent, EditProfileComponent, Signup2Component],
+  entryComponents: [ActivityPostComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent],
 
   imports: [
 

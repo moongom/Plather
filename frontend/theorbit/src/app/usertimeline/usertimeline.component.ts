@@ -717,16 +717,14 @@ export class UsertimelineComponent implements OnInit {
 
     this.elementRef.nativeElement.querySelector('#maximize-button-'+index).addEventListener('click', function(e){
 
-      var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
-      var past_width = selected_card.offsetWidth;
-      var past_left = selected_card.offsetLeft;
+      var selected_card = e['path'][3];
+      this.openDialog();
 
     }.bind(this));
 
     this.elementRef.nativeElement.querySelector('#close-button-'+index).addEventListener('click', function(e){
 
       var selected_card = e['path'][3];
-      console.log(selected_card);
       var past_width = selected_card.offsetWidth;
       var past_left = selected_card.offsetLeft;
       activityParent = this.elementRef.nativeElement.querySelectorAll('.card')[index].children[1].children;

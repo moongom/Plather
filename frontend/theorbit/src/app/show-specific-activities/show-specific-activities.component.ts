@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-show-specific-activities',
+  selector: 'show-specific-activities',
   templateUrl: './show-specific-activities.component.html',
   styleUrls: ['./show-specific-activities.component.css']
 })

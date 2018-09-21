@@ -19,7 +19,7 @@ export class AppComponent {
   sidenavTest = false;
   title = 'theorbit';
   screen_name;
-  constructor(router:Router, public dialog: MatDialog, private logoutservice:SignupService, 
+  constructor(router:Router, public dialog: MatDialog, private logoutservice:SignupService,
     private accountservice:AccountService){
     // 특정 url에 떨어질 때에만 사이드바가 형성되게 한다.
     router.events.forEach((event) => {
@@ -41,25 +41,22 @@ export class AppComponent {
       else{
         console.log('there are no data')
       }
-      
+
     });
-    
-    
-    
+
+
+
   }
 
-<<<<<<< HEAD
   ngOnInit() {
 
 
   }
-=======
+
   animal: string;
   name: string;
   user: string;
 
-
->>>>>>> 44023cd2f55bc3827aa8423d889f915564ec7ed2
 
   openSignup2Dialog(): void {
     const dialogRef = this.dialog.open(Signup2Component, {

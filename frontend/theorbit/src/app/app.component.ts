@@ -96,6 +96,4 @@ export class AppComponent {
     this.logoutservice.logout()
   }
 
-
-
 }

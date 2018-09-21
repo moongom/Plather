@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HorizontalLineComponent } from './horizontal-line/horizontal-line.component';
 import { UsertimelineComponent } from './usertimeline/usertimeline.component';
 import { UsertimelineSpecificComponent } from './usertimeline-specific/usertimeline-specific.component';
+import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
 import { ActivityPostComponent } from './activity-post/activity-post.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -74,6 +75,7 @@ import { SignupService } from './signup.service';
     UsertimelineComponent,
     ProfileComponent,
     UsertimelineSpecificComponent,
+    UserPortfolioComponent,
     ActivityPostComponent,
     EditProfileComponent,
     LandingPageComponent,

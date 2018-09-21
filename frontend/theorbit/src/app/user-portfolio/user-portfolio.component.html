@@ -1,1 +1,12 @@
-<h1> ! 유저 포트폴리오 페이지 ! </h1>
+<div class="container" style="margin-top: 20px;">
+  <div class="portfolio-cell" *ngFor="let row of this.getRow(this.portfolios); let rowIndex = index ">
+    <div class="row">
+      <div class="portfolio-item">
+        <div class="col s3 m3 l3" style="text-align: center;" *ngFor="let col of this.getCol(row, this.portfolios); let colIndex = index" >
+            <img class="portfolio-img" style="width: 100%;" src="http://via.placeholder.com/200x200"/>
+            <p>{{ this.getSupertags(this.portfolios)[rowIndex*4 + colIndex] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

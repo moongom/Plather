@@ -39,12 +39,10 @@ export class AppComponent {
         )
       }
       else{
-        console.log('there are no data')
+        // console.log('there are no data')
       }
 
     });
-
-
 
   }
 
@@ -52,10 +50,6 @@ export class AppComponent {
 
 
   }
-
-  animal: string;
-  name: string;
-  user: string;
 
 
   openSignup2Dialog(): void {

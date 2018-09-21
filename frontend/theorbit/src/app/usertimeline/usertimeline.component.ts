@@ -704,24 +704,34 @@ export class UsertimelineComponent implements OnInit {
     for( var i = 0 ; i < graduations.length ; i++ ){
 
       if( i==0 ){
-
+        // 첫번째 카드는 Dummy (실제로는 아무런 기능을 하지 않지만, 이 코드들을 지우면 안된다.)
         cardWidth = graduations[i].offsetLeft;
 
         cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1 +'px; visibility: hidden; z-index: 1000;" >\
+        '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1 +'px; visibility: hidden; display: none; z-index: 1000;" >\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
          </div>';
+
+      }else if( i == 1 ){
+        // 이게 실질적으로 첫번째 카드가 된다. 첫번째 카드는 다른 카드들보다 왼쪽 여백을 다르게 준다.
+        cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
+
+        cardAreaHTML +=
+        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[0].offsetLeft) + 'px; width:'+  cardWidth * 1.7 +'px; visibility:hidden; z-index: 1000;">\
+          <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
+          </div>\
+        </div>';
 
       }else{
 
         cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
 
-          cardAreaHTML +=
-          '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft - cardWidth/2) + 'px; width:'+  cardWidth * 1.7 +'px; visibility:hidden; z-index: 1000;">\
-            <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
-            </div>\
-          </div>';
+        cardAreaHTML +=
+        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft - cardWidth/2) + 'px; width:'+  cardWidth * 1.7 +'px; visibility:hidden; z-index: 1000;">\
+          <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
+          </div>\
+        </div>';
 
       }
 
@@ -733,9 +743,9 @@ export class UsertimelineComponent implements OnInit {
 
     for( var i = 0 ; i < cards.length ; i++ ){
 
-      this.elementRef.nativeElement.querySelectorAll('.card')[i].addEventListener('click', this.doClickCard.bind(this));
-      this.elementRef.nativeElement.querySelectorAll('.card')[i].addEventListener('mouseleave', this.doMouseLeaveCard.bind(this));
       this.isClicked[i] = false;
+      cards[i].addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
+      cards[i].addEventListener('click', this.doClickCard.bind(this));
 
     }
 

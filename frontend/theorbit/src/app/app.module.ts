@@ -8,6 +8,7 @@ import { HorizontalLineComponent } from './horizontal-line/horizontal-line.compo
 import { UsertimelineComponent } from './usertimeline/usertimeline.component';
 import { UsertimelineSpecificComponent } from './usertimeline-specific/usertimeline-specific.component';
 import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
+import { UserPortfolioModalComponent } from './user-portfolio-modal/user-portfolio-modal.component';
 import { ActivityPostComponent } from './activity-post/activity-post.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +24,8 @@ import { Signup1Component } from './signup1/signup1.component';
 import { Signup2Component } from './signup2/signup2.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShowSpecificActivitiesComponent } from './show-specific-activities/show-specific-activities.component';
+import { AlertService } from './alert.service';
+import { SignupService } from './signup.service';
 
 import {
   MatAutocompleteModule,
@@ -63,8 +66,7 @@ import {
   MAT_DIALOG_DATA,
 
 } from '@angular/material';
-import { AlertService } from './alert.service';
-import { SignupService } from './signup.service';
+
 
 
 @NgModule({
@@ -76,6 +78,7 @@ import { SignupService } from './signup.service';
     ProfileComponent,
     UsertimelineSpecificComponent,
     UserPortfolioComponent,
+    UserPortfolioModalComponent,
     ActivityPostComponent,
     EditProfileComponent,
     LandingPageComponent,
@@ -85,7 +88,7 @@ import { SignupService } from './signup.service';
     ShowSpecificActivitiesComponent,
   ],
 
-  entryComponents: [ActivityPostComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent],
+  entryComponents: [ActivityPostComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent, UserPortfolioModalComponent],
 
   imports: [
 

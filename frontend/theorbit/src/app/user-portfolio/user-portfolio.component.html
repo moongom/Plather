@@ -1,10 +1,27 @@
 <div class="container" style="margin-top: 20px;">
   <div class="portfolio-cell" *ngFor="let row of this.getRow(this.portfolios); let rowIndex = index ">
     <div class="row">
-      <div class="portfolio-item">
-        <div class="col s3 m3 l3" style="text-align: center;" *ngFor="let col of this.getCol(row, this.portfolios); let colIndex = index" >
-            <img class="portfolio-img" style="width: 100%;" src="http://via.placeholder.com/200x200"/>
-            <p>{{ this.getSupertags(this.portfolios)[rowIndex*4 + colIndex] }}</p>
+      <div class="col s3 m3 l3" style="text-align: center;" *ngFor="let col of getArray(4); let colIndex = index" (click)="showPortfolio(rowIndex*4 + colIndex)">
+        <div class="cell-content" *ngIf="colIndex < this.getCol(rowIndex, this.portfolios).length">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{ this.getSupertags(this.portfolios)[rowIndex*4 + colIndex] }}</mat-card-title>
+              <mat-card-subtitle>{{ this.portfolios[this.getSupertags(this.portfolios)[rowIndex*4 + colIndex]][0].user }}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="http://via.placeholder.com/200x200" alt="Photo">
+            <!-- <mat-card-content>
+              <p>
+                {{ this.getSupertags(this.portfolios)[rowIndex*4 + colIndex] }}
+              </p>
+            </mat-card-content> -->
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+          <!-- <img class="portfolio-img" style="width: 100%;" src="http://via.placeholder.com/200x200"/>
+          <p>{{ this.getSupertags(this.portfolios)[rowIndex*4 + colIndex] }}</p> -->
         </div>
       </div>
     </div>

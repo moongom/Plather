@@ -42,13 +42,13 @@
             <mat-icon>voicemail</mat-icon>
             <span>Payment</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="['/horizontalline']">
             <mat-icon>voicemail</mat-icon>
-            <span>Notice</span>
+            <span>Line</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="['/user-portfolio']">
             <mat-icon>voicemail</mat-icon>
-            <span>Stack</span>
+            <span>Portfolios</span>
           </button>
           <button mat-menu-item (click)="openSignup2Dialog()">
             <mat-icon>voicemail</mat-icon>

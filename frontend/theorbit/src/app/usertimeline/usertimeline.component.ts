@@ -22,6 +22,8 @@ export class UsertimelineComponent implements OnInit {
   endDate:any;
   // endDatePointer;
   totalDate:any;
+  horizontalLineOffsetLeft: number;
+  horizontalLineOffsetTop: number;
   markDate;
   activityDate;
   dateGraduation;
@@ -57,13 +59,16 @@ export class UsertimelineComponent implements OnInit {
 
   ngAfterViewInit() {
 
+    this.horizontalLineOffsetLeft = this.elementRef.nativeElement.querySelector('.horizontalLine').offsetLeft;
+    this.horizontalLineOffsetTop = this.elementRef.nativeElement.querySelector('.horizontalLine').offsetTop;
+
     // Dummy Data 생성
     for(var i = 0 ; i < 15 ; i++){
 
       var tempActivity = {
 
         supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
-        tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)] + '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
+        tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
         date: this.randomDate(new Date(2015, 1, 1), new Date(2025, 1, 1)),
         filter: true
 
@@ -77,7 +82,7 @@ export class UsertimelineComponent implements OnInit {
 
       var tempActivity = {
 
-        tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)] + '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
+        tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
         date: this.randomDate(new Date(new Date().setDate(((new Date().getDate()- 42)))), new Date()),
         supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
         filter: true
@@ -605,6 +610,7 @@ export class UsertimelineComponent implements OnInit {
     var dateGraduationDate;
     var rangeVal = this.elementRef.nativeElement.querySelector('#range-input').value;
 
+    // 첫번째 원 표시
     html += '\
     <p class="animated fadeInRightBig  dateGraduation_p" style="position:absolute; bottom:15px;left: 0px">'+ this.startDate.getFullYear() + ' / ' +( this.startDate.getMonth() + 1 ) + '</p><div class="animated zoomInRight dateGraduation" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; top: -14px; border: 1px solid #727272 ; left:"0px" data-graduation-date = "' + ( this.startDate - 0 ) + '" ></div>';
 
@@ -673,9 +679,11 @@ export class UsertimelineComponent implements OnInit {
     }
 
     dateGraduationLeft = this.horizontalLine.offsetWidth;
-
+    // 마지막 원 표시
     html += '\
-    <p class="animated fadeInRightBig  dateGraduation_p" style="position:absolute; bottom:15px;left:'+ dateGraduationLeft + 'px">'+ this.endDate.getFullYear() + ' / ' +( this.endDate.getMonth() + 1 ) + '</p><div class="animated zoomInRight dateGraduation" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; top: -14px; border: 1px solid #727272 ; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( this.endDate - 0 ) + '" ></div>';
+    <img class="animated zoomInRight" src= "/assets/images/horizontalLine_right_arrow.png" style="width: 80px; position: absolute; left:'+ (dateGraduationLeft - 80) + 'px; top: -50px;" />';
+    html +='\
+    <div class="animated zoomInRight dateGraduation" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; visibility:hidden; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
 
     dateGraduation.innerHTML = html;
 
@@ -711,16 +719,50 @@ export class UsertimelineComponent implements OnInit {
         '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1 +'px; visibility: hidden; display: none; z-index: 1000;" >\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
-         </div>';
+          <div class="card-bubble-arrow-border" style="border-color: rgba(0, 0, 0, 0.2) transparent\
+          transparent transparent !important;\
+          border-style: solid;\
+          border-width: 20px;\
+          height: 0;\
+          width: 0;\
+          position: absolute;\
+          bottom: -42px;\
+          left: -0.5px;"></div>\
+          <div class="card-bubble-arrow" style="border-color: #ffffff transparent transparent transparent !important;\
+          border-style: solid;\
+          border-width: 20px;\
+          height: 0;\
+          width: 0;\
+          position: absolute;\
+          bottom: -39px;\
+          left: -0.5px;"></div>\
+        </div>';
 
       }else if( i == 1 ){
         // 이게 실질적으로 첫번째 카드가 된다. 첫번째 카드는 다른 카드들보다 왼쪽 여백을 다르게 준다.
         cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
 
         cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[0].offsetLeft) + 'px; width:'+  cardWidth * 1.7 +'px; visibility:hidden; z-index: 1000;">\
+        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[0].offsetLeft) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden; z-index: 1000;">\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
+          <div class="card-bubble-arrow-border" style="border-color: rgba(0, 0, 0, 0.2) transparent\
+          transparent transparent !important;\
+          border-style: solid;\
+          border-width: 20px;\
+          height: 0;\
+          width: 0;\
+          position: absolute;\
+          bottom: -42px;\
+          left: -0.5px;"></div>\
+          <div class="card-bubble-arrow" style="border-color: #ffffff transparent transparent transparent !important;\
+          border-style: solid;\
+          border-width: 20px;\
+          height: 0;\
+          width: 0;\
+          position: absolute;\
+          bottom: -39px;\
+          left: -0.5px;"></div>\
         </div>';
 
       }else{
@@ -728,9 +770,25 @@ export class UsertimelineComponent implements OnInit {
         cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
 
         cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft - cardWidth/2) + 'px; width:'+  cardWidth * 1.7 +'px; visibility:hidden; z-index: 1000;">\
+        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft + this.horizontalLineOffsetLeft) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden; z-index: 1000;">\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
+          <div class="card-bubble-arrow-border" style="border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent !important;\
+          border-style: solid;\
+          border-width: 20px;\
+          height: 0;\
+          width: 0;\
+          position: absolute;\
+          bottom: -42px;\
+          left: -0.5px;"></div>\
+          <div class="card-bubble-arrow" style="border-color: #ffffff transparent transparent transparent !important;\
+          border-style: solid;\
+          border-width: 20px;\
+          height: 0;\
+          width: 0;\
+          position: absolute;\
+          bottom: -39px;\
+          left: -0.5px;"></div>\
         </div>';
 
       }
@@ -746,6 +804,7 @@ export class UsertimelineComponent implements OnInit {
       this.isClicked[i] = false;
       cards[i].addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
       cards[i].addEventListener('click', this.doClickCard.bind(this));
+      cards[i].addEventListener('mouseout', this.doMouseLeaveCard.bind(this));
 
     }
 
@@ -850,10 +909,10 @@ export class UsertimelineComponent implements OnInit {
       selected_card.querySelector('.plus_button_section') != null ? selected_card.querySelector('.plus_button_section').remove() : console.log("Plus Button not exist");
       selected_card.querySelector('.card-buttons').remove();
 
-      // 카드의 너비를 늘려야 하는 경우
+      // 카드의 너비를 늘려야 하는 경우 (원래 상태로 복귀해야 함)
       if( activityParent.length > 1 ){
         selected_card.style.width = past_width * 2 + "px";
-        selected_card.style.left = selected_card.offsetLeft - past_width / 2 + "px";
+        selected_card.style.top = this.horizontalLineOffsetTop - selected_card.offsetHeight + "px";
 
         for(var i = 0 ; i < activityParent.length ; i++){
 
@@ -877,8 +936,9 @@ export class UsertimelineComponent implements OnInit {
 
     // 카드의 너비를 줄여야 하는 경우
     if( activityParent.length > 1 ){
+
       selected_card.style.width = past_width / 2 + "px";
-      selected_card.style.left = selected_card.offsetLeft + past_width / 4 + "px";
+      // selected_card.style.top = this.horizontalLineOffsetTop - selected_card.offsetHeight + "px";
 
       for(var i = 0 ; i < activityParent.length ; i++){
 
@@ -946,7 +1006,7 @@ export class UsertimelineComponent implements OnInit {
       if( this.elementRef.nativeElement.querySelector('#card_' + i).children.length == 1 ){
 
         cards[i].style.width = parseInt(cards[i].style.width.replace("px", "")) / 2 + "px";
-        cards[i].style.left = cards[i].offsetLeft + parseInt(cards[i].style.width.replace("px", "")) / 3 + "px";
+        // cards[i].style.left = cards[i].offsetLeft + parseInt(cards[i].style.width.replace("px", "")) / 3 + "px";
 
       }
 
@@ -1122,6 +1182,9 @@ export class UsertimelineComponent implements OnInit {
       dateGraduations[i-1].style.top = parseInt(dateGraduations[i-1].style.width.replace("px", "")) / 2  * -1  + "px";
 
       cards[i].style.top = 0 - (activities_count / 2) * 150 + 'px';
+      // console.log(this.horizontalLineOffsetTop)
+      // console.log(cards[i].offsetHeight)
+      // cards[i].style.top = 0 + 'px';
 
     }
 

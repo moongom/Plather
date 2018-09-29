@@ -681,7 +681,7 @@ export class UsertimelineComponent implements OnInit {
     dateGraduationLeft = this.horizontalLine.offsetWidth;
     // 마지막 원 표시
     html += '\
-    <img class="animated zoomInRight" src= "/assets/images/horizontalLine_right_arrow.png" style="width: 80px; position: absolute; left:'+ (dateGraduationLeft - 80) + 'px; top: -50px;" />';
+    <img class="animated zoomInRight" src= "/assets/images/right_arrow.png" style="width: 80px; position: absolute; left:'+ (dateGraduationLeft - 80) + 'px; top: -140px;" />';
     html +='\
     <div class="animated zoomInRight dateGraduation" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; visibility:hidden; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
 

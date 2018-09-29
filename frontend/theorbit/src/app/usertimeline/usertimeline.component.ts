@@ -1048,7 +1048,7 @@ export class UsertimelineComponent implements OnInit {
 
       }
 
-      if(d[0].offsetLeft > e.clientX){
+      if(d[0].offsetLeft > e.screenX){
 
         this.currentVisibleCard = 0;
 
@@ -1056,16 +1056,16 @@ export class UsertimelineComponent implements OnInit {
 
         for( var i = 0 ; i < d.length ; i++ ){
 
-          if( d[i].offsetLeft  > e.clientX ){
+          if( d[i].offsetLeft  > e.screenX ){
 
-            this.currentVisibleCard = i - 1;
+            this.currentVisibleCard = i;
             break;
 
           }
           if( i == d.length-1 ){
 
             // 마지막 화살표와, 4번째 원을 구별해야 한다.
-            if( d[i].offsetLeft + 200  > e.clientX ){
+            if( d[i].offsetLeft + 200  > e.screenX ){
 
               this.currentVisibleCard = d.length - 1;
               break;
@@ -1105,7 +1105,7 @@ export class UsertimelineComponent implements OnInit {
 
     for(var i = 0 ; i < d.length ; i++){
 
-      if( d[i].offsetLeft + this.horizontalLine.offsetLeft > e.clientX ){
+      if( d[i].offsetLeft + this.horizontalLine.offsetLeft > e.screenX ){
 
         this.currentVisibleCard = i;
         // cards[this.currentVisibleCard].classList.remove("animated");

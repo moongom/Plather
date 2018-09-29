@@ -612,7 +612,7 @@ export class UsertimelineComponent implements OnInit {
 
     // 첫번째 원 표시
     html += '\
-    <p class="animated fadeInRightBig  dateGraduation_p" style="position:absolute; bottom:15px;left: 0px">'+ this.startDate.getFullYear() + ' / ' +( this.startDate.getMonth() + 1 ) + '</p><div class="animated zoomInRight dateGraduation" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; top: -14px; border: 1px solid #727272 ; left:"0px" data-graduation-date = "' + ( this.startDate - 0 ) + '" ></div>';
+    <p class="animated fadeInRightBig  dateGraduation_p" style="position:absolute; bottom:15px;left: 0px">'+ this.startDate.getFullYear() + ' / ' +( this.startDate.getMonth() + 1 ) + '</p><div class="animated zoomInRight dateGraduation hoverable" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; top: -14px; border: 1px solid #727272 ; left:"0px" data-graduation-date = "' + ( this.startDate - 0 ) + '" ></div>';
 
     dateGraduation.innerHTML = html;
 
@@ -673,7 +673,7 @@ export class UsertimelineComponent implements OnInit {
         dateGraduationLeft = this.horizontalLine.offsetWidth * ( Date.parse(dateGraduationMarker + "") - Date.parse(this.startDate + "") ) / this.totalDate + "";
 
         html +='\
-        <p class="animated fadeInRightBig  dateGraduation_p" style="position:absolute; bottom:15px;left:'+ dateGraduationLeft + 'px">'+ dateGraduationDate.getFullYear()+ ' / ' +( dateGraduationDate.getMonth() + 1 )  + '</p><div class="animated zoomInRight dateGraduation" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
+        <p class="animated fadeInRightBig  dateGraduation_p" style="position:absolute; bottom:15px;left:'+ dateGraduationLeft + 'px">'+ dateGraduationDate.getFullYear()+ ' / ' +( dateGraduationDate.getMonth() + 1 )  + '</p><div class="animated zoomInRight dateGraduation hoverable" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
       }
 
     }
@@ -683,7 +683,7 @@ export class UsertimelineComponent implements OnInit {
     html += '\
     <img id="right-arrow" class="animated zoomInRight" src= "/assets/images/right_arrow.png" style="width: 80px; position: absolute; left:'+ (dateGraduationLeft - 80) + 'px; top: -140px;" />';
     html +='\
-    <div class="animated zoomInRight dateGraduation notHoverable" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; visibility:hidden; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
+    <div class="animated zoomInRight dateGraduation hoverable" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; visibility:hidden; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
 
     dateGraduation.innerHTML = html;
 
@@ -777,9 +777,9 @@ export class UsertimelineComponent implements OnInit {
     for( var i = 0 ; i < cards.length  - 2; i++ ){
 
       this.isClicked[i] = false;
-      cards[i].addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
-      cards[i].addEventListener('click', this.doClickCard.bind(this));
-      cards[i].addEventListener('mouseout', this.doMouseLeaveCard.bind(this));
+      // cards[i].addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
+      // cards[i].addEventListener('click', this.doClickCard.bind(this));
+      // cards[i].addEventListener('mouseout', this.doMouseLeaveCard.bind(this));
 
     }
 
@@ -1113,6 +1113,7 @@ export class UsertimelineComponent implements OnInit {
     if( this.isClicked[this.currentVisibleCard] == false ){
       // 카드의 너비를 조정한다. ( 클릭되면 카드의 너비를 좁게 만든다. )
       this.changeCardFormat(this.currentVisibleCard);
+
     }
 
   }

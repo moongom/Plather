@@ -807,16 +807,6 @@ export class UsertimelineComponent implements OnInit {
 
     if( selected_card.children[0].children.length > 3 ){
 
-      // selected_card.insertAdjacentHTML('beforeend', '\
-      //   <div class="row plus_button_section">\
-      //     <div class="col s10 m10 l10"></div>\
-      //     <div class="col s2 m2 l2">\
-      //       \<img id="plus_button_'+ index +'" src = "/assets/images/plus_button.png" style="width:20px;height:20px;float:right;"/>\
-      //     </div>\
-      //     <p>'+ (selected_card.children[0].children.length - 3) +' 개</p>\
-      //   </div>\
-      // ');
-
       selected_card.insertAdjacentHTML('beforeend', '\
         <div class="plus_button_section">\
             <p id="plus_button_'+ index +'" style="float: right; margin-right: 20px;">'+ '+ ' + (selected_card.children[0].children.length-3) +'</p>\
@@ -898,7 +888,7 @@ export class UsertimelineComponent implements OnInit {
       // 카드의 너비를 늘려야 하는 경우 (원래 상태로 복귀해야 함)
       if( activityParent.length > 1 ){
         selected_card.style.width = past_width * 2 + "px";
-        selected_card.style.top = this.horizontalLineOffsetTop - selected_card.offsetHeight + "px";
+        selected_card.style.top = 0 - selected_card.offsetHeight + "px";
 
         for(var i = 0 ; i < activityParent.length ; i++){
 
@@ -924,7 +914,8 @@ export class UsertimelineComponent implements OnInit {
     if( activityParent.length > 1 ){
 
       selected_card.style.width = past_width / 2 + "px";
-      // selected_card.style.top = this.horizontalLineOffsetTop - selected_card.offsetHeight + "px";
+
+
 
       for(var i = 0 ; i < activityParent.length ; i++){
 
@@ -945,6 +936,7 @@ export class UsertimelineComponent implements OnInit {
     selected_card.classList.add('fadeIn');
     this.isClicked[this.currentVisibleCard] = true;
     selected_card.classList.add('card-pinned');
+    selected_card.style.top = 0 - selected_card.offsetHeight + "px";
 
   }
 

@@ -716,34 +716,7 @@ export class UsertimelineComponent implements OnInit {
         cardWidth = graduations[i].offsetLeft;
 
         cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1 +'px; visibility: hidden; display: none; z-index: 1000;" >\
-          <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
-          </div>\
-          <div class="card-bubble-arrow-border" style="border-color: rgba(0, 0, 0, 0.2) transparent\
-          transparent transparent !important;\
-          border-style: solid;\
-          border-width: 20px;\
-          height: 0;\
-          width: 0;\
-          position: absolute;\
-          bottom: -42px;\
-          left: -0.5px;"></div>\
-          <div class="card-bubble-arrow" style="border-color: #ffffff transparent transparent transparent !important;\
-          border-style: solid;\
-          border-width: 20px;\
-          height: 0;\
-          width: 0;\
-          position: absolute;\
-          bottom: -39px;\
-          left: -0.5px;"></div>\
-        </div>';
-
-      }else if( i == 1 ){
-        // 이게 실질적으로 첫번째 카드가 된다. 첫번째 카드는 다른 카드들보다 왼쪽 여백을 다르게 준다.
-        cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
-
-        cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[0].offsetLeft) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden; z-index: 1000;">\
+        '<div class="card horizontal white" style="position: absolute; left: 0px; width:'+  cardWidth * 1 +'px; visibility: hidden; display: none; z-index: 100;" >\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
           <div class="card-bubble-arrow-border" style="border-color: rgba(0, 0, 0, 0.2) transparent\
@@ -770,7 +743,7 @@ export class UsertimelineComponent implements OnInit {
         cardWidth = graduations[i].offsetLeft - graduations[i-1].offsetLeft;
 
         cardAreaHTML +=
-        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft + this.horizontalLineOffsetLeft) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden; z-index: 1000;">\
+        '<div class="card horizontal white" style="position: absolute; left:' + (graduations[i-1].offsetLeft + this.horizontalLineOffsetLeft) + 'px; width:'+  cardWidth * 2 +'px; visibility:hidden; z-index: 100;">\
           <div class="row" id="card_' + i + '" style="margin: 0px; width: 100%;">\
           </div>\
           <div class="card-bubble-arrow-border" style="border-color: rgba(0, 0, 0, 0.2) transparent transparent transparent !important;\
@@ -816,6 +789,8 @@ export class UsertimelineComponent implements OnInit {
     var selected_card = this.elementRef.nativeElement.querySelectorAll('.card')[this.currentVisibleCard];
     var past_width = selected_card.offsetWidth;
     var past_left = selected_card.offsetLeft;
+
+    selected_card.style.zIndex = "10";
 
     // 활동이 6개 이상이면 더이상 출력하지 않는다.
     for(var j = 0 ; j < selected_card.children[0].children.length ; j++){
@@ -1007,6 +982,7 @@ export class UsertimelineComponent implements OnInit {
 
         cards[i].style.width = parseInt(cards[i].style.width.replace("px", "")) / 2 + "px";
         // cards[i].style.left = cards[i].offsetLeft + parseInt(cards[i].style.width.replace("px", "")) / 3 + "px";
+        cards[i].style.top = 0 - cards[i].offsetHeight + "px";
 
       }
 
@@ -1037,9 +1013,11 @@ export class UsertimelineComponent implements OnInit {
           // 카드 내용이 비었을 경우에는 활동 내역이 없다는 문구를 출력한다.
           cards[i].children[0].innerHTML += "<p>활동 내역이 없습니다.</p>" ;
           cards[i].style.width = cards[i].offsetWidth / 2 + "px";
-          cards[i].style.left = parseInt(cards[i].style.left.replace("px", "")) +  cards[i].offsetWidth / 2 + "px";
+          // cards[i].style.left = parseInt(cards[i].style.left.replace("px", "")) +  cards[i].offsetWidth / 2 + "px";
 
         }else{
+
+          cards[i].style.top = 0 - cards[i].offsetHeight + "px";
 
           // 활동이 6개 이상이면 더이상 출력하지 않는다.
           for(var j = 0 ; j < cards[i].children[0].children.length ; j++){
@@ -1181,10 +1159,7 @@ export class UsertimelineComponent implements OnInit {
       dateGraduations[i-1].style.borderRadius = parseInt(dateGraduations[i-1].style.borderRadius.replace("px", "")) + (10 * activities_count) + "px";
       dateGraduations[i-1].style.top = parseInt(dateGraduations[i-1].style.width.replace("px", "")) / 2  * -1  + "px";
 
-      cards[i].style.top = 0 - (activities_count / 2) * 150 + 'px';
-      // console.log(this.horizontalLineOffsetTop)
-      // console.log(cards[i].offsetHeight)
-      // cards[i].style.top = 0 + 'px';
+      cards[i].style.top = 0 - cards[i].offsetHeight + "px";
 
     }
 

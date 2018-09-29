@@ -683,13 +683,13 @@ export class UsertimelineComponent implements OnInit {
     html += '\
     <img id="right-arrow" class="animated zoomInRight" src= "/assets/images/right_arrow.png" style="width: 80px; position: absolute; left:'+ (dateGraduationLeft - 80) + 'px; top: -140px;" />';
     html +='\
-    <div class="animated zoomInRight dateGraduation" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; visibility:hidden; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
+    <div class="animated zoomInRight dateGraduation notHoverable" style="position: absolute; background-color: #FFFFFF; height:30px; width: 30px; border-radius: 30px; visibility:hidden; border: 1px solid #727272 ; top: -14px; left:'+ dateGraduationLeft + 'px" data-graduation-date = "' + ( dateGraduationDate - 0 ) + '" ></div>';
 
     dateGraduation.innerHTML = html;
 
     this.elementRef.nativeElement.querySelector('#right-arrow').addEventListener('click', this.clickRightTriangleMove.bind(this));
 
-    for( var i = 0 ; i < dateGraduation.children.length ; i++ ){
+    for( var i = 0 ; i < dateGraduation.children.length - 2 ; i++ ){
       // 마지막 원은 이벤트에서 제거한다.
       dateGraduation.children[i].addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
       dateGraduation.children[i].addEventListener('mouseout', this.doMouseLeaveCard.bind(this));
@@ -774,7 +774,7 @@ export class UsertimelineComponent implements OnInit {
 
     var cards = this.elementRef.nativeElement.querySelectorAll('.card');
 
-    for( var i = 0 ; i < cards.length ; i++ ){
+    for( var i = 0 ; i < cards.length  - 2; i++ ){
 
       this.isClicked[i] = false;
       cards[i].addEventListener('mouseenter', this.doMouseEnterCard.bind(this));
@@ -1048,36 +1048,38 @@ export class UsertimelineComponent implements OnInit {
 
       }
 
-      if(d[0].offsetLeft > e.clientX){
-
-        this.currentVisibleCard = 0;
-
-      }else{
+      // if(d[0].getBoundingClientRect().left > e.clientX){
+      //
+      //   this.currentVisibleCard = 0;
+      //
+      // }else{
 
         for( var i = 0 ; i < d.length ; i++ ){
 
-          if( d[i].offsetLeft  > e.clientX ){
+          if( d[i].getBoundingClientRect().left  > e.clientX ){
 
-            this.currentVisibleCard = i - 1;
+            this.currentVisibleCard = i;
+
             break;
 
           }
-          if( i == d.length-1 ){
-
-            // 마지막 화살표와, 4번째 원을 구별해야 한다.
-            if( d[i].offsetLeft + 200  > e.clientX ){
-
-              this.currentVisibleCard = d.length - 1;
-              break;
-
-            }else{
-              this.currentVisibleCard = d.length;
-            }
-
-          }
+          // if( i == d.length-1 ){
+          //
+          //   // 마지막 화살표와, 4번째 원을 구별해야 한다.
+          //
+          //   if( d[i].getBoundingClientRect().left < e.clientX ){
+          //
+          //     this.currentVisibleCard = d.length;
+          //     console.log(d[this.currentVisibleCard].getBoundingClientRect().left)
+          //     console.log(e.clientX)
+          //     break;
+          //
+          //   }
+          //
+          // }
         }
 
-      }
+      // }
 
       if( this.currentVisibleCard < cards.length ){
 
@@ -1105,7 +1107,7 @@ export class UsertimelineComponent implements OnInit {
 
     for(var i = 0 ; i < d.length ; i++){
 
-      if( d[i].offsetLeft + this.horizontalLine.offsetLeft > e.clientX ){
+      if( d[i].getBoundingClientRect().left > e.clientX ){
 
         this.currentVisibleCard = i;
         // cards[this.currentVisibleCard].classList.remove("animated");

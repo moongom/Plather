@@ -805,18 +805,27 @@ export class UsertimelineComponent implements OnInit {
 
     if( selected_card.children[0].children.length > 3 ){
 
+      // selected_card.insertAdjacentHTML('beforeend', '\
+      //   <div class="row plus_button_section">\
+      //     <div class="col s10 m10 l10"></div>\
+      //     <div class="col s2 m2 l2">\
+      //       \<img id="plus_button_'+ index +'" src = "/assets/images/plus_button.png" style="width:20px;height:20px;float:right;"/>\
+      //     </div>\
+      //     <p>'+ (selected_card.children[0].children.length - 3) +' 개</p>\
+      //   </div>\
+      // ');
+
       selected_card.insertAdjacentHTML('beforeend', '\
-      <div class="row plus_button_section">\
-        <div class="col s10 m10 l10">\
-          \<img id="plus_button_'+ index +'" src = "/assets/images/plus_button.png" style="width:20px;height:20px;float:right;"/>\
+        <div class="plus_button_section">\
+            <p id="plus_button_'+ index +'" style="float: right; margin-right: 20px;">'+ '+ ' + (selected_card.children[0].children.length-3) +'</p>\
         </div>\
-      </div>\
       ');
 
       this.elementRef.nativeElement.querySelector('#plus_button_' + index).addEventListener('click', function(e){
         var params = [];
 
-        var selected_card = e['srcElement'].parentElement.parentElement.parentElement;
+        // var selected_card = e['srcElement'].parentElement.parentElement.parentElement;
+        var selected_card = e['srcElement'].parentElement.parentElement;
         var included_activities = selected_card.childNodes[4].children;
 
 

@@ -1,3 +1,36 @@
-<p>
-  user-portfolio-modal works!
-</p>
+<mat-sidenav mode="side" opened style="width: 230px; left: 0px; top: 0px;" class="fixedclass">
+  <mat-accordion>
+    <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Filter
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="row" *ngFor="let tag of this.portfolio.tags; let i=index">
+        <mat-checkbox id="filter_{{ i }}" (change)="onFilterChange($event)" [checked]="true">{{ tag }}</mat-checkbox>
+      </div>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          다른 메뉴
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>기타 메뉴</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-sidenav>
+<div class="row">
+  <div class="col-12">
+    <div class="container">
+      <div *ngFor="let p of this.portfolio.portfolio; let i=index">
+        <p>user : {{ p.user }}</p><br>
+        <p>supertag : {{ p.supertag }}</p><br>
+        <p>tag : {{ p.tag }}</p><br>
+        <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{p.content}}</p>
+        <p>-----------------------------------------------------------------------------------------</p>
+      </div>
+    <div>
+  </div>
+</div>

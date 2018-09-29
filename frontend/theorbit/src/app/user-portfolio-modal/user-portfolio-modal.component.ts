@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { ElementRef, Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 
@@ -10,11 +10,18 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 export class UserPortfolioModalComponent implements OnInit {
 
-  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, public dialModalRef: MatDialogRef<any> ) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, public dialModalRef: MatDialogRef<any>, private elementRef:ElementRef ) { }
 
   ngOnInit() {
     console.log(this.portfolio);
     // this.changePosition()
+  }
+
+  ngAfterViewInit() {
+    setInterval(() => {
+      this.elementRef.nativeElement.querySelector('#preloader').style.display = "none";
+      this.elementRef.nativeElement.querySelector('#main-content').style.display = "block";
+    }, 500);
   }
 
   changePosition() {

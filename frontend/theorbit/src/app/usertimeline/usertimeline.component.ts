@@ -931,7 +931,6 @@ export class UsertimelineComponent implements OnInit {
     }
 
     selected_card.style.visibility = "visible";
-    selected_card.classList.remove('zoomIn');
     selected_card.classList.add('animated');
     selected_card.classList.add('fadeIn');
     this.isClicked[this.currentVisibleCard] = true;
@@ -1077,7 +1076,6 @@ export class UsertimelineComponent implements OnInit {
 
         cards[this.currentVisibleCard].style.visibility = "visible";
         cards[this.currentVisibleCard].classList.add("animated");
-        cards[this.currentVisibleCard].classList.add("zoomIn");
 
       }
 
@@ -1102,8 +1100,7 @@ export class UsertimelineComponent implements OnInit {
       if( d[i].getBoundingClientRect().left > e.clientX ){
 
         this.currentVisibleCard = i;
-        // cards[this.currentVisibleCard].classList.remove("animated");
-        // cards[this.currentVisibleCard].classList.remove("zoomIn");
+
         break;
 
       }

@@ -10,22 +10,57 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 export class UserPortfolioModalComponent implements OnInit {
 
-  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, public dialModalRef: MatDialogRef<any>, private elementRef:ElementRef ) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, public dialogRef: MatDialogRef<any>, private elementRef:ElementRef ) { }
+
+  screenWidth:number = window.innerWidth;
+  portfolioInd:number = 0;
 
   ngOnInit() {
     console.log(this.portfolio);
-    // this.changePosition()
+
   }
 
   ngAfterViewInit() {
     setInterval(() => {
       this.elementRef.nativeElement.querySelector('#preloader').style.display = "none";
       this.elementRef.nativeElement.querySelector('#main-content').style.display = "block";
-    }, 500);
+    }, 750);
+
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').addEventListener('animationend', function(){
+      this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('animated');
+      this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('fadeInRight');
+      this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('fadeInLeft');
+    }.bind(this));
+  }
+
+  closeDialog() {
+    this.dialogRef.close('Portfolio closed');
+  }
+
+  clickRightButton(){
+
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.add('animated');
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.add('fadeInRight');
+    if(this.portfolioInd == this.portfolio.portfolio.length - 1){
+      this.portfolioInd = 0;
+    }else{
+      this.portfolioInd++;
+    }
+
+  }
+
+  clickLeftButton(){
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.add('animated');
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.add('fadeInLeft');
+    if(this.portfolioInd == 0){
+      this.portfolioInd = this.portfolio.portfolio.length - 1;
+    }else{
+      this.portfolioInd--;
+    }
   }
 
   changePosition() {
-    this.dialModalRef.updatePosition({ top: '50px', left: '50px' });
+    this.dialogRef.updatePosition({ top: '50px', left: '50px' });
   }
 
 }

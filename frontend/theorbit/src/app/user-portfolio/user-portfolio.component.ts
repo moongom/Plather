@@ -32,6 +32,7 @@ export class UserPortfolioComponent implements OnInit {
   제1항의 탄핵소추는 국회재적의원 3분의 1 이상의 발의가 있어야 하며, 그 의결은 국회재적의원 과반수의 찬성이 있어야 한다. 다만, 대통령에 대한 탄핵소추는 국회재적의원 과반수의 발의와 국회재적의원 3분의 2 이상의 찬성이 있어야 한다. 대한민국은 민주공화국이다. 국가안전보장회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다.\n\
   국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다. 계엄을 선포한 때에는 대통령은 지체없이 국회에 통고하여야 한다. 대통령이 제1항의 기간내에 공포나 재의의 요구를 하지 아니한 때에도 그 법률안은 법률로서 확정된다.\n\
   국민경제자문회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다. 대통령은 국무총리·국무위원·행정각부의 장 기타 법률이 정하는 공사의 직을 겸할 수 없다. 이 헌법은 1988년 2월 25일부터 시행한다. 다만, 이 헌법을 시행하기 위하여 필요한 법률의 제정·개정과 이 헌법에 의한 대통령 및 국회의원의 선거 기타 이 헌법시행에 관한 준비는 이 헌법시행 전에 할 수 있다.']
+  images = ['https://material.angular.io/assets/img/examples/shiba2.jpg', 'http://placehold.it/400x500/E8117F/ffffff?text=문곰화이팅', 'https://material.angular.io/assets/img/examples/shiba1.jpg', 'http://placehold.it/300x100/E8117F/ffffff?text=졸려요'];
   userName = ['김희재']
   cellWidth;
   activities = [];
@@ -106,9 +107,16 @@ export class UserPortfolioComponent implements OnInit {
       var tempActivity = {
 
         supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
-        tag: [this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]],
+        tag: [
+          this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]
+        ],
         user: this.userName[Math.floor(Math.random()*this.userName.length)],
-        content: this.content[Math.floor(Math.random()*this.content.length)]
+        content: this.content[Math.floor(Math.random()*this.content.length)],
+        images: [
+          this.images[Math.floor(Math.random()*this.images.length)],
+          this.images[Math.floor(Math.random()*this.images.length)],
+          this.images[Math.floor(Math.random()*this.images.length)]
+        ]
 
       }
 

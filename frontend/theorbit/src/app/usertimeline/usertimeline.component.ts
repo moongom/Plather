@@ -843,7 +843,7 @@ export class UsertimelineComponent implements OnInit {
           <div class = "col s9 m9 l9"></div>\
           <div class = "col s3 m3 l3"></div>\
             <img src="/assets/images/maximize_button.png" id="maximize-button-'+ index +'" style="width: 20px; height: 20px;">\
-            <img src="/assets/images/close_button.png" id="close-button-'+ index +'" style="width: 20px; height: 20px;">\
+            <img src="/assets/images/close_button_circle.png" id="close-button-'+ index +'" style="width: 20px; height: 20px;">\
           </div>\
         </div>\
       </div>\

@@ -41,6 +41,10 @@
 </div>
 
 <div id="main-content" style="display: none;">
+  <img src="/assets/images/close_button.png" id="close-button" (click)="closeDialog()" [ngStyle]="{'position':'fixed', 'top':'20px', 'left': this.screenWidth * 0.95 - 50 + 'px','width':'30px','height':'30px', 'zIndex':'200'}">
+  <img src="/assets/images/right_arrow.png" id="right-button" (click)="clickRightButton()" [ngStyle]="{'position':'fixed', 'top':'50%', 'left': this.screenWidth * 0.95 - 50 + 'px','width':'50px','height':'50px', 'zIndex':'200'}">
+  <img src="/assets/images/left_arrow.png" id="left-button" (click)="clickLeftButton()" [ngStyle]="{'position':'fixed', 'top':'50%', 'left': 230 + this.screenWidth * 0.05 + 'px','width':'50px','height':'50px', 'zIndex':'200'}">
+
   <mat-sidenav mode="side" opened style="width: 230px; left: 0px; top: 0px;" class="fixedclass">
     <mat-accordion>
       <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" expanded>
@@ -64,17 +68,28 @@
       </mat-expansion-panel>
     </mat-accordion>
   </mat-sidenav>
-  <div class="row">
-    <div class="col-12">
-      <div class="container">
-        <div *ngFor="let p of this.portfolio.portfolio; let i=index">
+  <div class="row" style="margin: 0px 0px 0px 230px;">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <div class="container" style="text-align: center;">
+        <!-- <div *ngFor="let p of this.portfolio.portfolio; let i=index">
           <p>user : {{ p.user }}</p><br>
           <p>supertag : {{ p.supertag }}</p><br>
           <p>tag : {{ p.tag }}</p><br>
           <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{p.content}}</p>
-          <p>-----------------------------------------------------------------------------------------</p>
+          <p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+        </div> -->
+        <div class="portfolio-specific">
+
+          <p id="portfolio-content-title">user : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br>
+          <p id="portfolio-content-tag">tag : {{ this.portfolio.portfolio[this.portfolioInd].tag }}</p><br>
+          <img src="{{ this.portfolio.portfolio[this.portfolioInd].images[1] }}" align="middle" />
+          <p id="portfolio-content" style="margin-bottom: 2rem;white-space:pre-wrap;">{{this.portfolio.portfolio[this.portfolioInd].content}}</p>
+          <img src="{{ this.portfolio.portfolio[this.portfolioInd].images[2] }}" align="middle" />
+
         </div>
       <div>
     </div>
+    <div class="col-1"></div>
   </div>
 </div>

@@ -1,15 +1,17 @@
-<div class="container" style="margin-top: 20px;">
+<div class="container" style="margin-top: 20px; text-align:center;">
+  <h1>Portfolios</h1>
   <div class="portfolio-cell" *ngFor="let row of this.getRow(this.portfolios); let rowIndex = index ">
     <div class="row">
       <div class="col s3 m3 l3" style="text-align: center;" *ngFor="let col of getArray(4); let colIndex = index" (click)="showPortfolio(rowIndex*4 + colIndex)">
         <div class="cell-content" *ngIf="colIndex < this.getCol(rowIndex, this.portfolios).length">
-          <mat-card class="example-card hoverable">
+          <mat-card class="example-card hoverable" [ngStyle]="{'padding-bottom':'0px'}">
             <mat-card-header>
               <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{ this.getKey(this.portfolios)[rowIndex*4 + colIndex] }}</mat-card-title>
               <mat-card-subtitle>{{ this.portfolios[this.getKey(this.portfolios)[rowIndex*4 + colIndex]][0].user }}</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="http://via.placeholder.com/200x200" alt="Photo">
+            <img mat-card-image src="{{ images[(rowIndex*2+colIndex*7)%(images.length)] }}" alt="Photo">
+            <!-- <img mat-card-image src="http://via.placeholder.com/200x200" alt="Photo"> -->
             <!-- <mat-card-content>
               <p>
                 {{ this.getKey(this.portfolios)[rowIndex*4 + colIndex] }}

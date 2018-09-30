@@ -79,10 +79,12 @@
           <p style="margin-bottom: 2rem;white-space:pre-wrap;">{{p.content}}</p>
           <p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
         </div> -->
-        <div class="portfolio-specific">
 
-          <p id="portfolio-content-title">user : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br>
-          <p id="portfolio-content-tag">tag : {{ this.portfolio.portfolio[this.portfolioInd].tag }}</p><br>
+        <h1>{{ this.portfolio.portfolio[this.portfolioInd].supertag }}</h1>
+        <div class="portfolio-specific">
+          <br>
+          <p style="float: left;" id="portfolio-content-title">작성자 : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br><br>
+          <span style="float:left;" class="portfolio-content-tag" *ngFor="let tag of portfolio.portfolio[this.portfolioInd].tag">#{{ tag }} </span><br>
           <img src="{{ this.portfolio.portfolio[this.portfolioInd].images[1] }}" align="middle" />
           <p id="portfolio-content" style="margin-bottom: 2rem;white-space:pre-wrap;">{{this.portfolio.portfolio[this.portfolioInd].content}}</p>
           <img src="{{ this.portfolio.portfolio[this.portfolioInd].images[2] }}" align="middle" />

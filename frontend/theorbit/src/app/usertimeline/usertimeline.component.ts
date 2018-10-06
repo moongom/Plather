@@ -950,8 +950,6 @@ export class UsertimelineComponent implements OnInit {
 
       selected_card.style.width = past_width / 2 + "px";
 
-
-
       for(var i = 0 ; i < activityParent.length ; i++){
 
         activityParent[i].classList.remove("s6");
@@ -974,19 +972,29 @@ export class UsertimelineComponent implements OnInit {
 
   }
 
-  makePortfolioWithSuperTag(supertag){
+  makePortfolioWithSuperTag(supertag, activityInd){
 
     var portfolio = [];
+    var portfolioInd = 0;
+
     this.activities.forEach((portfolioActivity, i) => {
 
       if(portfolioActivity.supertag == supertag){
+        // 포트폴리오 모달에서 클릭된 활동을 보여주기 위해 portfolioInd라는 변수가 필요하다.
+        if(activityInd > i){
+          portfolioInd++;
+        }
 
         portfolio.push(portfolioActivity);
 
       }
     })
 
-    return portfolio;
+    let result = new Object();
+    result['portfolio'] = portfolio;
+    result['portfolioInd'] = portfolioInd;
+
+    return result;
 
   }
 
@@ -1011,10 +1019,10 @@ export class UsertimelineComponent implements OnInit {
           cardHTML += '\
               <div class="col s6 m6 l6 card-activity" id="card-activity-'+ i +'" style="padding: 0px;" data-activity_id=' + i + '>\
                 <div class="card-image" style="float:left;">\
-                  <img src="'+ this.images[Math.floor(Math.random()*this.images.length)] +'" style="height: ' + this.listImageHeight + 'px; padding: 15px; ">\
+                  <img class="card-image-specific" src="'+ this.images[Math.floor(Math.random()*this.images.length)] +'" style="height: ' + this.listImageHeight + 'px; padding: 15px; ">\
                 </div>\
                 <div class="card-content" style="margin-left: 110px; padding: 15px;">\
-                  <p style="font-size: 15px; font-weight:bold;" id= "cardTitle_' + i + '" class="card-title">' + activities[i].tag[0] + '</p>\
+                  <p style="font-size: 15px; font-weight:bold;" id= "cardTitle_' + i + '" class="card-title">' + activities[i].tag + '</p>\
                   <p style="text-overflow: ellipsis;">'+ activities[i].supertag +'</p>\
                   <p style="text-overflow: ellipsis;">'+activities[i].date.getFullYear() + '/' + (activities[i].date.getMonth()+1)+ '/' + activities[i].date.getDate()+'</p>\
                 </div>\
@@ -1029,24 +1037,52 @@ export class UsertimelineComponent implements OnInit {
 
     }
 
-    // for(var i = 0 ; i < this.activities.length ; i++){
+
     this.activities.forEach((portfolioActivity, i) => {
+
       let activity = this.elementRef.nativeElement.querySelector('#card-activity-'+i);
 
       if(activity != null){
+        // 활동을 클릭되었을 때 취해져야 할 액션을 표시한다.
+
         activity.addEventListener('click', function(e){
 
-          let portfolio = this.makePortfolioWithSuperTag(portfolioActivity.supertag);
+          let result = this.makePortfolioWithSuperTag(portfolioActivity.supertag, activity.dataset.activity_id);
 
+          let portfolio = result.portfolio;
           var tagSet = new Set();
+
           for ( var i = 0 ; i < portfolio.length ; i++){
             for( var j = 0 ; j < portfolio[i].tag.length ; j++ ){
               tagSet.add(portfolio[i].tag[j]);
             }
           }
-          this.openPortfolio(portfolio, Array.from(tagSet));
+
+          this.openPortfolio(portfolio, Array.from(tagSet), result.portfolioInd);
 
         }.bind(this))
+
+        // 활동이 hover되었을 때 나타내야 할 액션을 표현해야 한다.(썸네일 이미지를 어둡게 하고, 밑줄이 쳐지게 해야 한다. )
+        activity.addEventListener('mouseenter', function(e){
+
+          var cardActivityImageSpecific = activity.querySelector('.card-image-specific');
+          var cardTitle = activity.querySelector('.card-title');
+
+          cardTitle.style.textDecoration = "underline";
+          cardActivityImageSpecific.style.filter = "brightness(75%)";
+        }.bind(this))
+
+
+        activity.addEventListener('mouseleave', function(e){
+
+          var cardActivityImageSpecific = activity.querySelector('.card-image-specific');
+          var cardTitle = activity.querySelector('.card-title');
+
+          cardTitle.style.textDecoration = "none";
+          cardActivityImageSpecific.style.filter = "brightness(100%)";
+
+        }.bind(this))
+
       }
     })
 
@@ -1126,27 +1162,14 @@ export class UsertimelineComponent implements OnInit {
             break;
 
           }
-          // if( i == d.length-1 ){
-          //
-          //   // 마지막 화살표와, 4번째 원을 구별해야 한다.
-          //
-          //   if( d[i].getBoundingClientRect().left < e.clientX ){
-          //
-          //     this.currentVisibleCard = d.length;
-          //     console.log(d[this.currentVisibleCard].getBoundingClientRect().left)
-          //     console.log(e.clientX)
-          //     break;
-          //
-          //   }
-          //
-          // }
+
         }
 
-      // }
 
       if( this.currentVisibleCard < cards.length ){
 
         cards[this.currentVisibleCard].style.visibility = "visible";
+        cards[this.currentVisibleCard].style.zIndex = "11";
         cards[this.currentVisibleCard].classList.add("animated");
 
       }
@@ -1206,6 +1229,7 @@ export class UsertimelineComponent implements OnInit {
 
       for( var i = 0 ; i < cards.length ; i++ ){
         cards[i].style.visibility = "hidden";
+        cards[i].style.zIndex = "10";
       }
 
     }
@@ -1215,6 +1239,7 @@ export class UsertimelineComponent implements OnInit {
       if( cards[i].classList.contains('card-pinned') == false ){
 
         cards[i].style.visibility = "hidden";
+        cards[i].style.zIndex = "10";
         this.isClicked[i] = false;
 
       }
@@ -1248,7 +1273,8 @@ export class UsertimelineComponent implements OnInit {
   }
 
   // 확대 버튼을 누르면 포트폴리오 모달을 띄운다.
-  openPortfolio( portfolio, tagSets ): void {
+  openPortfolio( portfolio, tagSets, portfolioInd ): void {
+
 
     history.pushState(null, null, '/user-portfolio/user_id');
 
@@ -1257,7 +1283,7 @@ export class UsertimelineComponent implements OnInit {
       width: '100%',
       height: '100%',
       maxWidth: '2000px',
-      data: { portfolio: portfolio, tags: tagSets }
+      data: { portfolio: portfolio, tags: tagSets, currentPortfolioInd: portfolioInd }
 
     });
 

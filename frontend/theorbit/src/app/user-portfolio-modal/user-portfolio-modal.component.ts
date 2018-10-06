@@ -10,13 +10,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 export class UserPortfolioModalComponent implements OnInit {
 
-  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, public dialogRef: MatDialogRef<any>, private elementRef:ElementRef ) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, @Inject(MAT_DIALOG_DATA) public currentPortfolioInd: number, public dialogRef: MatDialogRef<any>, private elementRef:ElementRef ) { }
 
   screenWidth:number = window.innerWidth;
   portfolioInd:number = 0;
 
   ngOnInit() {
-    console.log(this.portfolio);
+
+    this.portfolioInd = this.portfolio.currentPortfolioInd;
 
   }
 

@@ -89,7 +89,7 @@ export class UserPortfolioComponent implements OnInit {
       width: '100%',
       height: '100%',
       maxWidth: '2000px',
-      data: { portfolio: portfolio, tags: tags }
+      data: { portfolio: portfolio, tags: tags, currentPortfolioInd: 0 }
 
     });
 

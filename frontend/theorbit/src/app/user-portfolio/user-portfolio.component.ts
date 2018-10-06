@@ -66,18 +66,19 @@ export class UserPortfolioComponent implements OnInit {
   showPortfolio(index){
 
     var portfolio = this.portfolios[this.getKey(this.portfolios)[index]];
+    console.log(portfolio);
     var tagSet = new Set();
     for ( var i = 0 ; i < portfolio.length ; i++){
       for( var j = 0 ; j < portfolio[i].tag.length ; j++ ){
         tagSet.add(portfolio[i].tag[j]);
       }
     }
-    this.openDialog(portfolio, Array.from(tagSet));
+    this.openPortfolio(portfolio, Array.from(tagSet));
 
   }
 
   // 확대 버튼을 누르면 포트폴리오 모달을 띄운다.
-  openDialog( portfolio, tags ): void {
+  openPortfolio( portfolio, tags ): void {
 
     history.pushState(null, null, '/user-portfolio/user_id');
 

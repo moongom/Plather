@@ -50,13 +50,13 @@
       <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" expanded>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Filter
+            {{ this.portfolio.portfolio[this.portfolioInd].supertag }}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row" *ngFor="let tag of this.portfolio.tags; let i=index">
-          <mat-checkbox id="filter_{{ i }}" (change)="onFilterChange($event)" [checked]="true">{{ tag }}</mat-checkbox>
+          <mat-checkbox id="filter_{{ i }}" [checked]="true">{{ tag }}</mat-checkbox>
         </div>
-
+        <!-- (change)="onFilterChange($event)" -->
       </mat-expansion-panel>
       <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}">
         <mat-expansion-panel-header>

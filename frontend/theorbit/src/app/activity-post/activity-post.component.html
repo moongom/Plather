@@ -1,26 +1,67 @@
-<div class="container">
-    <div class="row">
-      <label for="title">활동 제목</label>
-      <div class="input-field col s12">
-        <input id="title" type="text" style="background-color: #F9F9F9; border-radius: 10px;">
-      </div>
+<div class="preloader-wrapper big active" id="preloader" style="position: absolute; left: 50%; top: 50%;">
+  <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
-    <div class="row">
-      <label for="content">활동 내용</label>
-      <div class="col s12">
-        <textarea id="content" style="height: 200px; background-color: #F9F9F9; border-radius: 10px;" class="materialize-textarea"></textarea>
-      </div>
+  </div>
+
+  <div class="spinner-layer spinner-red">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
-    <div class="row">
-      <div class="input-field">
-        <input id="input-file-id" multiple type="file" />
-      </div>
+  </div>
+
+  <div class="spinner-layer spinner-yellow">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
-    <div class="row">
-      <label for="tag">태그 / 슈퍼태그</label>
-      <div class="input-field col s12">
-        <input id="tag" type="text" style="background-color: #F9F9F9; border-radius: 10px;">
-      </div>
+  </div>
+
+  <div class="spinner-layer spinner-green">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
-    <button class="waves-light btn" style="background-color: gray;" id="activity-post-btn">저장하기</button>
+  </div>
 </div>
+
+<img src="/assets/images/close_button.png" id="close-button" (click)="closeDialog()" [ngStyle]="{'position':'fixed', 'top':'20px', 'left': this.screenWidth * 0.95 - 50 + 'px','width':'30px','height':'30px', 'zIndex':'200'}">
+
+
+  <div class="row" id="summernote-input-form" style="margin-top: 100px;">
+    <div class="col-1"></div>
+    <div class="col-10" style="border: 1px solid #efefef;">
+      <div class="container">
+        <div class="well off-top">
+          <!-- <div class="alert alert-success" *ngIf="postSaved">미리보기에 반영되었습니다.</div> -->
+          <h4>포트폴리오 게시물을 작성해 주세요</h4>
+          <form role="form" [formGroup]="savePostForm" (ngSubmit)="showPreview($event)">
+            <button type="submit" >미리보기</button>
+            <div class="form-group" style="margin-top: 30px;">
+              <textarea id="summernote" class="form-control"></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <!-- <div class="col-9" style="border: 1px solid #efefef;">
+      <h4>Portfolio 미리보기: </h4>
+      <div id="preview"></div>
+    </div> -->
+  </div>

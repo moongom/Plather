@@ -10,6 +10,7 @@ import { UsertimelineSpecificComponent } from './usertimeline-specific/usertimel
 import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
 import { UserPortfolioModalComponent } from './user-portfolio-modal/user-portfolio-modal.component';
 import { ActivityPostComponent } from './activity-post/activity-post.component';
+import { ActivityPostPreviewComponent } from './activity-post-preview/activity-post-preview.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import 'hammerjs';
@@ -80,6 +81,7 @@ import {
     UserPortfolioComponent,
     UserPortfolioModalComponent,
     ActivityPostComponent,
+    ActivityPostPreviewComponent,
     EditProfileComponent,
     LandingPageComponent,
     LoginComponent,
@@ -88,7 +90,7 @@ import {
     ShowSpecificActivitiesComponent,
   ],
 
-  entryComponents: [ActivityPostComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent, UserPortfolioModalComponent],
+  entryComponents: [ActivityPostComponent, ActivityPostPreviewComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent, UserPortfolioModalComponent],
 
   imports: [
 

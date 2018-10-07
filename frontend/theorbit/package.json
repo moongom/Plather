@@ -29,6 +29,7 @@
     "ng-simple-slideshow": "^1.2.3",
     "ngx-bootstrap": "^3.0.1",
     "rxjs": "^6.0.0",
+    "summernote": "^0.8.10",
     "webpack-bundle-tracker": "^0.3.0",
     "zone.js": "~0.8.26"
   },

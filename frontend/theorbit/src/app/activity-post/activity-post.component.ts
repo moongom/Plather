@@ -56,9 +56,6 @@ export class ActivityPostComponent implements OnInit {
       popoverAll[i].style.display = "none";
     }
 
-    $.summernote('destroy')
-
-
   }
 
   ngOnInit() {
@@ -67,7 +64,7 @@ export class ActivityPostComponent implements OnInit {
 
       setInterval(() => {
         $('#preloader').css("display", "none")
-        // $('#summernote-input-form').css("display", "block")
+        $('#summernote-input-form').css("display", "block")
       }, 750);
 
       $('#summernote').summernote({

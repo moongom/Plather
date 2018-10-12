@@ -92,10 +92,10 @@ export class ActivityPostComponent implements OnInit {
 
             let editor = $('.note-editable')
 
-            let editorHeight = editor.offset().top + editor.height()
+            let editorHeight = editor.position().top + editor.height()
 
 
-            let lastElementBorder = editor.children().last().offset().top + editor.children().last().height()
+            let lastElementBorder = editor.children().last().position().top + editor.children().last().height()
 
             console.log(editorHeight)
             console.log(lastElementBorder)

@@ -89,21 +89,27 @@ export class ActivityPostComponent implements OnInit {
 
           },
           onChange: function(contents, $editable) {
-            let text = $('#summernote').summernote('code');
 
-            if (text != null && text != '') {
-              console.log(this.postText);
-              this.postText = text;
-              this.postSaved = true;
-              // document.getElementById('preview').innerHTML = text;
+            let editor = $('.note-editable')
+
+            let editorHeight = editor.offset().top + editor.height()
+
+
+            let lastElementBorder = editor.children().last().offset().top + editor.children().last().height()
+
+            console.log(editorHeight)
+            console.log(lastElementBorder)
+
+            if(lastElementBorder + 200 > editorHeight){
+              console.log("increase")
+              $('.note-editable').css('max-height', lastElementBorder+200+'px')
+              $('.note-editable').css('height', lastElementBorder+200+'px')
             }
-            else {
-              console.error("posts empty");
-              this.postSaved = false;
-            }
-          }
+
+          },
         },
-        airMode: true,
+
+        airMode: true
 
       });
 
@@ -111,6 +117,7 @@ export class ActivityPostComponent implements OnInit {
       $('.note-editor').css("border", "0px solid transparent");
 
     });
+
   }
 
 
@@ -119,30 +126,7 @@ export class ActivityPostComponent implements OnInit {
 
   }
 
-  // on submit method
-  // savePost() {
-  //   let text = $('#summernote').summernote('code');
-  //   console.log(text);
-  //   if (text != null && text != '') {
-  //     this.postText = text;
-  //     this.postSaved = true;
-  //     setTimeout(() => this.postSaved = false, 2000);
-  //   }
-  //   else {
-  //     console.error("posts empty");
-  //     this.postSaved = false;
-  //   }
-  // }
-
-
   showPreview(): void {
-
-    // let images = this.elementRef.nativeElement.querySelectorAll('img');
-    // for(var i = 0 ; i < images.length ; i++){
-    //   images[i].style.width = images.offsetWidth + "px";
-    //   images[i].style.height = images.offsetHeight + "px";
-    //   console.log(images[i])
-    // }
 
     let images = $('img')
 
@@ -176,15 +160,15 @@ export class ActivityPostComponent implements OnInit {
   }
 
   // json 활용
-  sendData(data: any) {
-
-    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-
-    return this.http.post('http://localhost:4200/example',
-              JSON.stringify(data),
-              { headers: headers })
-
-  }
+  // sendData(data: any) {
+  //
+  //   const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+  //
+  //   return this.http.post('http://localhost:4200/example',
+  //             JSON.stringify(data),
+  //             { headers: headers })
+  //
+  // }
 
   closeDialog() {
     this.dialogRef.close('Input Form Closed');

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from Tag.models.models import FilterTagModel, SuperTagModel, GlobalTagRelation, UserTagRelation
+from Tag.models.models import FilterTagModel, SuperTagModel, PostGlobalTagRelation, PostUserTagRelation
 # Register your models here.\
 
 admin.site.register(FilterTagModel)
 admin.site.register(SuperTagModel)
-admin.site.register(GlobalTagRelation)
-admin.site.register(UserTagRelation)
+admin.site.register(PostGlobalTagRelation)
+admin.site.register(PostUserTagRelation)

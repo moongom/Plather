@@ -9,7 +9,7 @@ class PostAdminForm(forms.ModelForm):
     class Meta:
         model = GeneralPost
         fields = [
-            'id', 'user', 'title', 'content', 'tags_json'
+            'id', 'user', 'title', 'content',
         ]
 
 

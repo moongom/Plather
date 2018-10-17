@@ -6,14 +6,15 @@ from django.db.models.signals import post_save
 
 # for users
 from django.conf import settings
+
 User = settings.AUTH_USER_MODEL
 
 # for tags
 from Tag.models.fields import TagJSONFIELD
-from Tag.models.models import FilterTagModel, SuperTagModel, GlobalTagRelation, UserTagRelation
 
 
 class GeneralPost(models.Model):
+
     id = models.BigAutoField(primary_key=True, db_index=True)
 
     user = models.ForeignKey(User, db_index=True)
@@ -21,7 +22,7 @@ class GeneralPost(models.Model):
     pub_date = models.DateTimeField(default=timezone.now)
     last_edit_date = models.DateTimeField(default=timezone.now)
 
-    did_date = models.DateTimeField(default=timezone.now, db_index=True)
+    did_date = models.DateTimeField(default=timezone.now, db_index=False)
 
     title = models.CharField(max_length=150, null=False)
     content = models.CharField(max_length=500000, null=True, blank=True)
@@ -30,7 +31,8 @@ class GeneralPost(models.Model):
     # But parses through to check tag integrity, then also save it to the
     # TagBase Model and bridging table
     # this field should only exist here! Or else descriptor will break
-    tags_json = TagJSONFIELD(default=dict, blank=True)
+    tags_json = TagJSONFIELD(default=dict,
+                             tag_models=['FILTERTAGMODEL'])
 
     # class Comment(models.Model):
     #     id = models.BigAutoField(primary_key=True, db_index=True)

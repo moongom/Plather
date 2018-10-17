@@ -25,6 +25,7 @@ import logging
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode as uid_decoder
 
+from Account.models import User
 from Account.serializers import CreateUserSerializer, LoginSerializer, PublicUserSerializer, TokenSerializer
 
 from Post.permissions import IsOwnerOrReadOnly
@@ -47,6 +48,21 @@ class UserDetailView(RetrieveAPIView):
     queryset = User.objects.all()
     permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = PublicUserSerializer
+
+    def get_queryset(self):
+        return User.objects.all()
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        filter = {}
+
+        for field in self.multiple_lookup_fields:
+            print(field)
+            filter[field] = self.kwargs[field]
+
+        obj = get_object_or_404(queryset, **filter)
+        self.check_object_permissions(self.request, obj)
+        return obj
 
 
 class LoginView(GenericAPIView):
@@ -135,7 +151,7 @@ class LogoutView(APIView):
 class RegisterView(GenericAPIView):
     permission_classes = (AllowAny,)
     serializer_class = CreateUserSerializer
-    
+
     @sensitive_post_parameters_m
     def dispatch(self, *args, **kwargs):
         return super(RegisterView, self).dispatch(*args, **kwargs)
@@ -158,7 +174,7 @@ class RegisterView(GenericAPIView):
         return user
 
         # current_site = get_current_site(self.request)
-        
+
         # subject = (_('Welcome To %s! Confirm Your Email') % current_site.name)
         # message = render_to_string('registration/user_activate_email.html', {
         #     'user': user,

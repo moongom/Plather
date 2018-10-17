@@ -20,14 +20,15 @@ class PublicUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = (
-            'email',
-            'screen_name',)
+        read_only_fields = ('email', 'screen_name')
+
+    def get_url(self, obj):
+        return reverse("detail", kwargs={"email": obj.email})
 
 
 # this is for login situations!! - set readonly and writeonly
 class LoginSerializer(serializers.Serializer):
-    email = serializers.CharField(max_length=20)
+    email = serializers.CharField(max_length=40)
     password = serializers.CharField(style={'input_type': 'password'})
 
     def _validate_email(self, email, password):
@@ -59,7 +60,7 @@ class LoginSerializer(serializers.Serializer):
 
 class CreateUserSerializer(serializers.ModelSerializer):
     # for user creation!
-    
+
     class Meta:
         model = User
         fields = ('email', 'screen_name', 'password', 'phone_number')
@@ -74,7 +75,9 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class TokenSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = TokenModel
         fields = ('key',)

@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Tag',
     'Account',
     'Horizon',
+    'Tag',
     'Post',
     'rest_framework',
     'rest_framework.authtoken',
@@ -152,4 +152,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static-root')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-

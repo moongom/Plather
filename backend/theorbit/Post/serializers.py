@@ -26,14 +26,12 @@ from Tag.serializers import TagJsonFieldSerializer
 
 # for posting
 class GeneralPostserializer(serializers.ModelSerializer):
-    user = PublicUserSerializer()
     title = serializers.CharField(max_length=150)
     content = serializers.CharField(max_length=500000)
     tags_json = TagJsonFieldSerializer()
-    last_edit_date = serializers.HiddenField(default=timezone.now)
 
     class Meta:
         model = GeneralPost
-        fields = ('id', 'user', 'title', 'content', 'did_date',
-                  'tags_json', 'last_edit_date')
-        read_only_fields = ('pub_date',)
+        fields = ('title', 'content', 'did_date',
+                  'tags_json', )
+        read_only_fields = ('pub_date', 'last_edit_date')

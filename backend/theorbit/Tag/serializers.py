@@ -3,6 +3,8 @@ import re
 
 from rest_framework import serializers
 
+from Tag.constants import OPTION_DEFAULTS
+
 
 class TagJsonFieldSerializer(serializers.BaseSerializer):
 
@@ -11,9 +13,15 @@ class TagJsonFieldSerializer(serializers.BaseSerializer):
         # varies. It can allow both, or do only one depending on the variable
         # important! = returns a dictionary {'tag' : [...], 'supertag': [...]}
         # Makes this start throwing more errors!
+
+        # tag_max_count = OPTION_DEFAULTS.get(tag_max_count)
+        # supertag_max_count = OPTION_DEFAULTS.get(supertag_max_count)
+        # tag_supertag_coexits = OPTION_DEFAULTS.get(tag_supertag_coexits)
+
         tag_max_count = 10
         supertag_max_count = 5
-        supertag_tag_coexist = True
+        tag_supertag_coexits = True
+
         # Empty string easiest case
         if not data:
             return dict

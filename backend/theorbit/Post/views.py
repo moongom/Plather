@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import mixins
 
 from django.shortcuts import render
+from django.utils import timezone
 
 from Post.models import GeneralPost
 from Post.serializers import GeneralPostserializer
@@ -35,4 +36,4 @@ class GeneralPostCreateView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user, last_edit_date=timezone.now)

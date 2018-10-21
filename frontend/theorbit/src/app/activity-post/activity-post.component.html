@@ -50,7 +50,7 @@
         <div class="well off-top">
           <!-- <div class="alert alert-success" *ngIf="postSaved">미리보기에 반영되었습니다.</div> -->
           <h4>포트폴리오 게시물을 작성해 주세요</h4>
-          <form role="form" [formGroup]="savePostForm" (ngSubmit)="showPreview($event)">
+          <form role="form" [formGroup]="savePostForm" (ngSubmit)="showPreview()">
             <button type="submit" >미리보기</button>
             <div class="form-group" style="margin-top: 30px;">
               <textarea id="summernote" class="form-control"></textarea>

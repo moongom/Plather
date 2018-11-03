@@ -9,6 +9,7 @@ import { UsertimelineComponent } from './usertimeline/usertimeline.component';
 import { UsertimelineSpecificComponent } from './usertimeline-specific/usertimeline-specific.component';
 import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
 import { UserPortfolioModalComponent } from './user-portfolio-modal/user-portfolio-modal.component';
+import { UserPortfolioLeftProfileComponent } from './user-portfolio-left-profile/user-portfolio-left-profile.component';
 import { ActivityPostComponent } from './activity-post/activity-post.component';
 import { ActivityPostPreviewComponent } from './activity-post-preview/activity-post-preview.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
@@ -80,6 +81,7 @@ import {
     UsertimelineSpecificComponent,
     UserPortfolioComponent,
     UserPortfolioModalComponent,
+    UserPortfolioLeftProfileComponent,
     ActivityPostComponent,
     ActivityPostPreviewComponent,
     EditProfileComponent,
@@ -90,7 +92,7 @@ import {
     ShowSpecificActivitiesComponent,
   ],
 
-  entryComponents: [ActivityPostComponent, ActivityPostPreviewComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent, UserPortfolioModalComponent],
+  entryComponents: [ActivityPostComponent, ActivityPostPreviewComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent, UserPortfolioModalComponent, UserPortfolioLeftProfileComponent],
 
   imports: [
 

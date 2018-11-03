@@ -1,0 +1,55 @@
+.mat-card-content {
+  border-radius: 10px; 
+  background-color: white; 
+  margin: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.user-profile-card {
+  margin-top: 10px;
+  border-radius: 10px; 
+  background-color: #C9C9C9; 
+  padding: 10px;
+}
+.user-profile-supertag {
+  height: 100px;
+}
+.user-profile-name {
+  font-size: 20px;
+  color: black;
+}
+.user-profile-subtag {
+  height: 100px;
+}
+.user-portfolio-card-title {
+  color: gray; 
+  font-size: 13px;
+  margin: 3px;
+}
+.user-portfolio-card-content-title {
+  margin-top: 10px;
+  color: gray; 
+  font-size: 13px;
+  margin: 3px;
+  float: right;
+  padding-right: 15px;
+}
+.user-portfolio-card-content {
+  margin-top: 10px;
+  color: gray; 
+  font-size: 13px;
+  margin: 3px;
+  text-align: center;
+  overflow: hidden;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.user-portfolio-content-sub {
+  margin-top: 10px;
+}
+#user-profile-area {
+  display: block;
+}
+#portfolio-contents-area {
+  display: none;
+}

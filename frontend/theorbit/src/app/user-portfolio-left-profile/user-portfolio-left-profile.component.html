@@ -1,0 +1,48 @@
+<div class="animated" id="user-portfolio-area" [ngClass]="[isProfileArea? 'fadeInRight' : '']" [ngStyle]="{'display': isProfileArea? 'block' : 'none'}">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10" style="text-align: center;">
+      <img class="img-responsive" src="/assets/images/sample_profile_picture.png" style="width: 100%;">
+      <div>
+        <span class="user-profile-name">Kim Yeon Woo</span>
+        <img src="/assets/images/right_arrow.png" (click)="clickRightButton()" style="width: 30px; margin: 0px;">
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-12">
+      <mat-card class="user-profile-card">
+        <mat-card-content>
+          <span class="user-portfolio-card-title">포트폴리오 제목</span>
+          <span class="user-portfolio-card-content-title">{{ this.portfolioTitle.portfolioTitle }}</span>
+        </mat-card-content>
+        <mat-card-content class="user-profile-supertag">
+            <span class="user-portfolio-card-title">슈퍼태그</span>
+            <div class="row user-portfolio-content-sub">
+              <div class="col-12">
+                <span class="user-portfolio-card-content">{{ this.portfolioTitle.portfolioTitle }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        <mat-card-content class="user-profile-subtag">
+            <span class="user-portfolio-card-title">하위 태그</span>
+            <div class="row user-portfolio-content-sub">
+              <div class="col-12 user-portfolio-card-content">
+                <span class="" *ngFor="let subTag of this.tags.tags">
+                  {{ subTag }}, 
+                </span>
+              </div>
+            </div>
+        </mat-card-content>
+        
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="row animated" id="portfolio-contents-area" [ngStyle]="{'display': isProfileArea? 'none' : 'block'}" [ngClass]="[isProfileArea? '' : 'fadeInRight']" >
+    <div class="col-1"></div>
+    <div class="col-10" style="text-align: center;">
+      <span class="user-profile-name">CONTENTS</span>
+      <img src="/assets/images/right_arrow.png" (click)="clickRightButton()" style="width: 30px; margin: 0px;">
+    </div>
+    <div class="col-1"></div>
+</div>

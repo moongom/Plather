@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserPortfolioModalComponent } from '../user-portfolio-modal/user-portfolio-modal.component';
+import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profile/user-portfolio-left-profile.component';
 
 @Component({
 
@@ -66,7 +67,7 @@ export class UserPortfolioComponent implements OnInit {
   showPortfolio(index){
 
     var portfolio = this.portfolios[this.getKey(this.portfolios)[index]];
-    console.log(portfolio);
+    
     var tagSet = new Set();
     for ( var i = 0 ; i < portfolio.length ; i++){
       for( var j = 0 ; j < portfolio[i].tag.length ; j++ ){
@@ -82,23 +83,58 @@ export class UserPortfolioComponent implements OnInit {
 
     history.pushState(null, null, '/user-portfolio/user_id');
 
-    const dialogRef = this.dialog.open(UserPortfolioModalComponent, {
+    const userPortfolio = this.dialog.open(UserPortfolioModalComponent, {
 
-      // width: '1000px',
-      // height: '800px',
-      width: '100%',
-      height: '100%',
+      width: '68%',
+      height: '80%',
       maxWidth: '2000px',
-      data: { portfolio: portfolio, tags: tags, currentPortfolioInd: 0 }
+      data: { 
+        portfolio: portfolio, 
+        tags: tags,
+        currentPortfolioInd: 0
+      },
+      hasBackdrop: true,
+      position: {
+        'top': '5%',
+        'left': '27%'
+      }
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    const userPortfolioLeftProfile = this.dialog.open(UserPortfolioLeftProfileComponent, {
+
+      width: '20%',
+      height: '80%',
+      maxWidth: '2000px',
+      data: { 
+        portfolioTitle: portfolio[0].supertag, 
+        tags: tags
+      },
+      hasBackdrop: false,
+      backdropClass: 'white',
+      position: {
+        'top': '5%',
+        'left': '5%'
+      }
+
+    });
+    
+    userPortfolio.afterClosed().subscribe(result => {
 
       console.log('ShowSpecificActivitiesComponent Modal was closed');
       history.pushState(null, null, '/user-portfolio');
+      userPortfolioLeftProfile.close();
 
     });
+    
+    userPortfolioLeftProfile.afterClosed().subscribe(result => {
+
+      console.log('ShowSpecificActivitiesComponent Modal was closed');
+      history.pushState(null, null, '/user-portfolio');
+      userPortfolio.close();
+
+    });
+    
 
   }
 

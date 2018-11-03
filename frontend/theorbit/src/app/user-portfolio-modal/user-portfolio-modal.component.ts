@@ -1,16 +1,17 @@
-import { ElementRef, Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ElementRef, Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 
 
 @Component({
   selector: 'user-portfolio-modal',
   templateUrl: './user-portfolio-modal.component.html',
-  styleUrls: ['./user-portfolio-modal.component.css']
+  styleUrls: ['./user-portfolio-modal.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class UserPortfolioModalComponent implements OnInit {
 
-  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, @Inject(MAT_DIALOG_DATA) public currentPortfolioInd: number, public dialogRef: MatDialogRef<any>, private elementRef:ElementRef ) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, @Inject(MAT_DIALOG_DATA) public currentPortfolioInd: number, public dialogRef: MatDialogRef<any>,  private dialog: MatDialog, private elementRef:ElementRef ) { }
 
   screenWidth:number = window.innerWidth;
   portfolioInd:number = 0;
@@ -35,7 +36,7 @@ export class UserPortfolioModalComponent implements OnInit {
   }
 
   closeDialog() {
-    this.dialogRef.close('Portfolio closed');
+    this.dialog.closeAll();
   }
 
   clickRightButton(){
@@ -60,8 +61,8 @@ export class UserPortfolioModalComponent implements OnInit {
     }
   }
 
-  changePosition() {
-    this.dialogRef.updatePosition({ top: '50px', left: '50px' });
-  }
+  // changePosition() {
+  //   this.dialogRef.updatePosition({ top: '50px', left: '50px' });
+  // }
 
 }

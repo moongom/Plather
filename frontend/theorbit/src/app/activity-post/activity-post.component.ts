@@ -148,7 +148,7 @@ export class ActivityPostComponent implements OnInit {
       // height: '800px',
       width: this.screenWidth - 230 + "px",
       height: '100%',
-      maxWidth: '2000px',
+      maxWidth: '3000px',
       data: { html: this.postText }
 
     });
@@ -180,16 +180,14 @@ export class ActivityPostComponent implements OnInit {
     if(this.formStage != 3){
       this.previousFormStage = this.formStage;
       this.formStage += 1;
-      console.log(this.previousFormStage);
-      console.log(this.formStage);
+      
     }
   }
   previousButtonClicked() {
     if(this.formStage != 1){
       this.previousFormStage = this.formStage;
       this.formStage -= 1;
-      console.log(this.previousFormStage);
-      console.log(this.formStage);
+      
     }
   }
 }

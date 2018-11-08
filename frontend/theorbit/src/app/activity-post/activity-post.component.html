@@ -42,13 +42,47 @@
 
 <img src="/assets/images/close_button.png" id="close-button" (click)="closeDialog()" [ngStyle]="{'position':'fixed', 'top':'20px', 'left': this.screenWidth * 0.95 - 50 + 'px','width':'30px','height':'30px', 'zIndex':'200'}">
 
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <div id="horizontalLineDiv" style="height: 5px; background-color: gray; margin-top: 100px;">
+      <div style="position: absolute; background-color: #FFFFFF; height:60px; width: 60px; border-radius: 60px; top: 70px; border: 1px solid #727272 ; left:1%">
+      </div>
+      <div style="position: absolute; background-color: #FFFFFF; height:60px; width: 60px; border-radius: 60px; top: 70px; border: 1px solid #727272 ; left:48%"></div>
+      <div style="position: absolute; background-color: #FFFFFF; height:60px; width: 60px; border-radius: 60px; top: 70px; border: 1px solid #727272 ; left:94.5%"></div>
+    </div>
+  </div>
+  <div class="col-2"></div>
+</div>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8" style="padding:5px;">
+      <div class="row">
+          <div class="col-1" style="text-align:center;">
+            <p>Step 1</p>
+            <p>기본 정보 작성</p>
+          </div>
+          <div class="col-3"></div>
+          <div class="col-4" style="text-align:center;">
+            <p>Step 2</p>
+            <p>포트폴리오 작성</p>
+          </div>
+          <div class="col-3"></div>
+          <div class="col-1" style="text-align:center;">
+            <p>Step 3</p>
+            <p>커버 & 프리뷰</p>
+          </div>
+      </div>
+  </div>
+  <div class="col-2"></div>
+</div>
 
+<div class="form-first animated" [ngStyle]="{'display': formStage != 1 ? 'none' : 'block'}" [ngClass]="[formStage == 1 ? previousFormStage == 2 ? 'fadeInLeft' : '' : '']">
   <div class="row" id="summernote-input-form" style="margin-top: 100px;">
     <div class="col-1"></div>
     <div class="col-10" style="border: 1px solid #efefef;">
       <div class="container">
         <div class="well off-top">
-          <!-- <div class="alert alert-success" *ngIf="postSaved">미리보기에 반영되었습니다.</div> -->
           <h4>포트폴리오 게시물을 작성해 주세요</h4>
           <form role="form" [formGroup]="savePostForm" (ngSubmit)="showPreview($event)">
             <button type="submit" >미리보기</button>
@@ -60,8 +94,29 @@
       </div>
     </div>
     <div class="col-1"></div>
-    <!-- <div class="col-9" style="border: 1px solid #efefef;">
-      <h4>Portfolio 미리보기: </h4>
-      <div id="preview"></div>
-    </div> -->
   </div>
+</div>
+<div class="form-second animated" [ngStyle]="{'display': formStage != 2 ? 'none' : 'block'}" [ngClass]="[formStage == 2 ? previousFormStage == 1 ? 'fadeInRight' : 'fadeInLeft' : '']">
+    <div style="margin-top: 100px">
+      Form Two
+    </div>
+</div>
+<div class="form-third animated" [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" [ngClass]="[formStage == 3 ? previousFormStage == 2 ? 'fadeInRight' : 'fadeInLeft' : '']">
+  <div style="margin-top: 100px">
+    Form Three
+  </div>
+</div>
+<div class="save-temporary-btn">
+  <button (click)="previousButtonClicked()" class="long-text-btn" mat-fab color="black" style="float: right; margin: 60px; font-size: 20px;">
+      <span style="font-size: 14px;">
+        Previous
+      </span>
+  </button>
+</div>
+<div class="next-btn">
+  <button (click)="nextButtonClicked()" mat-fab color="black" style="float: right; margin: 60px; font-size: 20px;">
+    <span style="font-size: 15px;">
+      Next
+    </span>
+  </button>
+</div>

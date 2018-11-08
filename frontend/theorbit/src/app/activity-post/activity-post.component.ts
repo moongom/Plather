@@ -40,6 +40,8 @@ export class ActivityPostComponent implements OnInit {
   savePostForm: FormGroup;
   screenWidth:number = window.innerWidth;
 
+  formStage: number = 1 // 1 ~ 3 까지 존재
+  previousFormStage: number = -1
 
   onNoClick(): void {
    this.dialogRef.close();
@@ -55,9 +57,6 @@ export class ActivityPostComponent implements OnInit {
     for(var i = 0 ; i < popoverAll.length ; i++){
       popoverAll[i].style.display = "none";
     }
-
-    $.summernote('destroy')
-
 
   }
 
@@ -191,5 +190,22 @@ export class ActivityPostComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close('Input Form Closed');
+  }
+
+  nextButtonClicked() {
+    if(this.formStage != 3){
+      this.previousFormStage = this.formStage;
+      this.formStage += 1;
+      console.log(this.previousFormStage);
+      console.log(this.formStage);
+    }
+  }
+  previousButtonClicked() {
+    if(this.formStage != 1){
+      this.previousFormStage = this.formStage;
+      this.formStage -= 1;
+      console.log(this.previousFormStage);
+      console.log(this.formStage);
+    }
   }
 }

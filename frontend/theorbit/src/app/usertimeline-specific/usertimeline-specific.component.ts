@@ -18,7 +18,7 @@ export class UsertimelineSpecificComponent implements OnInit {
     const dialogRef = this.dialog.open(ActivityPostComponent, {
       width: '100%',
       height: '100%',
-      maxWidth: '2000px'
+      maxWidth: '3000px'
       // data: { name: this.name, animal: this.animal }
     });
 

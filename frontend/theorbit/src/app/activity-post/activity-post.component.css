@@ -1,0 +1,11 @@
+.next-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.save-temporary-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 100px;
+}

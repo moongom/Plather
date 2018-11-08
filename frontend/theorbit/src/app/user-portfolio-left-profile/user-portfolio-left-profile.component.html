@@ -38,11 +38,24 @@
     </div>
   </div>
 </div>
-<div class="row animated" id="portfolio-contents-area" [ngStyle]="{'display': isProfileArea? 'none' : 'block'}" [ngClass]="[isProfileArea? '' : 'fadeInRight']" >
+<div class="animated" id="portfolio-contents-area" [ngStyle]="{'display': isProfileArea? 'none' : 'block'}" [ngClass]="[isProfileArea? '' : 'fadeInRight']" >
+  <div class="row">
     <div class="col-1"></div>
     <div class="col-10" style="text-align: center;">
       <span class="user-profile-name">CONTENTS</span>
       <img src="/assets/images/right_arrow.png" (click)="clickRightButton()" style="width: 30px; margin: 0px;">
     </div>
     <div class="col-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <mat-nav-list>
+        <mat-list-item *ngFor="let subTag of this.tags.tags">
+           <a>- {{ subTag }}</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+    <div class="col-1"></div>
+  </div>
 </div>

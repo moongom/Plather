@@ -87,7 +87,7 @@ export class UserPortfolioComponent implements OnInit {
 
       width: '68%',
       height: '80%',
-      maxWidth: '2000px',
+      maxWidth: '3000px',
       data: { 
         portfolio: portfolio, 
         tags: tags,
@@ -105,7 +105,7 @@ export class UserPortfolioComponent implements OnInit {
 
       width: '20%',
       height: '80%',
-      maxWidth: '2000px',
+      maxWidth: '3000px',
       data: { 
         portfolioTitle: portfolio[0].supertag, 
         tags: tags

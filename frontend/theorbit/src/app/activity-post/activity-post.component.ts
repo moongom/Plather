@@ -59,7 +59,7 @@ export class ActivityPostComponent implements OnInit {
     }
 
   }
-
+  
   ngOnInit() {
 
     $(document).ready(function() {
@@ -99,11 +99,11 @@ export class ActivityPostComponent implements OnInit {
 
             let lastElementBorder = editor.children().last().position().top + editor.children().last().height()
 
-            console.log(editorHeight)
-            console.log(lastElementBorder)
+            // console.log(editorHeight)
+            // console.log(lastElementBorder)
 
             if(lastElementBorder + 200 > editorHeight){
-              console.log("increase")
+              // console.log("increase")
               $('.note-editable').css('max-height', lastElementBorder+200+'px')
               $('.note-editable').css('height', lastElementBorder+200+'px')
             }

@@ -45,11 +45,10 @@
 <div class="row">
   <div class="col-2"></div>
   <div class="col-8">
-    <div id="horizontalLineDiv" style="height: 5px; background-color: gray; margin-top: 100px;">
-      <div style="position: absolute; background-color: #FFFFFF; height:60px; width: 60px; border-radius: 60px; top: 70px; border: 1px solid #727272 ; left:1%">
-      </div>
-      <div style="position: absolute; background-color: #FFFFFF; height:60px; width: 60px; border-radius: 60px; top: 70px; border: 1px solid #727272 ; left:48%"></div>
-      <div style="position: absolute; background-color: #FFFFFF; height:60px; width: 60px; border-radius: 60px; top: 70px; border: 1px solid #727272 ; left:94.5%"></div>
+    <div id="horizontalLineDiv">
+      <div [ngClass]="[formStage == 1 ? 'current-stage' : '']" class="form-stage" style="left:1.5%;"></div>
+      <div [ngClass]="[formStage == 2 ? 'current-stage' : '']" class="form-stage" style="left:47.7%;"></div>
+      <div [ngClass]="[formStage == 3 ? 'current-stage' : '']" class="form-stage" style="left:94.3%;"></div>
     </div>
   </div>
   <div class="col-2"></div>
@@ -60,54 +59,71 @@
       <div class="row">
           <div class="col-1" style="text-align:center;">
             <p>Step 1</p>
-            <p>기본 정보 작성</p>
+            <p style="white-space: nowrap;">기본 정보</p>
           </div>
           <div class="col-3"></div>
           <div class="col-4" style="text-align:center;">
             <p>Step 2</p>
-            <p>포트폴리오 작성</p>
+            <p style="white-space: nowrap;">포트폴리오 작성</p>
           </div>
           <div class="col-3"></div>
           <div class="col-1" style="text-align:center;">
             <p>Step 3</p>
-            <p>커버 & 프리뷰</p>
+            <p style="white-space: nowrap;">커버&프리뷰</p>
           </div>
       </div>
   </div>
   <div class="col-2"></div>
 </div>
 
-<div class="form-first animated" [ngStyle]="{'display': formStage != 1 ? 'none' : 'block'}" [ngClass]="[formStage == 1 ? previousFormStage == 2 ? 'fadeInLeft' : '' : '']">
-  <div class="row" id="summernote-input-form" style="margin-top: 100px;">
-    <div class="col-1"></div>
-    <div class="col-10" style="border: 1px solid #efefef;">
-      <div class="container">
-        <div class="well off-top">
-          <h4>포트폴리오 게시물을 작성해 주세요</h4>
-          <form role="form" [formGroup]="savePostForm" (ngSubmit)="showPreview()">
-            <button type="submit" >미리보기</button>
-            <div class="form-group" style="margin-top: 30px;">
-              <textarea id="summernote" class="form-control"></textarea>
-            </div>
-          </form>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+  <div class="form-first-container">
+    <div class="form-first animated" [ngStyle]="{'display': formStage != 1 ? 'none' : 'block'}" [ngClass]="[formStage == 1 ? previousFormStage == 2 ? 'fadeInLeft' : '' : '']" style="padding: 50px; border: 1px solid gray; border-radius: 10px;">
+      <form>
+        <div class="input-field">
+          <input placeholder="포트폴리오 제목" id="first_name" type="text" class="validate">
         </div>
+        <div class="input-field">
+          <input placeholder="## 슈퍼태그 (첫 입력 시 포트폴리오 생성. 기존 존재 포트폴리오 경우 그 디브에 저장)" id="first_name" type="text" class="validate">
+        </div>
+        <div class="input-field">
+          <input placeholder="# 목록태그 (포트폴리오 내 목록 생성)" id="first_name" type="text" class="validate">
+        </div>
+        <div class="input-field">
+          <input placeholder="Placeholder" type="text" class="validate">
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="form-second animated" [ngStyle]="{'display': formStage != 2 ? 'none' : 'block'}" [ngClass]="[formStage == 2 ? previousFormStage == 1 ? 'fadeInRight' : 'fadeInLeft' : '']" style="border: 1px solid gray; border-radius: 10px;">
+    <div id="summernote-input-form" style="margin-top: 100px;">
+      <div class="well off-top" style="padding: 20px;">
+        <h4>포트폴리오 게시물을 작성해 주세요</h4>
+        <form role="form" [formGroup]="savePostForm" (ngSubmit)="showPreview()">
+          <button type="submit" >미리보기</button>
+          <div class="form-group" style="margin-top: 30px;">
+            <textarea id="summernote" class="form-control"></textarea>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="col-1"></div>
   </div>
-</div>
-<div class="form-second animated" [ngStyle]="{'display': formStage != 2 ? 'none' : 'block'}" [ngClass]="[formStage == 2 ? previousFormStage == 1 ? 'fadeInRight' : 'fadeInLeft' : '']">
+  <div class="form-third animated" [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" [ngClass]="[formStage == 3 ? previousFormStage == 2 ? 'fadeInRight' : 'fadeInLeft' : '']" style="border: 1px solid gray; border-radius: 10px;">
     <div style="margin-top: 100px">
-      Form Two
+      <div class="col-1"></div>
+      <div class="col-10" style="border: 1px solid #efefef;">
+        Form sdasdfasdfads
+      </div>
+      <div class="col-1"></div>
     </div>
-</div>
-<div class="form-third animated" [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" [ngClass]="[formStage == 3 ? previousFormStage == 2 ? 'fadeInRight' : 'fadeInLeft' : '']">
-  <div style="margin-top: 100px">
-    Form Three
   </div>
 </div>
+</div>
+<div class="col-2"></div>
 <div class="save-temporary-btn">
-  <button (click)="previousButtonClicked()" class="long-text-btn" mat-fab color="black" style="float: right; margin: 60px; font-size: 20px;">
+  <button (click)="previousButtonClicked()" class="long-text-btn" color="black" style="float: right; margin: 60px; font-size: 20px;">
       <span style="font-size: 14px;">
         Previous
       </span>

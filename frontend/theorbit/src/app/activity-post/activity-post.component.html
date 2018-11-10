@@ -8,7 +8,6 @@
       <div class="circle"></div>
     </div>
   </div>
-
   <div class="spinner-layer spinner-red">
     <div class="circle-clipper left">
       <div class="circle"></div>
@@ -18,7 +17,6 @@
       <div class="circle"></div>
     </div>
   </div>
-
   <div class="spinner-layer spinner-yellow">
     <div class="circle-clipper left">
       <div class="circle"></div>
@@ -28,7 +26,6 @@
       <div class="circle"></div>
     </div>
   </div>
-
   <div class="spinner-layer spinner-green">
     <div class="circle-clipper left">
       <div class="circle"></div>
@@ -57,56 +54,56 @@
   <div class="col-2"></div>
   <div class="col-8" style="padding:5px;">
       <div class="row">
-          <div class="col-1" style="text-align:center;">
-            <p>Step 1</p>
-            <p style="white-space: nowrap;">기본 정보</p>
-          </div>
-          <div class="col-3"></div>
-          <div class="col-4" style="text-align:center;">
-            <p>Step 2</p>
-            <p style="white-space: nowrap;">포트폴리오 작성</p>
-          </div>
-          <div class="col-3"></div>
-          <div class="col-1" style="text-align:center;">
-            <p>Step 3</p>
-            <p style="white-space: nowrap;">커버&프리뷰</p>
-          </div>
+        <div class="col-1" style="text-align:center;">
+          <p>Step 1</p>
+          <p style="white-space: nowrap;">기본 정보</p>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-4" style="text-align:center;">
+          <p>Step 2</p>
+          <p style="white-space: nowrap;">포트폴리오 작성</p>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-1" style="text-align:center;">
+          <p>Step 3</p>
+          <p style="white-space: nowrap;">커버&프리뷰</p>
+        </div>
       </div>
   </div>
   <div class="col-2"></div>
 </div>
 
-<div class="row">
-  <div class="col-2"></div>
-  <div class="col-8">
+<form [formGroup]="savePostForm" (ngSubmit)="submitPortFolioForm()">
   <div class="form-first-container">
-    <div class="form-first animated" [ngStyle]="{'display': formStage != 1 ? 'none' : 'block'}" [ngClass]="[formStage == 1 ? previousFormStage == 2 ? 'fadeInLeft' : '' : '']" style="padding: 50px; border: 1px solid gray; border-radius: 10px;">
-      <form>
-        <div class="input-field">
-          <input placeholder="포트폴리오 제목" id="first_name" type="text" class="validate">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <div class="form-first animated" [ngStyle]="{'display': formStage != 1 ? 'none' : 'block'}" [ngClass]="[formStage == 1 ? previousFormStage == 2 ? 'fadeInLeft' : '' : '']" style="padding: 50px; border: 1px solid gray; border-radius: 10px;">
+          <div class="input-field">
+            <input placeholder="포트폴리오 제목" name="portFolioTitle" formControlName="portFolioTitle" id="portfolioTitle" type="text" class="input-form">
+          </div>
+          <div class="input-field">
+            <input placeholder="## 슈퍼태그 (첫 입력 시 포트폴리오 생성. 기존 존재 포트폴리오 경우 그 디브에 저장)" formControlName="superTag" id="superTag" type="text" class="input-form">
+          </div>
+          <div class="input-field">
+            <input placeholder="# 목록태그 (포트폴리오 내 목록 생성)" formControlName="subTag" id="subTag" type="text" class="input-form">
+          </div>
+          <div class="input-field">
+            <textarea style="border: 1px solid gray; border-radius: 15px;" class="materialize-textarea"></textarea>
+          </div>
         </div>
-        <div class="input-field">
-          <input placeholder="## 슈퍼태그 (첫 입력 시 포트폴리오 생성. 기존 존재 포트폴리오 경우 그 디브에 저장)" id="first_name" type="text" class="validate">
-        </div>
-        <div class="input-field">
-          <input placeholder="# 목록태그 (포트폴리오 내 목록 생성)" id="first_name" type="text" class="validate">
-        </div>
-        <div class="input-field">
-          <input placeholder="Placeholder" type="text" class="validate">
-        </div>
-      </form>
+      </div>
+      <div class="col-2"></div>
     </div>
   </div>
   <div class="form-second animated" [ngStyle]="{'display': formStage != 2 ? 'none' : 'block'}" [ngClass]="[formStage == 2 ? previousFormStage == 1 ? 'fadeInRight' : 'fadeInLeft' : '']" style="border: 1px solid gray; border-radius: 10px;">
     <div id="summernote-input-form" style="margin-top: 100px;">
       <div class="well off-top" style="padding: 20px;">
         <h4>포트폴리오 게시물을 작성해 주세요</h4>
-        <form role="form" [formGroup]="savePostForm" (ngSubmit)="showPreview()">
-          <button type="submit" >미리보기</button>
+          <button type="button" (click)="showPreview()">미리보기</button>
           <div class="form-group" style="margin-top: 30px;">
-            <textarea id="summernote" class="form-control"></textarea>
+            <textarea formControlName="portFolioContent" id="summernote" class="form-control"></textarea>
           </div>
-        </form>
       </div>
     </div>
   </div>
@@ -119,20 +116,20 @@
       <div class="col-1"></div>
     </div>
   </div>
-</div>
-</div>
-<div class="col-2"></div>
-<div class="save-temporary-btn">
-  <button (click)="previousButtonClicked()" class="long-text-btn" color="black" style="float: right; margin: 60px; font-size: 20px;">
+  
+  <button (click)="previousButtonClicked()" mat-fab type="button" class="long-text-btn next-btn" color="black" style="float: right; margin-right: 150px; font-size: 20px;">
       <span style="font-size: 14px;">
         Previous
       </span>
   </button>
-</div>
-<div class="next-btn">
-  <button (click)="nextButtonClicked()" mat-fab color="black" style="float: right; margin: 60px; font-size: 20px;">
+  <button (click)="nextButtonClicked()" class="next-btn" type="button" mat-fab color="black" style="float: right; margin-right: 60px; font-size: 20px;">
     <span style="font-size: 15px;">
       Next
     </span>
   </button>
-</div>
+  <button [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" mat-fab class="next-btn" type="submit" color="black" style="float: right; margin-right: 240px;">
+    <span style="font-size: 15px;">
+      Save
+    </span>
+  </button>
+</form>

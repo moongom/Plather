@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ShowSpecificActivitiesComponent } from '../show-specific-activities/show-specific-activities.component';
 import { UserPortfolioModalComponent } from '../user-portfolio-modal/user-portfolio-modal.component';
 import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profile/user-portfolio-left-profile.component';
+import { Router } from '@angular/router';
 
 @Component({
 
@@ -15,7 +16,7 @@ import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profil
 
 export class UsertimelineComponent implements OnInit {
 
-  constructor(private elementRef:ElementRef, public dialog: MatDialog) { }
+  constructor(private elementRef:ElementRef, public dialog: MatDialog, private router: Router) { }
 
   initCount = 1;
   miniDate;
@@ -1295,7 +1296,7 @@ export class UsertimelineComponent implements OnInit {
 
     userPortfolio.afterClosed().subscribe(result => {
 
-      console.log('ShowSpecificActivitiesComponent Modal was closed');
+      console.log('ShowSpecificActivitiesComponent Modal was closed!!!');
       history.pushState(null, null, '/horizontalline');
       userPortfolioLeftProfile.close();
 
@@ -1321,7 +1322,6 @@ export class UsertimelineComponent implements OnInit {
     userPortfolioLeftProfile.afterClosed().subscribe(result => {
 
       console.log('ShowSpecificActivitiesComponent Modal was closed');
-      history.pushState(null, null, '/user-portfolio');
 
     });
 

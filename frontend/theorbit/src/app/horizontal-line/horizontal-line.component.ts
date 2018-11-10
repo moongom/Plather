@@ -1,7 +1,6 @@
 import { AfterViewInit, ViewChild, Component, OnInit, ElementRef } from '@angular/core';
 import { UsertimelineComponent } from '../usertimeline/usertimeline.component'
 
-
 @Component({
   selector: 'horizontal-line',
   templateUrl: './horizontal-line.component.html',

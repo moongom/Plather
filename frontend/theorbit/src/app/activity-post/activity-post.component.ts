@@ -1,18 +1,17 @@
-import { AfterViewInit, ViewChild, Component, OnInit, ElementRef, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, OnInit, ElementRef, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivityPostPreviewComponent } from '../activity-post-preview/activity-post-preview.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 declare var $: any;
 
 
 export interface DialogData {
-  animal: string;
-  name: string;
+
 }
 
 @Component({
-  selector: 'app-activity-post',
+  selector: 'activity-post',
   templateUrl: './activity-post.component.html',
   styleUrls: ['./activity-post.component.css']
 })
@@ -23,12 +22,8 @@ export class ActivityPostComponent implements OnInit {
   public dialogRef: MatDialogRef<ActivityPostComponent>,
   @Inject(MAT_DIALOG_DATA) public data: DialogData,
   private http: HttpClient,
-  formBuilder: FormBuilder,
   private elementRef:ElementRef,
   public dialog: MatDialog) {
-
-    this._formBuilder = formBuilder;
-    this.savePostForm = this._formBuilder.group({ })
 
   }
 
@@ -36,12 +31,29 @@ export class ActivityPostComponent implements OnInit {
   errorMessage: string;
   postSaved : boolean = false;
 
-  private _formBuilder: FormBuilder;
-  savePostForm: FormGroup;
   screenWidth:number = window.innerWidth;
 
   formStage: number = 1 // 1 ~ 3 까지 존재
   previousFormStage: number = -1
+
+  savePostForm = new FormGroup({
+    portFolioTitle: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    superTag: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    subTag: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    portFolioContent: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ])
+  });
 
   onNoClick(): void {
    this.dialogRef.close();
@@ -96,11 +108,7 @@ export class ActivityPostComponent implements OnInit {
 
             let editorHeight = editor.position().top + editor.height()
 
-
             let lastElementBorder = editor.children().last().position().top + editor.children().last().height()
-
-            // console.log(editorHeight)
-            // console.log(lastElementBorder)
 
             if(lastElementBorder + 200 > editorHeight){
               // console.log("increase")
@@ -128,6 +136,16 @@ export class ActivityPostComponent implements OnInit {
 
   }
 
+  submitPortFolioForm(){
+    let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
+    this.postText = text;
+    this.savePostForm.patchValue({
+      portFolioContent: this.postText
+    });
+    console.log(this.savePostForm);
+    // console.log(this.savePostForm.value.portFolioContent);
+  }
+
   showPreview(): void {
 
     let images = $('img')
@@ -139,7 +157,6 @@ export class ActivityPostComponent implements OnInit {
 
     // let text = $('#summernote').summernote('code');
     let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
-
     this.postText = text;
 
     const dialogRef = this.dialog.open(ActivityPostPreviewComponent, {

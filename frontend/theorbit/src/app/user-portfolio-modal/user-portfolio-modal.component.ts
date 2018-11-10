@@ -1,4 +1,4 @@
-import { ElementRef, Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { ElementRef, Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 
 
@@ -6,7 +6,6 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
   selector: 'user-portfolio-modal',
   templateUrl: './user-portfolio-modal.component.html',
   styleUrls: ['./user-portfolio-modal.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 
 export class UserPortfolioModalComponent implements OnInit {

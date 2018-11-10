@@ -1,3 +1,8 @@
+.input-form {
+  border: 1px solid #727272; 
+  border-radius: 15px;
+}
+
 .next-btn{
   position: fixed;
   bottom: 20px;
@@ -29,4 +34,8 @@
 
 .current-stage {
   background-color: #85ACF1;
+}
+
+.materialize-textarea {
+  height: 200px;
 }

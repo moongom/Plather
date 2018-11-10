@@ -1,9 +1,9 @@
-import { Component, OnInit, OnChanges, AfterContentInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Signup2Component } from './signup2/signup2.component'
 import { LoginComponent } from './login/login.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { SignupService } from './signup.service';
+import { SignupService } from './services/signup.service';
 import { AccountService } from './account.service';
 
 @Component({
@@ -15,6 +15,7 @@ import { AccountService } from './account.service';
 })
 
 export class AppComponent {
+
   email;
   sidenavTest = false;
   title = 'theorbit';

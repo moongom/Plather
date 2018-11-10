@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { SignupService } from '../signup.service';
+import { SignupService } from '../services/signup.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert.service';
 import { LogInType } from '../models/logintype';
-import { AppComponent } from '../app.component';
+import * as global from '../global'
 
 @Component({
   selector: 'app-login',

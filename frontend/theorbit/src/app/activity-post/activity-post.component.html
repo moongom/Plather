@@ -80,7 +80,7 @@
       <div class="col-8">
         <div class="form-first animated" [ngStyle]="{'display': formStage != 1 ? 'none' : 'block'}" [ngClass]="[formStage == 1 ? previousFormStage == 2 ? 'fadeInLeft' : '' : '']" style="padding: 50px; border: 1px solid gray; border-radius: 10px;">
           <div class="input-field">
-            <input placeholder="포트폴리오 제목" name="portFolioTitle" formControlName="portFolioTitle" id="portfolioTitle" type="text" class="input-form">
+            <input placeholder="포트폴리오 제목" name="portfolioTitle" formControlName="portfolioTitle" id="portfolioTitle" type="text" class="input-form">
           </div>
           <div class="input-field">
             <input placeholder="## 슈퍼태그 (첫 입력 시 포트폴리오 생성. 기존 존재 포트폴리오 경우 그 디브에 저장)" formControlName="superTag" id="superTag" type="text" class="input-form">
@@ -89,7 +89,7 @@
             <input placeholder="# 목록태그 (포트폴리오 내 목록 생성)" formControlName="subTag" id="subTag" type="text" class="input-form">
           </div>
           <div class="input-field">
-            <textarea style="border: 1px solid gray; border-radius: 15px;" class="materialize-textarea"></textarea>
+            <textarea placeholder="설명 입력" formControlName="portfolioBrief" style="border: 1px solid gray; border-radius: 15px;" class="materialize-textarea"></textarea>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@
         <h4>포트폴리오 게시물을 작성해 주세요</h4>
           <button type="button" (click)="showPreview()">미리보기</button>
           <div class="form-group" style="margin-top: 30px;">
-            <textarea formControlName="portFolioContent" id="summernote" class="form-control"></textarea>
+            <textarea formControlName="portfolioContent" id="summernote" class="form-control"></textarea>
           </div>
       </div>
     </div>
@@ -117,19 +117,27 @@
     </div>
   </div>
   
-  <button (click)="previousButtonClicked()" mat-fab type="button" class="long-text-btn next-btn" color="black" style="float: right; margin-right: 150px; font-size: 20px;">
-      <span style="font-size: 14px;">
-        Previous
-      </span>
-  </button>
   <button (click)="nextButtonClicked()" class="next-btn" type="button" mat-fab color="black" style="float: right; margin-right: 60px; font-size: 20px;">
     <span style="font-size: 15px;">
-      Next
+      다음으로
     </span>
   </button>
-  <button [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" mat-fab class="next-btn" type="submit" color="black" style="float: right; margin-right: 240px;">
+  
+  <button (click)="saveTemporaryButtonClicked()" mat-fab type="button" class="long-text-btn next-btn" color="black" style="float: right; margin-right: 150px; font-size: 20px;">
+    <span style="font-size: 14px;">
+      임시저장
+    </span>
+  </button>
+  
+  <button (click)="previousButtonClicked()" mat-fab type="button" class="long-text-btn next-btn" color="black" style="float: right; margin-right: 240px; font-size: 20px;">
+    <span style="font-size: 14px;">
+      이전으로
+    </span>
+  </button>
+
+  <button [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" mat-fab class="next-btn" type="submit" color="black" style="float: right; margin-right: 330px;">
     <span style="font-size: 15px;">
-      Save
+      저장
     </span>
   </button>
 </form>

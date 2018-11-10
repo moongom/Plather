@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserPortfolioModalComponent } from '../user-portfolio-modal/user-portfolio-modal.component';
 import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profile/user-portfolio-left-profile.component';
+import * as global from '../global'
 
 @Component({
 

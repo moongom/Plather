@@ -18,7 +18,7 @@ import 'hammerjs';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './appRoutes.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { LoginComponent } from './login/login.component';
@@ -27,7 +27,8 @@ import { Signup2Component } from './signup2/signup2.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShowSpecificActivitiesComponent } from './show-specific-activities/show-specific-activities.component';
 import { AlertService } from './alert.service';
-import { SignupService } from './signup.service';
+import { SignupService } from './services/signup.service';
+import { ActiivtyPostService } from './services/actiivty-post.service';
 
 import {
   MatAutocompleteModule,
@@ -96,12 +97,12 @@ import {
 
   imports: [
 
-    HttpClientModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    HttpClientXsrfModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
     MatAutocompleteModule,
@@ -142,7 +143,7 @@ import {
     SlideshowModule,
   ],
 
-  providers: [SignupService, AlertService],
+  providers: [SignupService, AlertService, ActiivtyPostService],
   bootstrap: [AppComponent]
 
 })

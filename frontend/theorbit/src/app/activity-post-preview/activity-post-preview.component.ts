@@ -1,6 +1,6 @@
 import { ElementRef, Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-
+import * as global from '../global'
 
 @Component({
   selector: 'activity-post-preview',

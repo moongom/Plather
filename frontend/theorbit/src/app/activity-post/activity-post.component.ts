@@ -1,8 +1,11 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivityPostPreviewComponent } from '../activity-post-preview/activity-post-preview.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActiivtyPostService } from '../services/actiivty-post.service';
+import * as global from '../global'
+
 declare var $: any;
 
 
@@ -19,11 +22,13 @@ export interface DialogData {
 export class ActivityPostComponent implements OnInit {
 
   constructor(
-  public dialogRef: MatDialogRef<ActivityPostComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  private http: HttpClient,
-  private elementRef:ElementRef,
-  public dialog: MatDialog) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public dialogRef: MatDialogRef<ActivityPostComponent>,
+    private http: HttpClient,
+    private elementRef:ElementRef,
+    public dialog: MatDialog,
+    private service: ActiivtyPostService
+  ) {
 
   }
 
@@ -37,7 +42,7 @@ export class ActivityPostComponent implements OnInit {
   previousFormStage: number = -1
 
   savePostForm = new FormGroup({
-    portFolioTitle: new FormControl('', [
+    portfolioTitle: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
     ]),
@@ -49,7 +54,11 @@ export class ActivityPostComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
     ]),
-    portFolioContent: new FormControl('', [
+    portfolioContent: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    portfolioBrief: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
     ])
@@ -140,10 +149,30 @@ export class ActivityPostComponent implements OnInit {
     let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
     this.postText = text;
     this.savePostForm.patchValue({
-      portFolioContent: this.postText
+      portfolioContent: this.postText
     });
-    console.log(this.savePostForm);
-    // console.log(this.savePostForm.value.portFolioContent);
+    let post = this.savePostForm.value;
+    // alert("portfolioTitle : " + post.portfolioTitle + " portfolioBrief : " + post.portfolioBrief + " portfolioContent : " + post.portfolioContent.substring(0, 10));
+
+    this.service.create(post).subscribe(response => {
+      
+      console.log(response);
+    })
+      
+  }
+  
+
+  saveTemporaryButtonClicked() {
+    let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
+    this.postText = text;
+    this.savePostForm.patchValue({
+      portfolioContent: this.postText
+    });
+    let post = this.savePostForm.value;
+    // alert("portfolioTitle : " + post.portfolioTitle + " portfolioBrief : " + post.portfolioBrief + " portfolioContent : " + post.portfolioContent.substring(0, 10));
+    this.service.create(post).subscribe(response => {
+      console.log(response);
+    })
   }
 
   showPreview(): void {
@@ -178,17 +207,6 @@ export class ActivityPostComponent implements OnInit {
 
   }
 
-  // json 활용
-  // sendData(data: any) {
-  //
-  //   const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-  //
-  //   return this.http.post('http://localhost:4200/example',
-  //             JSON.stringify(data),
-  //             { headers: headers })
-  //
-  // }
-
   closeDialog() {
     this.dialogRef.close('Input Form Closed');
   }
@@ -207,4 +225,5 @@ export class ActivityPostComponent implements OnInit {
       
     }
   }
+  
 }

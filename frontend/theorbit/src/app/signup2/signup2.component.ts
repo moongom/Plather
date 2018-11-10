@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SignUpType } from '../models/signuptype';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SignupService } from '../signup.service';
+import { SignupService } from '../services/signup.service';
 import { FormBuilder } from '@angular/forms';
 import { matchOtherValidator } from './password-validation';
+import * as global from '../global'
 
 @Component({
   selector: 'signup2',

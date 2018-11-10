@@ -1,5 +1,6 @@
-import { AfterViewInit, ViewChild, Component, OnInit, ElementRef } from '@angular/core';
+import { ViewChild, Component, OnInit, ElementRef } from '@angular/core';
 import { UsertimelineComponent } from '../usertimeline/usertimeline.component'
+import * as global from '../global'
 
 @Component({
   selector: 'horizontal-line',
@@ -22,8 +23,6 @@ export class HorizontalLineComponent implements OnInit {
   ngAfterViewInit(){
   }
 
-
-
   onFilterChange(e){
 
     if( e.checked ){
@@ -33,7 +32,6 @@ export class HorizontalLineComponent implements OnInit {
         if( this.userTimeLine.activities[i].supertag.replace(/[\n\r]+|[\s]{2,}/g, '') == e.source._elementRef.nativeElement.innerText.replace(/[\n\r]+|[\s]{2,}/g, '')){
           this.userTimeLine.activities[i].filter = true;
         }
-
       }
     }else{
       for( var i = 0 ; i < this.userTimeLine.activities.length ; i++ ){
@@ -43,9 +41,7 @@ export class HorizontalLineComponent implements OnInit {
         }
       }
     }
-
     this.userTimeLine.filterByRange();
-
   }
 
 }

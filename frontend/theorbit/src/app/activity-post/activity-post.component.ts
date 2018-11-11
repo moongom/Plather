@@ -61,7 +61,11 @@ export class ActivityPostComponent implements OnInit {
     portfolioBrief: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-    ])
+    ]),
+    activityDate: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
   });
 
   onNoClick(): void {
@@ -82,7 +86,14 @@ export class ActivityPostComponent implements OnInit {
   }
   
   ngOnInit() {
-
+    // Material DatePicker Initialize
+    $(document).ready(function(){
+      $('.datepicker').datepicker({
+        autoClose: true,
+        
+      });
+    });
+    // Summernote
     $(document).ready(function() {
 
       setInterval(() => {

@@ -45,22 +45,26 @@
   <img src="/assets/images/left_arrow.png" id="left-button" (click)="clickLeftButton()" [ngStyle]="{'position':'fixed', 'top':'50%', 'left': this.screenWidth * 0.02 + 'px','width':'50px','height':'50px', 'zIndex':'200'}">
 
   <div class="row">
-    <div class="col-1"></div>
-    <div class="col-10">
-      <div class="container" style="text-align: center;">
-
+    <div class="col-12">
+      <div *ngIf="useSampleData">
         <h1>{{ this.portfolio.portfolio[this.portfolioInd].supertag }}</h1>
-        <div class="portfolio-specific">
+        <div class="portfolio-specific" (animationend)="setAnimation()">
           <br>
-          <!-- <p style="float: left;" id="portfolio-content-title">작성자 : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br><br> -->
-          <!-- <span style="float:left;" class="portfolio-content-tag" *ngFor="let tag of portfolio.portfolio[this.portfolioInd].tag">#{{ tag }} </span><br> -->
+          <p style="float: left;" id="portfolio-content-title">작성자 : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br><br>
+          <span style="float:left;" class="portfolio-content-tag" *ngFor="let tag of portfolio.portfolio[this.portfolioInd].tag">#{{ tag }} </span><br>
           <img src="{{ this.portfolio.portfolio[this.portfolioInd].images[1] }}" align="middle" />
           <p id="portfolio-content" style="margin-bottom: 2rem;white-space:pre-wrap;">{{this.portfolio.portfolio[this.portfolioInd].content}}</p>
           <img src="{{ this.portfolio.portfolio[this.portfolioInd].images[2] }}" align="middle" />
-
         </div>
-      <div>
+      </div>
+      <div *ngIf= "!useSampleData">
+          <h3>{{ this.portfolio.portfolio[this.portfolioInd].supertag }}</h3>
+          <p style="float: left;" id="portfolio-content-title">작성자 : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br><br>
+          <div class="portfolio-specific" (animationend)="setAnimation()">
+            <!-- <span style="float:left;" class="portfolio-content-tag" *ngFor="let tag of portfolio.portfolio[this.portfolioInd].tag">#{{ tag }} </span><br> -->
+            <div [innerHTML]="this.portfolio.portfolio[this.portfolioInd].content"></div>
+          </div>
+        <div>
     </div>
-    <div class="col-1"></div>
   </div>
 </div>

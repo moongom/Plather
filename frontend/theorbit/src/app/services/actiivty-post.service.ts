@@ -12,4 +12,5 @@ export class ActiivtyPostService extends DataService{
   constructor(http: HttpClient) { 
     super(global.endpoint + '/activity_posts', http);
   }
+
 }

@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ShowSpecificActivitiesComponent } from '../show-specific-activities/show-specific-activities.component';
 import { UserPortfolioModalComponent } from '../user-portfolio-modal/user-portfolio-modal.component';
 import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profile/user-portfolio-left-profile.component';
+import { ActiivtyPostService } from '../services/actiivty-post.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,8 +17,9 @@ import { Router } from '@angular/router';
 
 export class UsertimelineComponent implements OnInit {
 
-  constructor(private elementRef:ElementRef, public dialog: MatDialog, private router: Router) { }
+  constructor(private elementRef:ElementRef, public dialog: MatDialog, private router: Router, private service: ActiivtyPostService) { }
 
+  useSampleData = false;
   initCount = 1;
   miniDate;
   maximDate;
@@ -73,62 +75,14 @@ export class UsertimelineComponent implements OnInit {
 
     this.totalDate=this.endDate-this.startDate;
 
+    
+    // console.log(this.activities)
   }
 
   ngAfterViewInit() {
 
     this.horizontalLineOffsetLeft = this.elementRef.nativeElement.querySelector('.horizontalLine').offsetLeft;
     this.horizontalLineOffsetTop = this.elementRef.nativeElement.querySelector('.horizontalLine').offsetTop;
-
-    // Dummy Data 생성
-    for(var i = 0 ; i < 15 ; i++){
-
-      var tempActivity = {
-
-        supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
-        // tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
-        date: this.randomDate(new Date(2015, 1, 1), new Date(2025, 1, 1)),
-        filter: true,
-        tag: [
-          this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]
-        ],
-        user: this.userName[Math.floor(Math.random()*this.userName.length)],
-        content: this.content[Math.floor(Math.random()*this.content.length)],
-        images: [
-          this.images[Math.floor(Math.random()*this.images.length)],
-          this.images[Math.floor(Math.random()*this.images.length)],
-          this.images[Math.floor(Math.random()*this.images.length)]
-        ]
-      }
-
-      this.activities.push(tempActivity);
-
-    }
-
-    for(var i = 0 ; i < 3 ; i++){
-
-      var tempActivity = {
-
-        supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
-        // tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
-        date: this.randomDate(new Date(new Date().setDate(((new Date().getDate()- 42)))), new Date()),
-        filter: true,
-        tag: [
-          this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]
-        ],
-        user: this.userName[Math.floor(Math.random()*this.userName.length)],
-        content: this.content[Math.floor(Math.random()*this.content.length)],
-        images: [
-          this.images[Math.floor(Math.random()*this.images.length)],
-          this.images[Math.floor(Math.random()*this.images.length)],
-          this.images[Math.floor(Math.random()*this.images.length)]
-        ]
-
-      }
-
-      this.activities.push(tempActivity);
-
-    }
 
     // Four Years : 0, Whole Year : 1, Four Month : 2, One Month : 3 의 range-input 값을 지닌다.
     this.elementRef.nativeElement.querySelector('#range-input').value = 0;
@@ -162,13 +116,99 @@ export class UsertimelineComponent implements OnInit {
     this.horizontalLine.style.width = (window.innerWidth - (<HTMLElement>document.querySelectorAll('.mat-sidenav')[0]).offsetWidth) * 0.9 + "px";
 
     this.cardMargin = this.horizontalLine.offsetTop;
-
-    this.filterByRange();
+    if(this.useSampleData){
+      // Dummy Data 생성
+      this.createSampleData();
+      this.filterByRange();  
+    }else{
+      this.getActivityPostData();
+      
+    }
+    
+    
     this.elementRef.nativeElement.querySelector('#current-date').innerText = this.startDate.getFullYear();
     this.elementRef.nativeElement.querySelector('#period-select').innerText = "Four Years";
 
     (<HTMLElement>document.querySelectorAll('.fixedclass')[0]).style.top = (<HTMLElement>document.querySelectorAll('.navbar')[0]).offsetHeight + 13 + "px";
 
+  }
+
+  getActivityPostData(){
+    let jsonResponse;
+    var result = [];
+    this.service.getAll().subscribe(response => {
+      jsonResponse = response;
+      for(var i = 0 ; i < jsonResponse.length ; i++){
+        let singleData = {
+          content: jsonResponse[i]['portfolioContent'],
+          date: new Date(parseInt(jsonResponse[i]['activityDate'])),
+          images: [
+            this.images[Math.floor(Math.random()*this.images.length)],
+            this.images[Math.floor(Math.random()*this.images.length)],
+            this.images[Math.floor(Math.random()*this.images.length)]
+          ],
+          supertag: jsonResponse[i]['superTag'],
+          tag: jsonResponse[i]['subTag'],
+          user: "김희재",
+          filter: true
+        };
+        result[i] = singleData;
+      }
+      // console.log(result)
+      this.activities = result;
+      this.filterByRange();
+    })
+    
+  }
+
+  createSampleData(){
+    for(var i = 0 ; i < 15 ; i++){
+
+      var tempActivity = {
+
+        supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
+        // tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
+        date: this.randomDate(new Date(2015, 1, 1), new Date(2025, 1, 1)),
+        filter: true,
+        tag: [
+          this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]
+        ],
+        user: this.userName[Math.floor(Math.random()*this.userName.length)],
+        content: this.content[Math.floor(Math.random()*this.content.length)],
+        images: [
+          this.images[Math.floor(Math.random()*this.images.length)],
+          this.images[Math.floor(Math.random()*this.images.length)],
+          this.images[Math.floor(Math.random()*this.images.length)]
+        ]
+      }
+    }
+    this.activities.push(tempActivity);
+
+    for(var i = 0 ; i < 3 ; i++){
+
+      var tempActivity = {
+
+        supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
+        // tag: '#' + this.tagName[Math.floor(Math.random()*this.tagName.length)],
+        date: this.randomDate(new Date(new Date().setDate(((new Date().getDate()- 42)))), new Date()),
+        filter: true,
+        tag: [
+          this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]
+        ],
+        user: this.userName[Math.floor(Math.random()*this.userName.length)],
+        content: this.content[Math.floor(Math.random()*this.content.length)],
+        images: [
+          this.images[Math.floor(Math.random()*this.images.length)],
+          this.images[Math.floor(Math.random()*this.images.length)],
+          this.images[Math.floor(Math.random()*this.images.length)]
+        ]
+
+      }
+
+      this.activities.push(tempActivity);
+
+    }
+    
   }
 
   // 확대 버튼을 누르면 포트폴리오 모달을 띄운다.
@@ -184,7 +224,7 @@ export class UsertimelineComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       console.log('ShowSpecificActivitiesComponent Modal was closed');
-
+      
     });
 
   }
@@ -627,7 +667,8 @@ export class UsertimelineComponent implements OnInit {
      }
 
     this.totalDate = this.endDate - this.startDate;
-
+     console.log(this.activities)
+     console.log("!!!!")
     this.pointDate(this.activities);
     this.isActivitiesIn();
     this.markDateGraduation();

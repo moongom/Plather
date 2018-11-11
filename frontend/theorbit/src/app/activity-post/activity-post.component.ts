@@ -90,7 +90,17 @@ export class ActivityPostComponent implements OnInit {
     $(document).ready(function(){
       $('.datepicker').datepicker({
         autoClose: true,
-        
+        format: 'yyyy년 mm월 dd일',
+        i18n: {
+          months: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+          monthsShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+          weekdays: ["일요일", "월요일","화요일", "수요일", "목요일", "금요일", "토요일"],
+          weekdaysShort: ["일", "월","화", "수", "목", "금", "토"],
+          weekdaysAbbrev: ["일", "월","화", "수", "목", "금", "토"]
+        },
+        onSelect: function(date){
+          $('#activityDate').val(+date);
+        }
       });
     });
     // Summernote
@@ -137,6 +147,36 @@ export class ActivityPostComponent implements OnInit {
             }
 
           },
+          onImageUpload : function(files) {
+            // console.log("onImageUpload Loaded")
+            if (!files.length) return;
+            var file = files[0];
+            // create FileReader
+            var reader  = new FileReader();
+            reader.onloadend = function () {
+                // when loaded file, img's src set datauri
+                // console.log("img",$("<img>"));
+                var img = $("<img>").attr({src: reader.result, width: "100%"}); // << Add here img attributes !
+                // console.log("var img", img);
+                $('#summernote').summernote("insertNode", img[0]);
+            }
+            if (file) {
+              // convert fileObject to datauri
+              reader.readAsDataURL(file);
+            }
+            let editor = $('.note-editable')
+
+            let editorHeight = editor.position().top + editor.height()
+
+            let lastElementBorder = editor.children().last().position().top + editor.children().last().height()
+            console.log(lastElementBorder)
+            console.log(editorHeight)
+            // if(lastElementBorder + 200 > editorHeight){
+              console.log("increase")
+              $('.note-editable').css('max-height', lastElementBorder+200+'px')
+              $('.note-editable').css('height', lastElementBorder+200+'px')
+            // }
+          }
         },
 
         airMode: true
@@ -160,14 +200,17 @@ export class ActivityPostComponent implements OnInit {
     let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
     this.postText = text;
     this.savePostForm.patchValue({
-      portfolioContent: this.postText
+      portfolioContent: this.postText,
+      activityDate: $('#activityDate').val()
     });
     let post = this.savePostForm.value;
+    // console.log(post)
     // alert("portfolioTitle : " + post.portfolioTitle + " portfolioBrief : " + post.portfolioBrief + " portfolioContent : " + post.portfolioContent.substring(0, 10));
 
     this.service.create(post).subscribe(response => {
       
       console.log(response);
+
     })
       
   }
@@ -177,7 +220,8 @@ export class ActivityPostComponent implements OnInit {
     let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
     this.postText = text;
     this.savePostForm.patchValue({
-      portfolioContent: this.postText
+      portfolioContent: this.postText,
+      activityDate: $('#activityDate').val()
     });
     let post = this.savePostForm.value;
     // alert("portfolioTitle : " + post.portfolioTitle + " portfolioBrief : " + post.portfolioBrief + " portfolioContent : " + post.portfolioContent.substring(0, 10));
@@ -203,7 +247,8 @@ export class ActivityPostComponent implements OnInit {
 
       // width: '1000px',
       // height: '800px',
-      width: this.screenWidth - 230 + "px",
+      // width: this.screenWidth - 230 + "px",
+      width: '100%',
       height: '100%',
       maxWidth: '3000px',
       data: { html: this.postText }

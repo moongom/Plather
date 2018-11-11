@@ -14,6 +14,7 @@ export class UserPortfolioModalComponent implements OnInit {
 
   screenWidth:number = window.innerWidth;
   portfolioInd:number = 0;
+  useSampleData = false
 
   ngOnInit() {
 
@@ -27,15 +28,19 @@ export class UserPortfolioModalComponent implements OnInit {
       this.elementRef.nativeElement.querySelector('#main-content').style.display = "block";
     }, 750);
 
-    this.elementRef.nativeElement.querySelector('.portfolio-specific').addEventListener('animationend', function(){
-      this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('animated');
-      this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('fadeInRight');
-      this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('fadeInLeft');
-    }.bind(this));
+    // this.elementRef.nativeElement.querySelector('.portfolio-specific').addEventListener('animationend', function(){
+      
+    // }.bind(this));
   }
 
   closeDialog() {
     this.dialog.closeAll();
+  }
+
+  setAnimation(){
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('animated');
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('fadeInRight');
+    this.elementRef.nativeElement.querySelector('.portfolio-specific').classList.remove('fadeInLeft');
   }
 
   clickRightButton(){

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BadInput } from '../common/bad-input';
 import { NotFoundError } from '../common/not-found-error';
 import { AppError } from '../common/app-error';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import * as global from '../global'
 
 @Injectable({

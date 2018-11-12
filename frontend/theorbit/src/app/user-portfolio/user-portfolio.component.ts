@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserPortfolioModalComponent } from '../user-portfolio-modal/user-portfolio-modal.component';
 import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profile/user-portfolio-left-profile.component';
+import { ActiivtyPostService } from '../services/actiivty-post.service';
 import * as global from '../global'
 
 @Component({
@@ -14,7 +15,7 @@ import * as global from '../global'
 
 export class UserPortfolioComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private elementRef:ElementRef) { }
+  constructor(public dialog: MatDialog, private elementRef: ElementRef, private service: ActiivtyPostService) { }
 
   /*
     이 곳에서는 태그이름, 슈퍼태그 (포트폴리오 index 페이지에 필요한 성분들) 만 로드할 예정이다.
@@ -139,36 +140,15 @@ export class UserPortfolioComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  makePortfolioFromActivities(activities){
+    for(var i = 0 ; i < activities.length ; i++){
 
-    // Dummy 활동 데이터 생성
-    for(var i = 0 ; i < 25 ; i++){
-
-      var tempActivity = {
-
-        supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
-        tag: [
-          this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]
-        ],
-        user: this.userName[Math.floor(Math.random()*this.userName.length)],
-        content: this.content[Math.floor(Math.random()*this.content.length)],
-        images: [
-          this.images[Math.floor(Math.random()*this.images.length)],
-          this.images[Math.floor(Math.random()*this.images.length)],
-          this.images[Math.floor(Math.random()*this.images.length)]
-        ]
-
-      }
-
-      this.activities.push(tempActivity);
-
-    }
-    for(var i = 0 ; i < this.activities.length ; i++){
+      let arrangedSupertag = activities[i].supertag.replace('##', '');
 
       if( i == 0 ){
 
-        this.portfolios[this.activities[i].supertag] = [];
-        this.portfolios[this.activities[i].supertag].push(this.activities[i]);
+        this.portfolios[arrangedSupertag] = [];
+        this.portfolios[arrangedSupertag].push(activities[i]);
 
       }else{
 
@@ -176,10 +156,10 @@ export class UserPortfolioComponent implements OnInit {
 
         for( var supertag in this.portfolios ){
 
-          if(supertag == this.activities[i].supertag){
+          if(supertag == activities[i].supertag){
 
             alreadyExists = true;
-            this.portfolios[this.activities[i].supertag].push(this.activities[i]);
+            this.portfolios[arrangedSupertag].push(activities[i]);
 
           }
 
@@ -187,8 +167,8 @@ export class UserPortfolioComponent implements OnInit {
 
         if(!alreadyExists){
 
-          this.portfolios[this.activities[i].supertag] = [];
-          this.portfolios[this.activities[i].supertag].push(this.activities[i]);
+          this.portfolios[arrangedSupertag] = [];
+          this.portfolios[arrangedSupertag].push(activities[i]);
 
         }
 
@@ -197,6 +177,70 @@ export class UserPortfolioComponent implements OnInit {
     }
 
     console.log(this.portfolios);
+    
+  }
+  // !@# 코드리뷰 할 때 이 부분 수정해야 함(service 에 이 기능을 하는 함수 만들기)
+  getActivityPostData(){
+    let jsonResponse;
+    var result = [];
+    this.service.getAll().subscribe(response => {
+      jsonResponse = response;
+      for(var i = 0 ; i < jsonResponse.length ; i++){
+        let singleData = {
+          content: jsonResponse[i]['portfolioContent'],
+          date: new Date(parseInt(jsonResponse[i]['activityDate'])),
+          images: [
+            this.images[Math.floor(Math.random()*this.images.length)],
+            this.images[Math.floor(Math.random()*this.images.length)],
+            this.images[Math.floor(Math.random()*this.images.length)]
+          ],
+          supertag: jsonResponse[i]['superTag'],
+          tag: jsonResponse[i]['subTag'],
+          user: "김희재",
+          filter: true
+        };
+        result[i] = singleData;
+      }
+      console.log(result)
+      this.activities = result;
+      this.makePortfolioFromActivities(this.activities);
+    })
+    
+  }
+
+  ngOnInit() {
+
+    if(global.useSampleData){
+      // Dummy 활동 데이터 생성
+      for(var i = 0 ; i < 25 ; i++){
+
+        var tempActivity = {
+
+          supertag: this.superTagName[Math.floor(Math.random()*this.superTagName.length)],
+          tag: [
+            this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)], this.tagName[Math.floor(Math.random()*this.tagName.length)]
+          ],
+          user: this.userName[Math.floor(Math.random()*this.userName.length)],
+          content: this.content[Math.floor(Math.random()*this.content.length)],
+          images: [
+            this.images[Math.floor(Math.random()*this.images.length)],
+            this.images[Math.floor(Math.random()*this.images.length)],
+            this.images[Math.floor(Math.random()*this.images.length)]
+          ]
+
+        }
+
+        this.activities.push(tempActivity);
+        this.makePortfolioFromActivities(this.activities);
+      }
+
+    }else{
+      
+      this.getActivityPostData();
+      
+    }
+
+    
 
   }
 

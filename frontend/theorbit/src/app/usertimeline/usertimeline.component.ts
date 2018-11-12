@@ -5,6 +5,7 @@ import { UserPortfolioModalComponent } from '../user-portfolio-modal/user-portfo
 import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profile/user-portfolio-left-profile.component';
 import { ActiivtyPostService } from '../services/actiivty-post.service';
 import { Router } from '@angular/router';
+import * as global from '../global'
 
 @Component({
 
@@ -19,7 +20,6 @@ export class UsertimelineComponent implements OnInit {
 
   constructor(private elementRef:ElementRef, public dialog: MatDialog, private router: Router, private service: ActiivtyPostService) { }
 
-  useSampleData = false;
   initCount = 1;
   miniDate;
   maximDate;
@@ -116,7 +116,7 @@ export class UsertimelineComponent implements OnInit {
     this.horizontalLine.style.width = (window.innerWidth - (<HTMLElement>document.querySelectorAll('.mat-sidenav')[0]).offsetWidth) * 0.9 + "px";
 
     this.cardMargin = this.horizontalLine.offsetTop;
-    if(this.useSampleData){
+    if(global.useSampleData){
       // Dummy Data 생성
       this.createSampleData();
       this.filterByRange();  

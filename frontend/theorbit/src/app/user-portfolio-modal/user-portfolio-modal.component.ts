@@ -14,7 +14,6 @@ export class UserPortfolioModalComponent implements OnInit {
 
   screenWidth:number = window.innerWidth;
   portfolioInd:number = 0;
-  useSampleData = false
 
   ngOnInit() {
 

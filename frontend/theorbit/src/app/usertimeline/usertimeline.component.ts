@@ -137,6 +137,7 @@ export class UsertimelineComponent implements OnInit {
     let jsonResponse;
     var result = [];
     this.service.getAll().subscribe(response => {
+      console.log(response)
       jsonResponse = response;
       for(var i = 0 ; i < jsonResponse.length ; i++){
         let singleData = {
@@ -668,7 +669,6 @@ export class UsertimelineComponent implements OnInit {
 
     this.totalDate = this.endDate - this.startDate;
      console.log(this.activities)
-     console.log("!!!!")
     this.pointDate(this.activities);
     this.isActivitiesIn();
     this.markDateGraduation();

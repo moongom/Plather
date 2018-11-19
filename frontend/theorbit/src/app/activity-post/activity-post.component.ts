@@ -71,13 +71,12 @@ export class ActivityPostComponent implements OnInit {
   onNoClick(): void {
    this.dialogRef.close();
    let popover = this.elementRef.nativeElement.querySelectorAll('note-popover')[3];
-   popover.classList.remove('airmode-popover');
   }
 
   ngOnDestroy(): void {
 
-    $('.note-popover').removeClass('airmode-popover');
     let popoverAll = $('.note-popover')
+    $('.note-popover').removeClass('note-popover');
 
     for(var i = 0 ; i < popoverAll.length ; i++){
       popoverAll[i].style.display = "none";
@@ -114,11 +113,23 @@ export class ActivityPostComponent implements OnInit {
       $('#summernote').summernote({
 
         placeholder: '비핸스보다 이뻐질수 있을까',
-        dialogsInBody: true,
+        height: 1000,
+        tooltip: false,
+        airMode: true,
+        lang: 'ko-KR',
+        popover: {
+          air: [
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['color', ['color']],
+              ['fontsize', ['fontsize', 'fontname']],
+              ['height', ['height']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['table', ['table']]
+          ]
+        },
         callbacks: {
           onInit: function(){
-            let popover = $('.note-popover')[3]
-            popover.classList.add('airmode-popover');
+            
           },
           onFocus: function() {
 
@@ -135,16 +146,17 @@ export class ActivityPostComponent implements OnInit {
           onChange: function(contents, $editable) {
 
             let editor = $('.note-editable')
-
+            
             let editorHeight = editor.position().top + editor.height()
 
             let lastElementBorder = editor.children().last().position().top + editor.children().last().height()
 
             if(lastElementBorder + 200 > editorHeight){
-              // console.log("increase")
+              console.log("increase")
               $('.note-editable').css('max-height', lastElementBorder+200+'px')
               $('.note-editable').css('height', lastElementBorder+200+'px')
             }
+            
 
           },
           onImageUpload : function(files) {
@@ -169,18 +181,13 @@ export class ActivityPostComponent implements OnInit {
             let editorHeight = editor.position().top + editor.height()
 
             let lastElementBorder = editor.children().last().position().top + editor.children().last().height()
-            console.log(lastElementBorder)
-            console.log(editorHeight)
+            
             // if(lastElementBorder + 200 > editorHeight){
-              console.log("increase")
               $('.note-editable').css('max-height', lastElementBorder+200+'px')
               $('.note-editable').css('height', lastElementBorder+200+'px')
             // }
           }
-        },
-
-        airMode: true
-
+        }
       });
 
       $('.note-statusbar').hide();

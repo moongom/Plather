@@ -82,35 +82,22 @@
   </div>
 </div>
 <!-- Tob Bar  -->
+<router-outlet></router-outlet>
 
-<!-- Side Bar가 필요한 경우의 navbar -->
-<div *ngIf="sidenavTest">
-  <router-outlet></router-outlet>
-</div>
-<mat-sidenav-container *ngIf="sidenavTest==false" [ngStyle]="{'height': '1000px'}">
-  <!-- Side Bar가 필요없는 경우의 navbar -->
-  <!-- Main Content -->
-  <mat-sidenav-content>
-
-    <router-outlet></router-outlet>
-
-    <!-- Footer -->
-    <footer class="page-footer"  style="background-color: #CDCDCD;">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">Plather</h5>
-            <p class="grey-text text-lighten-4">문곰의 제 4회 서강대학교 해커톤 프로젝트입니다.</p>
-          </div>
-          <div class="col l4 offset-l2 s12"></div>
-        </div>
+<footer class="page-footer"  style="background-color: #CDCDCD;">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Plather</h5>
+        <p class="grey-text text-lighten-4">문곰의 제 4회 서강대학교 해커톤 프로젝트입니다.</p>
       </div>
-      <div class="footer-copyright">
-        <div class="container">
-          © 2018 Copyright Moongom
-          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-        </div>
-      </div>
-    </footer>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <div class="col l4 offset-l2 s12"></div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      © 2018 Copyright Moongom
+      <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    </div>
+  </div>
+</footer>

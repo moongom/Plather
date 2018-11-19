@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-prod": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod --base-href ./"
   },
   "private": true,
   "dependencies": {
@@ -27,8 +28,9 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "ng-simple-slideshow": "^1.2.3",
-    "ngx-bootstrap": "^3.0.1",
     "rxjs": "^6.0.0",
+    "summernote": "^0.8.10",
+    "webpack-bundle-tracker": "^0.3.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

@@ -17,5 +17,6 @@ export class LandingPageComponent implements OnInit {
 
   constructor() {}
 
-  imageUrlArray=["/assets/images/forest1.jpg", "/assets/images/forest2.jpg", "/assets/images/forest3.jpg"];
+  // imageUrlArray=["static/ang/assets/images/carousel1.jpeg", "static/ang/assets/images/carousel2.png", "static/ang/assets/images/carousel3.png", "static/ang/assets/images/carousel4.png", "static/ang/assets/images/carousel5.png", "static/ang/assets/images/carousel6.png"];
+
 }

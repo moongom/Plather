@@ -12,7 +12,7 @@
         </div>
 
       </mat-expansion-panel>
-      <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel [ngStyle]="{'background-color': '#efefef'}">
         <mat-expansion-panel-header>
           <mat-panel-title>
             다른 메뉴
@@ -30,26 +30,6 @@
     <usertimeline></usertimeline>
     <!-- Under Horizontal Line  -->
     <usertimeline-specific></usertimeline-specific>
-
-    <!-- Footer -->
-    <footer class="page-footer"  style="background-color: #CDCDCD;">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">Plather</h5>
-            <p class="grey-text text-lighten-4">문곰의 제 4회 서강대학교 해커톤 프로젝트입니다.</p>
-          </div>
-          <div class="col l4 offset-l2 s12"></div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">
-          © 2018 Copyright Moongom
-          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-        </div>
-      </div>
-    </footer>
-    <!-- Footer -->
   </mat-sidenav-content>
   <!-- Main Content -->
 </mat-sidenav-container>

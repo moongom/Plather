@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SignUpType } from '../models/signuptype';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SignupService } from '../signup.service';
+import { SignupService } from '../services/signup.service';
 import { FormBuilder } from '@angular/forms';
 import { matchOtherValidator } from './password-validation';
+import * as global from '../global'
 
 @Component({
   selector: 'signup2',
@@ -26,10 +27,9 @@ export class Signup2Component implements OnInit, OnDestroy {
       validator: matchOtherValidator.validate.bind(this)
     });
     this.signupForm = this.fb.group({
-      ID: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      Email: new FormControl('', [Validators.required, Validators.email]),
       Nickname: new FormControl('', [Validators.required, Validators.minLength(4)] ),
       passwordFormGroup: this.passwordFormGroup,
-      Email: new FormControl('', [Validators.required, Validators.email]),
       Phone: new FormControl('', [Validators.required])
   }
 )
@@ -44,14 +44,14 @@ export class Signup2Component implements OnInit, OnDestroy {
       return
     }
   }
-  register(){
+  register(signuptype:SignUpType){
     this.submitted=true;
     if (this.signupForm.invalid) {
       console.log(this.signupForm.value)
       return;
   }
   else{
-    this.signup.register(this.signupForm.value).subscribe();
+    this.signup.register(signuptype).subscribe();
     console.log(this.signupForm.value)
     console.log('success')
     alert('회원가입이 완료됐습니다.')

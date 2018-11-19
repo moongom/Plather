@@ -47,6 +47,8 @@ class User(AbstractBaseUser):
 
     screen_name = models.CharField(max_length=20, blank=False)
 
+    phone_number = models.CharField(max_length=12)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['screen_name', ]
 

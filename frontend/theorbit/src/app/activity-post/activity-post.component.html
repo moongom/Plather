@@ -1,20 +1,145 @@
-<div class="container">
-    <div class="row">
-      <label for="title">활동 제목</label>
-      <div class="input-field col s12">
-        <input id="title" type="text" style="background-color: #F9F9F9; border-radius: 10px;">
-      </div>
+<div class="preloader-wrapper big active" id="preloader" style="position: absolute; left: 50%; top: 50%;">
+  <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
-    <div class="row">
-      <label for="content">활동 내용</label>
-      <div class="col s12">
-        <textarea id="content" style="height: 200px; background-color: #F9F9F9; border-radius: 10px;" class="materialize-textarea"></textarea>
-      </div>
+  </div>
+  <div class="spinner-layer spinner-red">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
-    <div class="row">
-      <div class="input-field">
-        <input id="input-file-id" multiple type="file" />
-      </div>
+  </div>
+  <div class="spinner-layer spinner-yellow">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
-    <button class="waves-light btn" style="background-color: gray;" id="activity-post-btn">저장하기</button>
+  </div>
+  <div class="spinner-layer spinner-green">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
 </div>
+
+<img src="/assets/images/close_button.png" id="close-button" (click)="closeDialog()" [ngStyle]="{'position':'fixed', 'top':'20px', 'left': this.screenWidth * 0.95 - 50 + 'px','width':'30px','height':'30px', 'zIndex':'200'}">
+
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <div id="horizontalLineDiv">
+      <div [ngClass]="[formStage == 1 ? 'current-stage' : '']" class="form-stage-circle" style="left:1.5%;"></div>
+      <div [ngClass]="[formStage == 2 ? 'current-stage' : '']" class="form-stage-circle" style="left:47.7%;"></div>
+      <div [ngClass]="[formStage == 3 ? 'current-stage' : '']" class="form-stage-circle" style="left:94.3%;"></div>
+    </div>
+  </div>
+  <div class="col-2"></div>
+</div>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8" style="padding:5px;">
+      <div class="row">
+        <div class="col-1" style="text-align:center;">
+          <p>Step 1</p>
+          <p style="white-space: nowrap;">기본 정보</p>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-4" style="text-align:center;">
+          <p>Step 2</p>
+          <p style="white-space: nowrap;">포트폴리오 작성</p>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-1" style="text-align:center;">
+          <p>Step 3</p>
+          <p style="white-space: nowrap;">커버&프리뷰</p>
+        </div>
+      </div>
+  </div>
+  <div class="col-2"></div>
+</div>
+
+<form [formGroup]="savePostForm" (ngSubmit)="submitPortFolioForm()">
+  <div class="form-first-container">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <div class="form-first animated" [ngStyle]="{'display': formStage != 1 ? 'none' : 'block'}" [ngClass]="[formStage == 1 ? previousFormStage == 2 ? 'fadeInLeft' : '' : '']" style="padding: 50px; border: 1px solid gray; border-radius: 10px;">
+          <div class="input-field">
+            <input placeholder="포트폴리오 제목" name="portfolioTitle" formControlName="portfolioTitle" id="portfolioTitle" type="text" class="input-form">
+          </div>
+          <div class="input-field">
+            <input placeholder="## 슈퍼태그 (첫 입력 시 포트폴리오 생성. 기존 존재 포트폴리오 경우 그 디브에 저장)" formControlName="superTag" id="superTag" type="text" class="input-form">
+          </div>
+          <div class="input-field">
+            <input placeholder="# 목록태그 (포트폴리오 내 목록 생성)" formControlName="subTag" id="subTag" type="text" class="input-form">
+          </div>
+          <input type="text" class="datepicker">
+          <input type="hidden" id="activityDate" formControlName="activityDate">
+          <div class="input-field">
+            <textarea placeholder="설명 입력" formControlName="portfolioBrief" style="border: 1px solid gray; border-radius: 15px;" class="materialize-textarea"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+  <div class="form-second animated" [ngStyle]="{'display': formStage != 2 ? 'none' : 'block'}" [ngClass]="[formStage == 2 ? previousFormStage == 1 ? 'fadeInRight' : 'fadeInLeft' : '']" style="border: 1px solid gray; border-radius: 10px;">
+    <div id="summernote-input-form" style="margin-top: 100px;">
+      <div class="well off-top" style="padding: 20px;">
+        <h4>포트폴리오 게시물을 작성해 주세요</h4>
+          <button type="button" (click)="showPreview()">미리보기</button>
+          <div class="form-group" style="margin-top: 30px;">
+            <textarea formControlName="portfolioContent" id="summernote" class="form-control"></textarea>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-third animated" [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" [ngClass]="[formStage == 3 ? previousFormStage == 2 ? 'fadeInRight' : 'fadeInLeft' : '']" style="border: 1px solid gray; border-radius: 10px;">
+    <div style="margin-top: 100px">
+      <div class="col-1"></div>
+      <div class="col-10" style="border: 1px solid #efefef;">
+        Form sdasdfasdfads
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
+  
+  <button (click)="nextButtonClicked()" class="next-btn" type="button" mat-fab color="black" style="float: right; margin-right: 60px; font-size: 20px;">
+    <span style="font-size: 15px;">
+      다음으로
+    </span>
+  </button>
+  
+  <button (click)="saveTemporaryButtonClicked()" mat-fab type="button" class="long-text-btn next-btn" color="black" style="float: right; margin-right: 150px; font-size: 20px;">
+    <span style="font-size: 14px;">
+      임시저장
+    </span>
+  </button>
+  
+  <button (click)="previousButtonClicked()" mat-fab type="button" class="long-text-btn next-btn" color="black" style="float: right; margin-right: 240px; font-size: 20px;">
+    <span style="font-size: 14px;">
+      이전으로
+    </span>
+  </button>
+
+  <button [ngStyle]="{'display': formStage != 3 ? 'none' : 'block'}" mat-fab class="next-btn" type="submit" color="black" style="float: right; margin-right: 330px;">
+    <span style="font-size: 15px;">
+      저장
+    </span>
+  </button>
+</form>

@@ -14,18 +14,16 @@ export class UsertimelineSpecificComponent implements OnInit {
 
   }
 
-  animal: string;
-  name: string;
-
   openDialog(): void {
     const dialogRef = this.dialog.open(ActivityPostComponent, {
-      width: '1000px',
+      width: '100%',
+      height: '100%',
+      maxWidth: '3000px'
       // data: { name: this.name, animal: this.animal }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
     });
 
   }

@@ -13,16 +13,20 @@ User = settings.AUTH_USER_MODEL
 with_metaclass = six.with_metaclass
 transaction_atomic = transaction.atomic
 
-from Tag import constants
+from Tag.constants import OPTION_DEFAULTS, FORBIDDEN_FOR_MODEL, FORBIDDEN_FOR_FIELD, TAG_CLASSIFICATION_CHOICES, AT, HASH, DOUBLE_HASH, COMMA, SPACE, TREE, QUOTE, DOUBLE_QUOTE
 from Tag import settings
 from Tag import utils
 from Tag.models.options import TagOptions
 
 """
-Although this will be benchmarking django tagulous, it will deviate away from many of its components, thus being a bit different. 
+Although this will be benchmarking django tagulous, it will deviate away from many of its components, thus being a bit different.
 However the logic itself is heavily based on Tagulous. Understanding Django Tagulous will help understanding the code of this app.
-Also, The Tag model will be explicitly declared in this file unlike Tagulous. Be aware!! 
-Remember!!! tags are made to be case insensitive!
+Also, The Tag model will be explicitly declared in this file unlike Tagulous. Be aware!!
+Remember!!!
+
+Set the options for the tags in the constants.py
+And Note that extra logic can be added in the tag fields since use cases of some tag fields in the future may derail from
+the defaults.
 """
 
 
@@ -42,9 +46,25 @@ class TagModelBase(models.base.ModelBase):
 
         # TagMeta takes priority for the model
         new_tag_options = None
-        # Failing that, look for a direct tag_options setting
-        # It will probably have been passed by BaseTagField.contribute_to_class
-        if 'tag_options' in attrs:
+
+        if 'Tag_Meta' in attrs:
+            tag_meta = dict()
+
+            for key, val in attrs['Tag_Meta'].__dict__.items():
+                if key in OPTION_DEFAULTS:
+                    if key is 'classification' and val not in TAG_CLASSIFICATION_CHOICES:
+                        raise AttributeError(
+                            '%s cannot be declared as a classification for models. try editing constants.py' % val)
+                    else:
+                        tag_meta[key] = val
+
+                elif key in FORBIDDEN_FOR_MODEL:
+                    raise AttributeError(
+                        '%s cannot be declared at the model level!' % key)
+
+            new_tag_options = TagOptions(**tag_meta)
+
+        elif 'tag_options' in attrs:
             new_tag_options = attrs['tag_options']
 
         # Otherwise start a new one
@@ -55,10 +75,18 @@ class TagModelBase(models.base.ModelBase):
         # This also means that tag_options will be available on abstract models
         if hasattr(new_cls, 'tag_options'):
             # Inherit by setting missing values in place
+            # the set missing will be getting the values from constants.py
             new_tag_options.set_missing(new_cls.tag_options)
 
         # Assign
         new_cls.tag_options = new_tag_options
+
+        print('__new__ of %s Running' % name)
+        # fields = new_cls._meta.fields + new_cls._meta.related_objects
+
+        # for field in fields:
+        #     if hasattr(field, 'tag_model') and field.tag_model == new_cls:
+        #         field.tag_options = new_tag_options
 
         return new_cls
 
@@ -150,7 +178,7 @@ class BaseTagModel(with_metaclass(TagModelBase, models.Model)):
         TagFieelds will be returned. If True, it will also include ForeignKeys
         and ManyToManyFields.
         """
-        data = []
+        data = list()
         for related in self.get_related_fields(include_standard=include_standard):
             if django.VERSION < (1, 8):
                 related_modl = related.model
@@ -324,6 +352,11 @@ class FilterTagModel(BaseTagModel):
             ('slug',)
         )
 
+    class Tag_Meta:
+        max_count = 10
+        classification = HASH
+        force_lowercase = True
+
 
 class SuperTagModel(BaseTagModel):
     """
@@ -344,8 +377,22 @@ class SuperTagModel(BaseTagModel):
             ('slug',)
         )
 
+    class Tag_Meta:
+        max_count = 3
+        classification = DOUBLE_HASH
+        force_lowercase = False
 
-class GlobalTagRelation(models.Model):
+
+"""
+################################################################################
+################################################################################
+##################For Post Tag Relations! ######################################
+################################################################################
+################################################################################
+"""
+
+
+class PostGlobalTagRelation(models.Model):
     """
     global tag model - A joining table between TagModel(with slug) and Posts with no user affiliations.
     This table seems to have no use by the moment, but still save in our SQL Database, so that the data is there. 
@@ -365,7 +412,7 @@ class GlobalTagRelation(models.Model):
         )
 
 
-class UserTagRelation(models.Model):
+class PostUserTagRelation(models.Model):
     """
     User tag model - A joining table between TagModel(with slug) Posts that has User Information.
     Thus, has a separate Managerclass.

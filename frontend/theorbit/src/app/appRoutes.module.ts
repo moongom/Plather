@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { UsertimelineComponent } from './usertimeline/usertimeline.component';
 import { HorizontalLineComponent } from './horizontal-line/horizontal-line.component';
+import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { Signup1Component } from './signup1/signup1.component';
 import { Signup2Component } from './signup2/signup2.component';
+import { UserPortfolioModalComponent } from './user-portfolio-modal/user-portfolio-modal.component';
 
 
 const appRoutes: Routes = [
@@ -15,7 +17,9 @@ const appRoutes: Routes = [
     { path: 'login', component:LoginComponent},
     { path: 'signup', component:Signup1Component},
     { path: 'signup2', component:Signup2Component},
-    { path: 'profile', component: ProfileComponent }
+    { path: 'profile', component: ProfileComponent },
+    { path: 'user-portfolio', component: UserPortfolioComponent },
+    { path: 'user-portfolio/:id', component: UserPortfolioModalComponent },
   ];
 
 

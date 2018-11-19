@@ -80,17 +80,21 @@ class TagOptions(object):
         """
         Return a dict of options specified in keys, with defaults if required
         """
-        if with_defaults:
-            return dict([
-                (name, self.__dict__.get(
-                    name, constants.OPTION_DEFAULTS[name]))
-                for name in keys
-            ])
+        if constants.OPTION_DEFAULTS['force_lowercase'] and constants.OPTION_DEFAULTS['case_sensitive']:
+            raise AttributeError(
+                "if force_lowercase is True, then case_sensitive cannot be True")
+        else:
+            if with_defaults:
+                return dict([
+                    (name, self.__dict__.get(
+                        name, constants.OPTION_DEFAULTS[name]))
+                    for name in keys
+                ])
 
-        return dict([
-            (name, value) for name, value in self.__dict__.items()
-            if name in keys
-        ])
+            return dict([
+                (name, value) for name, value in self.__dict__.items()
+                if name in keys
+            ])
 
     def items(self, with_defaults=True):
         """
@@ -108,12 +112,18 @@ class TagOptions(object):
         defaults; if False, missing options will be omitted.
         """
         return self._get_items(with_defaults, constants.FORM_OPTIONS)
+"""
+    UNLIKE tagulous disallow all add opertaions for TAG OPTION Models 
+    So that everything is constant, given on the CONSTANTS DEFAULT 
+    THis is due to the serializer class, so once we make the serailizer follow the
+    MODEL OPTIONS of the tag Model, then we can allow add operations again
 
-    def __add__(self, options):
-        """
-        Return a new TagOptions object with the options set on this object,
-        overridden by any on the second specified TagOptions object.
-        """
-        dct = self.items(with_defaults=False)
-        dct.update(options.items(with_defaults=False))
-        return TagOptions(**dct)
+"""
+# def __add__(self, options):
+#     """
+#     Return a new TagOptions object with the options set on this object,
+#     overridden by any on the second specified TagOptions object.
+#     """
+#     dct = self.items(with_defaults=False)
+#     dct.update(options.items(with_defaults=False))
+#     return TagOptions(**dct)

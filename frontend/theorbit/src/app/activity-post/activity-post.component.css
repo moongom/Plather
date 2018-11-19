@@ -1,0 +1,41 @@
+.input-form {
+  border: 1px solid #727272; 
+  border-radius: 15px;
+}
+
+.next-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.save-temporary-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 100px;
+}
+
+.form-stage-circle {
+  position: absolute; 
+  background-color: #FFFFFF; 
+  height:60px; 
+  width: 60px; 
+  border-radius: 60px; 
+  top: 70px; 
+  border: 1px solid #727272 ;
+}
+
+#horizontalLineDiv {
+  height: 5px; 
+  background-color: gray; 
+  width: 95%; 
+  margin: 100px auto 10px auto;
+}
+
+.current-stage {
+  background-color: #85ACF1;
+}
+
+.materialize-textarea {
+  height: 200px;
+}

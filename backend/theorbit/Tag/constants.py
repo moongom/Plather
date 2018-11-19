@@ -15,13 +15,89 @@ SPACE = ' '
 HASH = '#'
 DOUBLE_HASH = HASH + HASH
 
-# Default model TagField options
+# Default model TagField options, set options here
+
+"""
+if you are thinking about allowing to write filtertags and supertags together
+set the filtertag_supertag_coexists to True
+if force_lowercase is True, then case_sensitive cannot be True,
+initializing will fail
+
+although our project does not have other tag uses other than filtertag and supertag,
+if we are willing to create tags for other uses, I have made it easy to initiate it so that 
+we set the for_filter_super_tag use to False when declaring the field
+"""
+
+
+AT = '@'
+HASH = '#'
+DOUBLE_HASH = HASH + HASH,
+COMMA = ','
+SPACE = ' '
+QUOTE = '"'
+DOUBLE_QUOTE = QUOTE + QUOTE
+TREE = '/'
+
+TAG_CLASSIFICATION_CHOICES = (
+    AT, HASH, DOUBLE_HASH, COMMA, SPACE, QUOTE, DOUBLE_QUOTE, TREE
+)
+
+# These will be used when declaring tag models
+
+
 OPTION_DEFAULTS = {
-    'supertag_max_count': 3,
-    'tag_max_count':        10,
-    'sort_tag_by_alphabet': False,
-    'tag_supertag_coexits': False,
-    'tag_model': ['Tag.models.models', 'TagModel'],
-    'to_user': ['Tag.models.models', 'GlobalTagRelation'],
-    'to_global': ['Tag.models.models', 'UserTagRelation']
+    'max_count': 10,  # declare only on model level
+    'classification': None,  # declare only on model level
+    'force_lowercase': True,  # declare only on model level
+    # only set True when setting a tag field that accepts multiple tag types. ex)
+    # filtertags and supertags (special use case)
+    # even when the model's use case is for setting filter tags or supertags, when dealing
+    # with it separately, set this as false
+    'sort_tag_by_alphabet': False,  # declare only on field level
+    # declare only on field level, when setting this as true, create own
+    # generic descriptor please
+    'process_multiple_tags': False,
+    'case_sensitive': False,  # declare only on field level
 }
+
+
+FILTERTAGMODEL_SETTINGS = {
+    'path_name': ('Tag.models.models.FilterTagModel',),
+    'tag_rel': ('Tag.models.models.PostUserTagRelation', 'Tag.models.models.PostGlobalTagRelation'),
+    'max_count': 10,
+    'classification': HASH,
+    'force_lowercase': True,
+    'sort_tag_by_alphabet': False,
+    'process_multiple_tags': False,
+    'case_sensitive': False,
+}
+
+SUPERTAGMODEL_SETTINGS = {
+    'max_count': 5,
+    'classification': DOUBLE_HASH,
+    'force_lowercase': True,
+    'sort_tag_by_alphabet': False,
+    'process_multiple_tags': False,
+    'case_sensitive': False,
+}
+
+
+FORBIDDEN_FOR_FIELD = ('max_count', 'classification', 'force_lowercase')
+
+FORBIDDEN_FOR_MODEL = ('sort_tag_by_alphabet',
+                       'process_multiple_tags', 'case_sensitive')
+
+TAGMODELS = {
+    'tag_models_location': 'Tag.models.models',
+    'base_tag_model': {'model_name': 'BaseTagModel', 'rel_types': None},
+    'filter_tag_model': {'model_name': 'FilterTagModel', 'rel_model': ['Post']},
+    'super_tag_model': {'model_name': 'SuperTagModel', 'rel_model': ['Post']}
+}
+# when tag models have been created, register here
+
+
+TAGRELATIONS = {
+    'tag_rels_location': 'Tag.models.models',
+    'post_tag_relation_model': {'user': 'PostUserTagRelation', 'global': 'PostGlobalTagRelation'}
+}
+# when tag relations have been created, register here

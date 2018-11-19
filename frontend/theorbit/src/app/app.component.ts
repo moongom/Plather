@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Signup2Component } from './signup2/signup2.component'
+import { LoginComponent } from './login/login.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { SignupService } from './services/signup.service';
+import { AccountService } from './account.service';
 
 @Component({
 
@@ -12,9 +15,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 
 export class AppComponent {
+
+  email;
   sidenavTest = false;
   title = 'theorbit';
-  constructor(router:Router, public dialog: MatDialog){
+  screen_name;
+  constructor(router:Router, public dialog: MatDialog, private logoutservice:SignupService,
+    private accountservice:AccountService){
     // 특정 url에 떨어질 때에만 사이드바가 형성되게 한다.
     router.events.forEach((event) => {
       if(event instanceof NavigationStart) {
@@ -23,13 +30,30 @@ export class AppComponent {
           || event.url == "/profile"
         );
       }
+      if (localStorage.getItem('currentUser')){
+        this.email = JSON.parse(localStorage.getItem('currentUser')).email;
+        this.accountservice.getUser()
+        .subscribe(data =>{
+            this.screen_name = data.screen_name;
+            console.log(this.screen_name)
+          }
+        )
+      }
+      else{
+        // console.log('there are no data')
+      }
+
     });
+
   }
 
-  animal: string;
-  name: string;
+  ngOnInit() {
 
-  openLoginDialog(): void {
+
+  }
+
+
+  openSignup2Dialog(): void {
     const dialogRef = this.dialog.open(Signup2Component, {
       width: '400px',
       panelClass: 'full-dialog'
@@ -39,9 +63,29 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+
     });
 
+  }
+
+  openLoginDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+
+      width: '400px',
+      panelClass: 'full-dialog'
+
+      // data: { name: this.name, animal: this.animal }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
+
+  }
+
+  logout(){
+    this.logoutservice.logout()
   }
 
 }

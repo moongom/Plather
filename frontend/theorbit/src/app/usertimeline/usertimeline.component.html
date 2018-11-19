@@ -1,8 +1,14 @@
-<div class="row">
+
+
+<div class="black-background"></div>
+<div class="row" style="margin-top: 100px;">
   <div class= "col-4"></div>
   <div class= "col-4 user-profile">
-    <img class="img-responsive" src="assets/images/user_profile_default.png">
-    <br><span class="user-profile-name">김희재</span><br>
+    <!-- For Django -->
+    <!-- <img class="img-responsive" src="static/ang/assets/images/user_profile_default.png"> -->
+    <!-- For Angular -->
+    <img class="img-responsive" src="/assets/images/sample_profile_picture.png" style="height: 200px; width: 200px;">
+    <br><br><span class="user-profile-name">김희재</span><br>
     <span class="user-profile-org">Sogang Univ</span><br>
   </div>
   <div class= "col-4"></div>
@@ -10,18 +16,30 @@
 <div class="row">
   <div class= "col-4"></div>
   <div class= "col-4 user-profile">
-    <img class="img-responsive" class="left-triangle" id="left-triangle-move" src="assets/images/left_triangle_btn.png">
+    <!-- For Django -->
+    <!-- <img class="img-responsive" class="left-triangle" id="left-triangle-move" src="static/ang/assets/images/left_triangle_btn.png"> -->
+    <!-- For Angular  -->
+    <img class="img-responsive" class="left-triangle" id="left-triangle-move" src="/assets/images/left_triangle_btn.png">
     <span id="current-date"></span>
-    <img class="img-responsive" class="right-triangle" id="right-triangle-move" src="assets/images/right_triangle_btn.png">
+    <!-- For Django -->
+    <!-- <img class="img-responsive" class="right-triangle" id="right-triangle-move" src="static/ang/assets/images/right_triangle_btn.png"> -->
+    <!-- For Angular -->
+    <img class="img-responsive" class="right-triangle" id="right-triangle-move" src="/assets/images/right_triangle_btn.png">
   </div>
   <div class= "col-4"></div>
 </div>
 <div class="row">
   <div class= "col-4"></div>
   <div class= "col-4 user-profile">
-    <img class="img-responsive" class="left-triangle" id="left-triangle-select" src="assets/images/left_triangle_btn.png">
+    <!-- For Django -->
+    <!-- <img class="img-responsive" class="left-triangle" id="left-triangle-select" src="static/ang/assets/images/left_triangle_btn.png"> -->
+    <!-- For Angular -->
+    <img class="img-responsive" class="left-triangle" id="left-triangle-select" src="/assets/images/left_triangle_btn.png">
     <span id="period-select"></span>
-    <img class="img-responsive" class="right-triangle" id="right-triangle-select" src="assets/images/right_triangle_btn.png">
+    <!-- For Django -->
+    <!-- <img class="img-responsive" class="right-triangle" id="right-triangle-select" src="static/ang/assets/images/right_triangle_btn.png"> -->
+    <!-- For Angular -->
+    <img class="img-responsive" class="right-triangle" id="right-triangle-select" src="/assets/images/right_triangle_btn.png">
   </div>
   <div class= "col-4"></div>
 </div>
@@ -32,21 +50,11 @@
     </p>
   </div>
   <div id="mousePointerArea" style="height:100px;">
-    <div id="cardArea" style="position:absolute;"></div>
+    <div id="cardArea" style="position: absolute;"></div> <!-- position: absolute 중요! -->
     <div class="horizontalLine" style="position:absolute; height:4px;">
       <div id="dateGraduation"></div>
       <div class="row">
-        <!-- <div id='startDatePointer' style="position: absolute;">{{startDate|date:'yyyy/MM/dd'}}</div> -->
-        <!-- <div
-        *ngFor="let activity of activities; let i = index"
-        [attr.id] = "'activity_' + i"
-        [ngStyle]="{'position':'absolute', 'left':datemargin(i)+'%'}">
-         {{activity.category}}
-        </div> -->
         <div id="activities"></div>
-        <!-- <div id="endDatePointer" style="position: absolute;">
-          {{today|date:'yyyy/MM/dd'}}
-        </div> -->
       </div>
     </div>
   </div>

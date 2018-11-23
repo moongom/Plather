@@ -76,6 +76,8 @@ export class PortfolioListComponent implements OnInit {
         tagSet.add(portfolio[i].tag[j]);
       }
     }
+    
+    console.log(portfolio)
     this.openPortfolio(portfolio, Array.from(tagSet));
 
   }
@@ -143,21 +145,22 @@ export class PortfolioListComponent implements OnInit {
   makePortfolioFromActivities(activities){
     for(var i = 0 ; i < activities.length ; i++){
 
-      let arrangedSupertag = activities[i].supertag.replace('##', '');
-
+      // let arrangedSupertag = activities[i].supertag.replace('##', '');
+      let arrangedSupertag = activities[i].supertag;
       if( i == 0 ){
-
+        // 처음인 경우
         this.portfolios[arrangedSupertag] = [];
         this.portfolios[arrangedSupertag].push(activities[i]);
 
       }else{
 
+        // 있으면 기존 포트폴리오에 추가하고, 아니면 새로 생성한다.
         var alreadyExists = false;
 
         for( var supertag in this.portfolios ){
-
-          if(supertag == activities[i].supertag){
-
+          
+          if(supertag == arrangedSupertag){
+            
             alreadyExists = true;
             this.portfolios[arrangedSupertag].push(activities[i]);
 
@@ -175,7 +178,7 @@ export class PortfolioListComponent implements OnInit {
       }
 
     }
-
+    console.log("!!!")
     console.log(this.portfolios);
     
   }

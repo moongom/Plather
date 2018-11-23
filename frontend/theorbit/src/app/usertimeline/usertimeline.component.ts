@@ -136,13 +136,16 @@ export class UsertimelineComponent implements OnInit {
   getActivityPostData(){
     let jsonResponse;
     var result = [];
+
     this.service.getAll().subscribe(response => {
       console.log(response)
       jsonResponse = response;
+      
       for(var i = 0 ; i < jsonResponse.length ; i++){
         let singleData = {
           content: jsonResponse[i]['portfolioContent'],
           date: new Date(parseInt(jsonResponse[i]['activityDate'])),
+          thumbnail: jsonResponse[i]['thumbnail'] ? jsonResponse[i]['thumbnail'] :  this.images[Math.floor(Math.random()*this.images.length)],
           images: [
             this.images[Math.floor(Math.random()*this.images.length)],
             this.images[Math.floor(Math.random()*this.images.length)],
@@ -1062,7 +1065,7 @@ export class UsertimelineComponent implements OnInit {
           cardHTML += '\
               <div class="col s6 m6 l6 card-activity" id="card-activity-'+ i +'" style="padding: 0px;" data-activity_id=' + i + '>\
                 <div class="card-image" style="float:left;">\
-                  <img class="card-image-specific" src="'+ this.images[Math.floor(Math.random()*this.images.length)] +'" style="height: ' + this.listImageHeight + 'px; padding: 15px; ">\
+                  <img class="card-image-specific" src="'+ activities[i].thumbnail +'" style="height: ' + this.listImageHeight + 'px; padding: 15px; ">\
                 </div>\
                 <div class="card-content" style="margin-left: 110px; padding: 15px;">\
                   <p style="font-size: 15px; font-weight:bold;" id= "cardTitle_' + i + '" class="card-title">' + activities[i].tag + '</p>\

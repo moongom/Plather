@@ -32,14 +32,20 @@ export class ActivityPostComponent implements OnInit {
 
   }
 
+  // 포트폴리오 본문을 나타낸다.
   postText: string = "";
   errorMessage: string;
   postSaved : boolean = false;
 
   screenWidth:number = window.innerWidth;
 
-  formStage: number = 1 // 1 ~ 3 까지 존재
+  // 현재까지 작성된 폼의 stage 를 나타냄 (1 ~ 3까지 존재)
+  formStage: number = 1
   previousFormStage: number = -1
+
+  // Thumbnail Image
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   savePostForm = new FormGroup({
     portfolioTitle: new FormControl('', [
@@ -66,11 +72,14 @@ export class ActivityPostComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
     ]),
+    thumbnail: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
   });
 
   onNoClick(): void {
    this.dialogRef.close();
-   let popover = this.elementRef.nativeElement.querySelectorAll('note-popover')[3];
   }
 
   ngOnDestroy(): void {
@@ -203,38 +212,73 @@ export class ActivityPostComponent implements OnInit {
 
   }
 
+  fileChangeEvent(event: any): void {
+      this.imageChangedEvent = event;
+  }
+  imageCropped(event: any) {
+    // 실질적으로 이미지를 Crop 하는 함수
+    this.croppedImage = event['base64'];
+  }
+  imageLoaded() {
+      // show cropper
+  }
+  loadImageFailed() {
+    alert("이미지 로드하는 과정에서 오류가 발생했습니다.");
+  }
+
   submitPortFolioForm(){
+    
     let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
     this.postText = text;
     this.savePostForm.patchValue({
       portfolioContent: this.postText,
-      activityDate: $('#activityDate').val()
+      activityDate: $('#activityDate').val(),
+      thumbnail: this.croppedImage
     });
-    let post = this.savePostForm.value;
-    // console.log(post)
-    // alert("portfolioTitle : " + post.portfolioTitle + " portfolioBrief : " + post.portfolioBrief + " portfolioContent : " + post.portfolioContent.substring(0, 10));
 
-    this.service.create(post).subscribe(response => {
-      
-      console.log(response);
+    let formValid = this.checkIfFormValid(this.savePostForm);
 
-    })
+    if(formValid){
+      let post = this.savePostForm.value;
       
+      this.service.create(post).subscribe(response => {
+        console.log(response);
+      })
+    }else{
+      alert('미입력된 항목이 존재합니다.');
+      console.log(this.savePostForm)
+      console.log(this.savePostForm.value);
+    }
+    
   }
-  
 
   saveTemporaryButtonClicked() {
     let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
     this.postText = text;
     this.savePostForm.patchValue({
       portfolioContent: this.postText,
-      activityDate: $('#activityDate').val()
+      activityDate: $('#activityDate').val(),
+      thumbnail: this.croppedImage
     });
-    let post = this.savePostForm.value;
-    // alert("portfolioTitle : " + post.portfolioTitle + " portfolioBrief : " + post.portfolioBrief + " portfolioContent : " + post.portfolioContent.substring(0, 10));
-    this.service.create(post).subscribe(response => {
-      console.log(response);
-    })
+
+    let formValid = this.checkIfFormValid(this.savePostForm);
+
+    // 아직 임시저장 기능이 완성되지 않아서 연결하지 않음
+    // if(formValid){
+    //   let post = this.savePostForm.value;
+      
+    //   this.service.create(post).subscribe(response => {
+    //     console.log(response);
+    //   })
+    // }
+    
+  }
+
+  checkIfFormValid(form: FormGroup){
+    if(!form.valid){
+      return false;
+    }
+    return true;
   }
 
   showPreview(): void {
@@ -252,9 +296,6 @@ export class ActivityPostComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ActivityPostPreviewComponent, {
 
-      // width: '1000px',
-      // height: '800px',
-      // width: this.screenWidth - 230 + "px",
       width: '100%',
       height: '100%',
       maxWidth: '3000px',

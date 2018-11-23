@@ -196,6 +196,7 @@ export class UserPortfolioComponent implements OnInit {
           ],
           supertag: jsonResponse[i]['superTag'],
           tag: jsonResponse[i]['subTag'],
+          thumbnail: jsonResponse[i]['thumbnail'] ? jsonResponse[i]['thumbnail'] : this.images[Math.floor(Math.random()*this.images.length)],
           user: "김희재",
           filter: true
         };

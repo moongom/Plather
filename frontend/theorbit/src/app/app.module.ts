@@ -70,7 +70,7 @@ import {
 
 } from '@angular/material';
 
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
 
@@ -141,6 +141,8 @@ import {
     MatTooltipModule,
     MatTreeModule,
     SlideshowModule,
+    
+    ImageCropperModule
   ],
 
   providers: [SignupService, AlertService, ActiivtyPostService],

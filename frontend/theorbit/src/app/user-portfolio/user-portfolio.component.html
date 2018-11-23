@@ -6,11 +6,12 @@
         <div class="cell-content" *ngIf="colIndex < this.getCol(rowIndex, this.portfolios).length">
           <mat-card class="example-card hoverable" [ngStyle]="{'padding-bottom':'0px'}">
             <mat-card-header>
+              <!-- 한 줄에 4개의 게시물이 들어가므로 rowIndex * 4 + colIndex 로 최종 index 를 구할 수 있다. -->
               <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{ this.getKey(this.portfolios)[rowIndex*4 + colIndex] }}</mat-card-title>
               <mat-card-subtitle>{{ this.portfolios[this.getKey(this.portfolios)[rowIndex*4 + colIndex]][0].user }}</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="{{ images[(rowIndex*2+colIndex*7)%(images.length)] }}" alt="Photo">
+            <img mat-card-image src="{{ this.portfolios[this.getKey(this.portfolios)[rowIndex*4 + colIndex]][0].thumbnail }}" alt="Photo">
           </mat-card>
         </div>
       </div>

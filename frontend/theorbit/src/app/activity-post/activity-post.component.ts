@@ -311,7 +311,7 @@ export class ActivityPostComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      console.log('ActivityPostPreview Modal was closed');
+      
 
     });
 

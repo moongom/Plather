@@ -12,18 +12,16 @@ export class ProfileComponent implements OnInit {
 
   constructor( public dialog: MatDialog, private elementRef:ElementRef ) { }
 
-  animal: string;
-  name: string;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {
       width: '1000px',
-      // data: { name: this.name, animal: this.animal }
+      
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+
+      
     });
 
   }

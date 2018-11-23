@@ -1,3 +1,14 @@
 .fixedclass{
     position:fixed;
 }
+.button-row{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.mat-card{
+    height: 320px;
+    overflow-y: scroll;
+}
+  

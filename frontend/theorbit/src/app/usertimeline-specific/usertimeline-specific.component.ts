@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ActivityPostComponent } from '../activity-post/activity-post.component'
+
 
 @Component({
   selector: 'usertimeline-specific',
@@ -10,21 +9,7 @@ import { ActivityPostComponent } from '../activity-post/activity-post.component'
 
 export class UsertimelineSpecificComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {
-
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ActivityPostComponent, {
-      width: '100%',
-      height: '100%',
-      maxWidth: '3000px'
-      // data: { name: this.name, animal: this.animal }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  constructor() {
 
   }
 

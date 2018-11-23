@@ -4,7 +4,9 @@ import { ActivityPostPreviewComponent } from '../activity-post-preview/activity-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActiivtyPostService } from '../services/actiivty-post.service';
+
 import * as global from '../global'
+import { HorizontalLineComponent } from '../horizontal-line/horizontal-line.component';
 
 declare var $: any;
 
@@ -28,10 +30,8 @@ export class ActivityPostComponent implements OnInit {
     private elementRef:ElementRef,
     public dialog: MatDialog,
     private service: ActiivtyPostService
-  ) {
-
-  }
-
+  ) {}
+  
   // 포트폴리오 본문을 나타낸다.
   postText: string = "";
   errorMessage: string;
@@ -94,6 +94,7 @@ export class ActivityPostComponent implements OnInit {
   }
   
   ngOnInit() {
+    
     // Material DatePicker Initialize
     $(document).ready(function(){
       $('.datepicker').datepicker({
@@ -209,7 +210,6 @@ export class ActivityPostComponent implements OnInit {
 
   ngAfterViewInit() {
 
-
   }
 
   fileChangeEvent(event: any): void {
@@ -243,6 +243,9 @@ export class ActivityPostComponent implements OnInit {
       
       this.service.create(post).subscribe(response => {
         console.log(response);
+        // success / fail 분기처리 해야 함 (백엔드와의 협의 필요)
+        alert('성공적으로 게시물이 입력되었습니다.')
+        this.closeDialog();
       })
     }else{
       alert('미입력된 항목이 존재합니다.');
@@ -269,6 +272,9 @@ export class ActivityPostComponent implements OnInit {
       
     //   this.service.create(post).subscribe(response => {
     //     console.log(response);
+          // success / fail 분기처리 해야 함 (백엔드와의 협의 필요)
+          // alert('성공적으로 게시물이 입력되었습니다.')
+          // this.closeDialog();
     //   })
     // }
     

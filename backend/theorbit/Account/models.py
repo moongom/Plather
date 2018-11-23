@@ -36,7 +36,8 @@ class User(AbstractBaseUser):
         (2, 'Staff with no delete Authority'),
         (3, 'Staff with Authority up to Post delete'),
         (4, 'Staff with Authority up to User delete'),
-        (5, 'Admin')
+        (5, 'Admin'),
+        (6, 'Group User')
     )
     admin = models.BooleanField(default=False)
 

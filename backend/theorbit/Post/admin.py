@@ -9,7 +9,17 @@ class PostAdminForm(forms.ModelForm):
     class Meta:
         model = GeneralPost
         fields = [
-            'id', 'user', 'title', 'content',
+            'id',
+            'activityDate',
+            'created_at', 
+            'updated_at', 
+            'portfolioBrief', 
+            'portfolioContent', 
+            'portfolioTitle', 
+            'user', 
+            'did_date', 
+            'subTag', 
+            'superTag',          
         ]
 
 

@@ -4,13 +4,15 @@ from Account.views import (
     LoginView,
     LogoutView,
     RegisterView,
-    UserDetailView
+    UserDetailView,
+    GroupRegisterView
 )
 
 urlpatterns = [
     url(r'^api/login/$', LoginView.as_view(), name='rest_login'),
     url(r'^api/logout/$', LogoutView.as_view(), name='rest_logout'),
     url(r'^api/register/$', RegisterView.as_view(), name='rest_register'),
+    url(r'^api/groupregister/$', GroupRegisterView.as_view(), name='rest_register'),
     url(r'^api/userdetail/(?P<email>[0-9]+)/$',
         UserDetailView.as_view(), name='detail')
 ]

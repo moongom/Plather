@@ -142,7 +142,7 @@ export class UsertimelineComponent implements OnInit {
       for(var i = 0 ; i < jsonResponse.length ; i++){
         let singleData = {
           content: jsonResponse[i]['portfolioContent'],
-          date: new Date(parseInt(jsonResponse[i]['activityDate'])),
+          date: new Date(Date.parse(jsonResponse[i]['activityDate'])),
           images: [
             this.images[Math.floor(Math.random()*this.images.length)],
             this.images[Math.floor(Math.random()*this.images.length)],

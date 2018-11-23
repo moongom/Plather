@@ -44,7 +44,8 @@ DATABASES = {
         # django.db.backends.postgresql_psycopg2
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'dbwls930212',
+#        'PASSWORD': 'dbwls930212',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
     }

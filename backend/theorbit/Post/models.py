@@ -15,24 +15,34 @@ from Tag.models.fields import TagJSONFIELD
 
 class GeneralPost(models.Model):
 
+    #id
     id = models.BigAutoField(primary_key=True, db_index=True)
 
+    #activityDate -> 무슨 의미지?
+    activityDate = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+
+    portfolioBrief = models.CharField(max_length=150, null=True, blank=True)
+    portfolioContent = models.CharField(max_length=500000, null=True, blank=True)
+    portfolioTitle = models.CharField(max_length=150, null=False)
+
     user = models.ForeignKey(User, db_index=True)
+    did_date = models.DateTimeField(blank=True, db_index=False, null=True)
 
-    pub_date = models.DateTimeField(default=timezone.now)
-    last_edit_date = models.DateTimeField(default=timezone.now)
+    subTag = models.CharField(max_length=150, null=True, blank=True)
+    superTag = models.CharField(max_length=150, null=True, blank=True)
 
-    did_date = models.DateTimeField(default=timezone.now, db_index=False)
 
-    title = models.CharField(max_length=150, null=False)
-    content = models.CharField(max_length=500000, null=True, blank=True)
 
     # using an extended JSON Field, that saves in JSON for easy querying.
     # But parses through to check tag integrity, then also save it to the
     # TagBase Model and bridging table
     # this field should only exist here! Or else descriptor will break
-    tags_json = TagJSONFIELD(default=dict,
-                             tag_models=['FILTERTAGMODEL'])
+
+    ## tag 부분은 우선 빼놓음... -> 건순!
+    # tags_json = TagJSONFIELD(default=dict,
+    #                          tag_models=['FILTERTAGMODEL'])
 
     # class Comment(models.Model):
     #     id = models.BigAutoField(primary_key=True, db_index=True)

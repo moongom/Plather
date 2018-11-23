@@ -26,7 +26,7 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode as uid_decoder
 
 from Account.models import User
-from Account.serializers import CreateUserSerializer, LoginSerializer, PublicUserSerializer, TokenSerializer
+from Account.serializers import CreateUserSerializer, LoginSerializer, PublicUserSerializer, TokenSerializer, CreateGroupUserSerializer
 
 from Post.permissions import IsOwnerOrReadOnly
 
@@ -167,6 +167,55 @@ class RegisterView(GenericAPIView):
             screen_name=screen_name,
             phone_number=phone_number,
             active=True)
+
+        user.set_password(password)
+
+        user.save()
+        return user
+
+        # current_site = get_current_site(self.request)
+
+        # subject = (_('Welcome To %s! Confirm Your Email') % current_site.name)
+        # message = render_to_string('registration/user_activate_email.html', {
+        #     'user': user,
+        #     'domain': current_site.domain,
+        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        #     'token': PasswordResetTokenGenerator().make_token(user),
+        # })
+        # email = EmailMessage(subject, message, to=[user.email])
+        # email.send()
+
+    def post(self, request, *args, **kwargs):
+        self.request = request
+        self.serializer = self.get_serializer(
+            data=self.request.data, context={'request': request})
+        self.serializer.is_valid(raise_exception=True)
+        self.register()
+
+
+
+
+class GroupRegisterView(GenericAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = CreateGroupUserSerializer
+
+    @sensitive_post_parameters_m
+    def dispatch(self, *args, **kwargs):
+        return super(GroupRegisterView, self).dispatch(*args, **kwargs)
+
+    def register(self):
+        email = self.serializer.validated_data['email']
+        password = self.serializer.validated_data['password']
+        screen_name = self.serializer.validated_data['screen_name']
+        phone_number = self.serializer.validated_data['phone_number']
+
+        user = User.objects.create(
+            email=email,
+            screen_name=screen_name,
+            phone_number=phone_number,
+            user_type=6,
+            active=True)
+        # 여기서 user_type 을 바꿔줘야 효과가 있네...
 
         user.set_password(password)
 

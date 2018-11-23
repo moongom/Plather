@@ -18,8 +18,12 @@ class UserPagePostList(generics.ListAPIView):
     #  defaults to pk if not explcit
 
     def get_queryset(self, *args, **kwargs):
-        id = self.kwargs.get(self.lookup_url_kwarg)
-        return GeneralPost.objects.filter(user_id=id)
+        # id = self.kwargs.get(self.lookup_url_kwarg)
+        id = self.request.user.id
+
+        # 임시로 바꿔놓음...        
+        # return GeneralPost.objects.filter(user_id=id)
+        return GeneralPost.objects.all()
 
 
 class GeneralPostDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -36,4 +40,4 @@ class GeneralPostCreateView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, last_edit_date=timezone.now)
+        serializer.save(user=self.request.user)

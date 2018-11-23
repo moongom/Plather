@@ -6,9 +6,9 @@ import { AppError } from '../common/app-error';
 import { Observable, of } from 'rxjs';
 import * as global from '../global'
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 
 export class DataService {
   

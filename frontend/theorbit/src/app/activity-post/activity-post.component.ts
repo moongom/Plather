@@ -1,12 +1,12 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ActivityPostPreviewComponent } from '../activity-post-preview/activity-post-preview.component';
+import { ActivityPostPreviewComponent } from './activity-post-preview/activity-post-preview.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActiivtyPostService } from '../services/actiivty-post.service';
 
 import * as global from '../global'
-import { HorizontalLineComponent } from '../horizontal-line/horizontal-line.component';
+import { LineComponent } from '../line/line.component';
 
 declare var $: any;
 

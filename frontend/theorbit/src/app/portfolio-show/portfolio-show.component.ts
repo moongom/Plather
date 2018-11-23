@@ -3,17 +3,18 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import * as global from '../global'
 
 @Component({
-  selector: 'user-portfolio-modal',
-  templateUrl: './user-portfolio-modal.component.html',
-  styleUrls: ['./user-portfolio-modal.component.css'],
+  selector: 'portfolio-show',
+  templateUrl: './portfolio-show.component.html',
+  styleUrls: ['./portfolio-show.component.css'],
 })
 
-export class UserPortfolioModalComponent implements OnInit {
+export class PortfolioShowComponent implements OnInit {
 
   constructor( @Inject(MAT_DIALOG_DATA) public portfolio: any, @Inject(MAT_DIALOG_DATA) public tags: any, @Inject(MAT_DIALOG_DATA) public currentPortfolioInd: number, public dialogRef: MatDialogRef<any>,  private dialog: MatDialog, private elementRef:ElementRef ) { }
 
   screenWidth:number = window.innerWidth;
   portfolioInd:number = 0;
+  useSampleData:boolean = global.useSampleData
 
   ngOnInit() {
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserPortfolioModalComponent } from './user-portfolio-modal.component';
+import { ShowActivityComponent } from './show-activity.component';
 
-describe('UserPortfolioModalComponent', () => {
-  let component: UserPortfolioModalComponent;
-  let fixture: ComponentFixture<UserPortfolioModalComponent>;
+describe('ShowActivityComponent', () => {
+  let component: ShowActivityComponent;
+  let fixture: ComponentFixture<ShowActivityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserPortfolioModalComponent ]
+      declarations: [ ShowActivityComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserPortfolioModalComponent);
+    fixture = TestBed.createComponent(ShowActivityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,27 +1,25 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ShowSpecificActivitiesComponent } from '../show-specific-activities/show-specific-activities.component';
-import { UserPortfolioModalComponent } from '../user-portfolio-modal/user-portfolio-modal.component';
-import { UserPortfolioLeftProfileComponent } from '../user-portfolio-left-profile/user-portfolio-left-profile.component';
-import { ActiivtyPostService } from '../services/actiivty-post.service';
+import { ShowActivityComponent } from '../../show-activity/show-activity.component';
+import { PortfolioShowComponent } from '../../portfolio-show/portfolio-show.component';
+import { PortfolioModalLeftProfileComponent } from '../../portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';
 import { Router } from '@angular/router';
-import * as global from '../global'
+import * as global from '../../global'
 
 @Component({
 
-  selector: 'usertimeline',
-  templateUrl: './usertimeline.component.html',
-  styleUrls: ['./usertimeline.component.css']
+  selector: 'line-upper',
+  templateUrl: './line-upper.component.html',
+  styleUrls: ['./line-upper.component.css']
 
 })
 
 
-export class UsertimelineComponent implements OnInit {
+export class LineUpperComponent implements OnInit {
 
   constructor(private elementRef:ElementRef,
      public dialog: MatDialog,
-    private router: Router, 
-    private service: ActiivtyPostService,
+    private router: Router
     ) { }
 
   initCount = 1;
@@ -215,7 +213,7 @@ export class UsertimelineComponent implements OnInit {
 
   // 확대 버튼을 누르면 포트폴리오 모달을 띄운다.
   openDialog( params ): void {
-    const dialogRef = this.dialog.open(ShowSpecificActivitiesComponent, {
+    const dialogRef = this.dialog.open(ShowActivityComponent, {
 
       width: '1000px',
       height: '800px',
@@ -224,8 +222,6 @@ export class UsertimelineComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
-      console.log('ShowSpecificActivitiesComponent Modal was closed');
       
     });
 
@@ -1314,9 +1310,9 @@ export class UsertimelineComponent implements OnInit {
   openPortfolio( portfolio, tagSets, portfolioInd ): void {
 
 
-    history.pushState(null, null, '/user-portfolio/user_id');
+    history.pushState(null, null, '/portfolio/user_id');
 
-    const userPortfolio = this.dialog.open(UserPortfolioModalComponent, {
+    const userPortfolio = this.dialog.open(PortfolioShowComponent, {
 
       width: '68%',
       height: '80%',
@@ -1332,12 +1328,11 @@ export class UsertimelineComponent implements OnInit {
 
     userPortfolio.afterClosed().subscribe(result => {
 
-      console.log('ShowSpecificActivitiesComponent Modal was closed!!!');
       history.pushState(null, null, '/horizontalline');
       userPortfolioLeftProfile.close();
 
     });
-    const userPortfolioLeftProfile = this.dialog.open(UserPortfolioLeftProfileComponent, {
+    const userPortfolioLeftProfile = this.dialog.open(PortfolioModalLeftProfileComponent, {
 
       width: '20%',
       height: '80%',

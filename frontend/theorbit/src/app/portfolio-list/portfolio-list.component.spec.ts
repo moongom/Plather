@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HorizontalLineComponent } from './horizontal-line.component';
+import { PortfolioListComponent } from './portfolio-list.component';
 
-describe('HorizontalLineComponent', () => {
-  let component: HorizontalLineComponent;
-  let fixture: ComponentFixture<HorizontalLineComponent>;
+describe('PortfolioListComponent', () => {
+  let component: PortfolioListComponent;
+  let fixture: ComponentFixture<PortfolioListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HorizontalLineComponent ]
+      declarations: [ PortfolioListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HorizontalLineComponent);
+    fixture = TestBed.createComponent(PortfolioListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

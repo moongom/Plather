@@ -4,14 +4,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HorizontalLineComponent } from './horizontal-line/horizontal-line.component';
-import { UsertimelineComponent } from './usertimeline/usertimeline.component';
-import { UsertimelineSpecificComponent } from './usertimeline-specific/usertimeline-specific.component';
-import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
-import { UserPortfolioModalComponent } from './user-portfolio-modal/user-portfolio-modal.component';
-import { UserPortfolioLeftProfileComponent } from './user-portfolio-left-profile/user-portfolio-left-profile.component';
+import { LineComponent } from './line/line.component';
+import { LineUpperComponent } from './line/line-upper/line-upper.component';
+import { LineBottomComponent } from './line/line-bottom/line-bottom.component';
+import { PortfolioListComponent } from './portfolio-list/portfolio-list.component';
+import { PortfolioShowComponent } from './portfolio-show/portfolio-show.component';
+import { PortfolioModalLeftProfileComponent } from './portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';
 import { ActivityPostComponent } from './activity-post/activity-post.component';
-import { ActivityPostPreviewComponent } from './activity-post-preview/activity-post-preview.component';
+import { ActivityPostPreviewComponent } from './activity-post/activity-post-preview/activity-post-preview.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import 'hammerjs';
@@ -25,7 +25,7 @@ import { LoginComponent } from './login/login.component';
 import { Signup1Component } from './signup1/signup1.component';
 import { Signup2Component } from './signup2/signup2.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ShowSpecificActivitiesComponent } from './show-specific-activities/show-specific-activities.component';
+import { ShowActivityComponent } from './show-activity/show-activity.component';
 import { AlertService } from './alert.service';
 import { SignupService } from './services/signup.service';
 import { ActiivtyPostService } from './services/actiivty-post.service';
@@ -76,13 +76,13 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 
   declarations: [
     AppComponent,
-    HorizontalLineComponent,
-    UsertimelineComponent,
+    LineComponent,
+    LineUpperComponent,
     ProfileComponent,
-    UsertimelineSpecificComponent,
-    UserPortfolioComponent,
-    UserPortfolioModalComponent,
-    UserPortfolioLeftProfileComponent,
+    LineBottomComponent,
+    PortfolioListComponent,
+    PortfolioShowComponent,
+    PortfolioModalLeftProfileComponent,
     ActivityPostComponent,
     ActivityPostPreviewComponent,
     EditProfileComponent,
@@ -90,10 +90,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     LoginComponent,
     Signup1Component,
     Signup2Component,
-    ShowSpecificActivitiesComponent,
+    ShowActivityComponent,
   ],
 
-  entryComponents: [ActivityPostComponent, ActivityPostPreviewComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent, UserPortfolioModalComponent, UserPortfolioLeftProfileComponent],
+  entryComponents: [ActivityPostComponent, ActivityPostPreviewComponent, EditProfileComponent, Signup2Component, ShowActivityComponent, PortfolioShowComponent, PortfolioModalLeftProfileComponent],
 
   imports: [
 

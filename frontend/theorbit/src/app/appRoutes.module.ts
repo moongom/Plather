@@ -1,25 +1,25 @@
 import { NgModule }              from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
-import { UsertimelineComponent } from './usertimeline/usertimeline.component';
-import { HorizontalLineComponent } from './horizontal-line/horizontal-line.component';
-import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
+import { LineUpperComponent } from './line/line-upper/line-upper.component';
+import { LineComponent } from './line/line.component';
+import { PortfolioListComponent } from './portfolio-list/portfolio-list.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { Signup1Component } from './signup1/signup1.component';
 import { Signup2Component } from './signup2/signup2.component';
-import { UserPortfolioModalComponent } from './user-portfolio-modal/user-portfolio-modal.component';
+import { PortfolioShowComponent } from './portfolio-show/portfolio-show.component';
 
 
 const appRoutes: Routes = [
     { path: '', component: LandingPageComponent},
-    { path: 'horizontalline', component: HorizontalLineComponent },
+    { path: 'horizontalline', component: LineComponent },
     { path: 'login', component:LoginComponent},
     { path: 'signup', component:Signup1Component},
     { path: 'signup2', component:Signup2Component},
     { path: 'profile', component: ProfileComponent },
-    { path: 'user-portfolio', component: UserPortfolioComponent },
-    { path: 'user-portfolio/:id', component: UserPortfolioModalComponent },
+    { path: 'portfolio', component: PortfolioListComponent },
+    { path: 'portfolio/:id', component: PortfolioShowComponent },
   ];
 
 

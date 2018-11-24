@@ -46,7 +46,7 @@ export class LineComponent implements OnInit {
     if(global.useSampleData){
       // Dummy Data 생성
       this.createSampleData();
-      console.log(this.activities)
+      
       this.line.filterByRange(this.activities);  
     }else{
       this.getActivityPostData();
@@ -174,7 +174,15 @@ export class LineComponent implements OnInit {
         }
       }
     }
-    this.line.filterByRange(this.activities);
+    
+    // 처음 시작 날짜(startDate), 끝 날짜(endDate) 설정을 제외한 수평선 설정을 한다.
+    this.line.pointDate();
+    this.line.isActivitiesIn();
+    this.line.markDateGraduation();
+    this.line.markCard();
+    this.line.addActivityToCard(this.activities);
+    this.line.howManyActivities();
+
   }
 
   openDialog(): void {

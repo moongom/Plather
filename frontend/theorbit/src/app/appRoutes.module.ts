@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { LineUpperComponent } from './line/line-upper/line-upper.component';
 import { LineComponent } from './line/line.component';
-import { PortfolioListComponent } from './portfolio-list/portfolio-list.component';
+import { PortfolioOuterComponent } from './portfolio-outer/portfolio-outer.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { Signup1Component } from './signup1/signup1.component';
@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     { path: 'signup', component:Signup1Component},
     { path: 'signup2', component:Signup2Component},
     { path: 'profile', component: ProfileComponent },
-    { path: 'portfolio', component: PortfolioListComponent },
+    { path: 'portfolio', component: PortfolioOuterComponent },
     { path: 'portfolio/:id', component: PortfolioShowComponent },
   ];
 

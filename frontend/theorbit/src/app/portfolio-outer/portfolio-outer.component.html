@@ -1,0 +1,5 @@
+<div class="container" style="margin-top: 20px; text-align:center;">
+  <h1>Portfolios</h1>
+  <portfolio-list *ngIf="currentComponent=='portfolioList'" (selectedSupertag)="toggleComponent($event)"></portfolio-list>
+  <portfolio-filtered *ngIf="currentComponent=='portfolioFiltered'" [currentSupertag]="currentSupertag"></portfolio-filtered>
+</div>

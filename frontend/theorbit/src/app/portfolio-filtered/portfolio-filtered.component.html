@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="portfolio-cell col-md-3 col-lg-3 col-sm-12" *ngFor="let activity of activities">
+    <div class="cell-content" (click)="openPortfolio(activity)">
+      <mat-card class="example-card hoverable">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{ activity.tag }}</mat-card-title>
+          <!-- <mat-card-subtitle>{{ activity.portfolioBrief }}</mat-card-subtitle> -->
+        </mat-card-header>
+        <img mat-card-image src="{{ activity.thumbnail }}" alt="Photo">
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { LineComponent } from './line/line.component';
 import { LineUpperComponent } from './line/line-upper/line-upper.component';
 import { LineBottomComponent } from './line/line-bottom/line-bottom.component';
+import { PortfolioOuterComponent } from './portfolio-outer/portfolio-outer.component';
 import { PortfolioListComponent } from './portfolio-list/portfolio-list.component';
+import { PortfolioFilteredComponent } from './portfolio-filtered/portfolio-filtered.component';
 import { PortfolioShowComponent } from './portfolio-show/portfolio-show.component';
 import { PortfolioModalLeftProfileComponent } from './portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';
 import { ActivityPostComponent } from './activity-post/activity-post.component';
@@ -80,8 +82,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     LineUpperComponent,
     ProfileComponent,
     LineBottomComponent,
+    PortfolioOuterComponent,
     PortfolioListComponent,
     PortfolioShowComponent,
+    PortfolioFilteredComponent,
     PortfolioModalLeftProfileComponent,
     ActivityPostComponent,
     ActivityPostPreviewComponent,
@@ -105,9 +109,6 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     HttpClientXsrfModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -119,7 +120,6 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MatExpansionModule,
     MatGridListModule,
     MatIconModule,
-    MatInputModule,
     MatListModule,
     MatMenuModule,
     MatNativeDateModule,
@@ -127,21 +127,16 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    MatRippleModule,
     MatSelectModule,
     MatSidenavModule,
     MatSliderModule,
     MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
     MatStepperModule,
     MatTableModule,
     MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
     MatTreeModule,
     SlideshowModule,
-    
+
     ImageCropperModule
   ],
 

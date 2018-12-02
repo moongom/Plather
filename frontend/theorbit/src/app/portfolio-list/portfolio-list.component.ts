@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnInit, ElementRef } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AfterViewInit, Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { PortfolioShowComponent } from '../portfolio-show/portfolio-show.component';
 import { PortfolioModalLeftProfileComponent } from '../portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';
 import { ActiivtyPostService } from '../services/actiivty-post.service';
@@ -15,7 +15,11 @@ import * as global from '../global'
 
 export class PortfolioListComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private elementRef: ElementRef, private service: ActiivtyPostService) { }
+  @Output() selectedSupertag = new EventEmitter<String>();
+
+  constructor(public dialog: MatDialog, private service: ActiivtyPostService) {
+
+  }
 
   /*
     이 곳에서는 태그이름, 슈퍼태그 (포트폴리오 index 페이지에 필요한 성분들) 만 로드할 예정이다.
@@ -69,16 +73,19 @@ export class PortfolioListComponent implements OnInit {
   showPortfolio(index){
 
     var portfolio = this.portfolios[this.getKey(this.portfolios)[index]];
-    
-    var tagSet = new Set();
-    for ( var i = 0 ; i < portfolio.length ; i++){
-      for( var j = 0 ; j < portfolio[i].tag.length ; j++ ){
-        tagSet.add(portfolio[i].tag[j]);
+    if(portfolio.length > 1){
+      var tagSet = new Set();
+      for ( var i = 0 ; i < portfolio.length ; i++){
+        for( var j = 0 ; j < portfolio[i].tag.length ; j++ ){
+          tagSet.add(portfolio[i].tag[j]);
+        }
       }
+      this.openPortfolio(portfolio, Array.from(tagSet));
+    } else {
+      this.openPortfolio(portfolio, portfolio[0].tag);
     }
     
-    console.log(portfolio)
-    this.openPortfolio(portfolio, Array.from(tagSet));
+    
 
   }
 
@@ -92,9 +99,9 @@ export class PortfolioListComponent implements OnInit {
       width: '68%',
       height: '80%',
       maxWidth: '3000px',
-      data: { 
-        portfolio: portfolio, 
-        tags: tags,
+      data: {
+        portfolio: portfolio,
+        tags: Array(tags),
         currentPortfolioInd: 0
       },
       hasBackdrop: true,
@@ -110,9 +117,9 @@ export class PortfolioListComponent implements OnInit {
       width: '20%',
       height: '80%',
       maxWidth: '3000px',
-      data: { 
-        portfolioTitle: portfolio[0].supertag, 
-        tags: tags
+      data: {
+        portfolioTitle: portfolio[0].supertag,
+        tags: Array(tags)
       },
       hasBackdrop: false,
       backdropClass: 'white',
@@ -122,7 +129,7 @@ export class PortfolioListComponent implements OnInit {
       }
 
     });
-    
+
     userPortfolio.afterClosed().subscribe(result => {
 
       console.log('ShowSpecificActivitiesComponent Modal was closed');
@@ -130,7 +137,7 @@ export class PortfolioListComponent implements OnInit {
       userPortfolioLeftProfile.close();
 
     });
-    
+
     userPortfolioLeftProfile.afterClosed().subscribe(result => {
 
       console.log('ShowSpecificActivitiesComponent Modal was closed');
@@ -138,7 +145,6 @@ export class PortfolioListComponent implements OnInit {
       userPortfolio.close();
 
     });
-    
 
   }
 
@@ -158,9 +164,9 @@ export class PortfolioListComponent implements OnInit {
         var alreadyExists = false;
 
         for( var supertag in this.portfolios ){
-          
+
           if(supertag == arrangedSupertag){
-            
+
             alreadyExists = true;
             this.portfolios[arrangedSupertag].push(activities[i]);
 
@@ -178,9 +184,7 @@ export class PortfolioListComponent implements OnInit {
       }
 
     }
-    console.log("!!!")
-    console.log(this.portfolios);
-    
+
   }
   // !@# 코드리뷰 할 때 이 부분 수정해야 함(service 에 이 기능을 하는 함수 만들기)
   getActivityPostData(){
@@ -209,7 +213,7 @@ export class PortfolioListComponent implements OnInit {
       this.activities = result;
       this.makePortfolioFromActivities(this.activities);
     })
-    
+
   }
 
   ngOnInit() {
@@ -239,17 +243,15 @@ export class PortfolioListComponent implements OnInit {
       }
 
     }else{
-      
+
       this.getActivityPostData();
-      
+
     }
 
-    
+  }
+  toggleComponent(supertag: String){
+
+    this.selectedSupertag.emit(supertag);
 
   }
-
-  ngAfterViewInit() {
-
-  }
-
 }

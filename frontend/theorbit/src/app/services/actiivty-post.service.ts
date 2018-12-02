@@ -9,9 +9,14 @@ import { Observable, of } from 'rxjs';
 })
 
 export class ActiivtyPostService extends DataService{
-  
-  constructor(http: HttpClient) { 
-    super(global.endpoint + '/activity_posts', http);
+
+  constructor(http: HttpClient) {
+    super(global.endpoint + '/activity_posts/', http);
   }
-  
+
+  getActivitiesWithSupertag(supertag: String){
+    let url = super.getUrl() + 'filter/' + supertag;
+    return this.http.get(url);
+  }
+
 }

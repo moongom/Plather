@@ -11,8 +11,8 @@ import * as global from '../global'
 // })
 
 export class DataService {
-  
-  constructor(private url: string, private http: HttpClient) { }
+
+  constructor(protected url: string, protected http: HttpClient) { }
 
   private httpOptions = new HttpHeaders({ 'Content-Type': 'application/json', 'X-CSRFToken': this.getCookie('csrftoken') });
 
@@ -26,6 +26,10 @@ export class DataService {
 
   getAll() {
     return this.http.get(this.url);
+  }
+
+  getUrl() {
+    return this.url;
   }
 
   create(resource) {

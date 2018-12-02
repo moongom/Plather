@@ -2,8 +2,8 @@ import { AfterViewInit, Component, OnInit, ElementRef, EventEmitter, Output } fr
 import { MatDialog } from '@angular/material';
 import { PortfolioShowComponent } from '../portfolio-show/portfolio-show.component';
 import { PortfolioModalLeftProfileComponent } from '../portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';
-import { ActiivtyPostService } from '../services/actiivty-post.service';
-import * as global from '../global'
+import { ActiivtyPostService } from '../../services/actiivty-post.service';
+import * as global from '../../global'
 
 @Component({
 

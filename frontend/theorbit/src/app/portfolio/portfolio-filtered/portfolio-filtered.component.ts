@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActiivtyPostService } from '../services/actiivty-post.service';
+import { ActiivtyPostService } from '../../services/actiivty-post.service';
 import { MatDialog } from '@angular/material';
 import { PortfolioShowComponent } from '../portfolio-show/portfolio-show.component';
 import { PortfolioModalLeftProfileComponent } from '../portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';

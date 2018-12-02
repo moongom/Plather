@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ShowActivityComponent } from '../../show-activity/show-activity.component';
-import { PortfolioShowComponent } from '../../portfolio-show/portfolio-show.component';
-import { PortfolioModalLeftProfileComponent } from '../../portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';
+import { PortfolioShowComponent } from '../../portfolio/portfolio-show/portfolio-show.component';
+import { PortfolioModalLeftProfileComponent } from '../../portfolio/portfolio-show/portfolio-modal-left-profile/portfolio-modal-left-profile.component';
 import { Router } from '@angular/router';
 import * as global from '../../global'
 

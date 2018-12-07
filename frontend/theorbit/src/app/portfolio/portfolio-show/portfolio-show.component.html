@@ -50,7 +50,6 @@
         <h1>{{ this.portfolio.portfolio[this.portfolioInd].supertag }}</h1>
         <div class="portfolio-specific" (animationend)="setAnimation()">
           <br>
-          <p style="float: left;" id="portfolio-content-title">작성자 : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br><br>
           <span style="float:left;" class="portfolio-content-tag" *ngFor="let tag of portfolio.portfolio[this.portfolioInd].tag">#{{ tag }} </span><br>
           <img src="{{ this.portfolio.portfolio[this.portfolioInd].images[1] }}" align="middle" />
           <p id="portfolio-content" style="margin-bottom: 2rem;white-space:pre-wrap;">{{this.portfolio.portfolio[this.portfolioInd].content}}</p>
@@ -59,7 +58,6 @@
       </div>
       <div *ngIf= "!useSampleData">
           <h3>{{ this.portfolio.portfolio[this.portfolioInd].supertag }}</h3>
-          <p style="float: left;" id="portfolio-content-title">작성자 : {{ this.portfolio.portfolio[this.portfolioInd].user }}</p><br><br>
           <!-- Video  -->
           <div class="video">
               <video controls #videoPlayer style="width: 100%;">

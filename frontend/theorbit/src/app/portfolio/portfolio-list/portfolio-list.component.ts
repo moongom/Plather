@@ -119,7 +119,8 @@ export class PortfolioListComponent implements OnInit {
       maxWidth: '3000px',
       data: {
         portfolioTitle: portfolio[0].supertag,
-        tags: Array(tags)
+        tags: Array(tags),
+        user: portfolio[0].user
       },
       hasBackdrop: false,
       backdropClass: 'white',

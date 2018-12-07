@@ -31,3 +31,7 @@
 .modal.datepicker-modal.open {
   max-height: 344px;
 }
+// hide scrollbar
+::-webkit-scrollbar { 
+  display: none; 
+}

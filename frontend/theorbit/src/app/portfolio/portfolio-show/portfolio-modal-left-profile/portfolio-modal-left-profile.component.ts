@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 })
 export class PortfolioModalLeftProfileComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public portfolioTitle: String, @Inject(MAT_DIALOG_DATA) public tags: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public portfolioTitle: String, @Inject(MAT_DIALOG_DATA) public tags: any, @Inject(MAT_DIALOG_DATA) public user:String) { }
 
   isProfileArea: boolean = true; // true: 프로필 영역, false: 프로필 목차 영역
 

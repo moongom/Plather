@@ -15,16 +15,17 @@ export class PortfolioShowComponent implements OnInit {
   screenWidth:number = window.innerWidth;
   portfolioInd:number = 0;
   useSampleData:boolean = global.useSampleData
-  videoSource:string = 'https://youtu.be/E0KXWi4SRIw';
+  videoSource:string = '/assets/videos/sample_video.mp4';
 
   ngOnInit() {
 
     this.portfolioInd = this.portfolio.currentPortfolioInd;
 
   }
-
+ 
   ngAfterViewInit() {
     setInterval(() => {
+      
       this.elementRef.nativeElement.querySelector('#preloader').style.display = "none";
       this.elementRef.nativeElement.querySelector('#main-content').style.display = "block";
     }, 750);

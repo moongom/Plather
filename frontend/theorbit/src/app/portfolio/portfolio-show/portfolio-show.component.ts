@@ -15,6 +15,7 @@ export class PortfolioShowComponent implements OnInit {
   screenWidth:number = window.innerWidth;
   portfolioInd:number = 0;
   useSampleData:boolean = global.useSampleData
+  videoSource:string = 'https://youtu.be/E0KXWi4SRIw';
 
   ngOnInit() {
 

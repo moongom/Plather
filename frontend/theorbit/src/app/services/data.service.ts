@@ -33,7 +33,9 @@ export class DataService {
   }
 
   create(resource) {
-    return this.http.post(this.url + '/', JSON.stringify(resource), {
+    console.log('create in data.service.ts')
+    console.log(JSON.stringify(resource))
+    return this.http.post(this.url, JSON.stringify(resource), {
       headers: this.getHttpOptions()
     })
   }
@@ -61,9 +63,12 @@ export class DataService {
   }
 
   getCookie(name) {
+    console.log("get Cookie !")
     let value = "; " + document.cookie;
     let parts = value.split("; " + name + "=");
+    console.log('before if !')
     if (parts.length == 2)
+      console.log('before return')
       return decodeURIComponent(parts.pop().split(";").shift());
   }
 }

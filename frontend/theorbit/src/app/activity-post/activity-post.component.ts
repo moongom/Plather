@@ -230,19 +230,24 @@ export class ActivityPostComponent implements OnInit {
     
     let text = this.elementRef.nativeElement.querySelectorAll('.note-editable')[0].innerHTML;
     this.postText = text;
+    
     this.savePostForm.patchValue({
       portfolioContent: this.postText,
       activityDate: $('#activityDate').val(),
       thumbnail: this.croppedImage
     });
+    
 
     let formValid = this.checkIfFormValid(this.savePostForm);
 
+    
+
     if(formValid){
+      
       let post = this.savePostForm.value;
       
       this.service.create(post).subscribe(response => {
-        console.log(response);
+        
         // success / fail 분기처리 해야 함 (백엔드와의 협의 필요)
         alert('성공적으로 게시물이 입력되었습니다.')
         this.closeDialog();

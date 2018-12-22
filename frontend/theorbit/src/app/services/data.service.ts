@@ -14,8 +14,14 @@ export class DataService {
 
   constructor(protected url: string, protected http: HttpClient) { }
 
-  private httpOptions = new HttpHeaders({ 'Content-Type': 'application/json', 'X-CSRFToken': this.getCookie('csrftoken') });
-
+  private httpOptions = new HttpHeaders({ 
+    'Content-Type': 'application/json', 
+    'X-CSRFToken': this.getCookie('csrftoken'),
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST",
+    "Access-Control-Allow-Headers": "content-type"
+ });
+  
   getHttp(){
     return this.http;
   }

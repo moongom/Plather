@@ -33,7 +33,8 @@ export class DataService {
   }
 
   create(resource) {
-    return this.http.post(this.url + '/', JSON.stringify(resource), {
+    console.log(this.getHttpOptions())
+    return this.http.post(this.url , JSON.stringify(resource), {
       headers: this.getHttpOptions()
     })
   }
@@ -61,6 +62,7 @@ export class DataService {
   }
 
   getCookie(name) {
+    document.cookie="csrftoken=Ap1KMXoh9qhYWQ1SrLRyXPGf8ESrOje7dHALQOIDUPKmki924M3nz9PmuZPSL8oD; __utmz=96992031.1543025663.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utma=96992031.465936347.1543025663.1543025663.1543028817.2"
     let value = "; " + document.cookie;
     let parts = value.split("; " + name + "=");
     if (parts.length == 2)

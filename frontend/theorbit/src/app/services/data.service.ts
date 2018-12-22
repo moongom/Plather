@@ -29,7 +29,7 @@ export class DataService {
   }
 
   create(resource) {
-    return this.http.post(this.url + '/', JSON.stringify(resource), {
+    return this.http.post(this.url + '/api/generalpostcreate/', JSON.stringify(resource), {
       headers: this.getHttpOptions()
     })
   }

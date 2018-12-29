@@ -119,7 +119,7 @@ export class ActivityPostComponent implements OnInit {
     });
 
   }
-
+ 
 
   ngAfterViewInit() {
 

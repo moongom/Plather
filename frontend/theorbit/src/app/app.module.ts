@@ -24,6 +24,8 @@ import { LoginComponent } from './login/login.component';
 import { Signup1Component } from './signup1/signup1.component';
 import { Signup2Component } from './signup2/signup2.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
 import { ShowSpecificActivitiesComponent } from './show-specific-activities/show-specific-activities.component';
 import { AlertService } from './alert.service';
 import { SignupService } from './signup.service';
@@ -67,7 +69,7 @@ import {
   MAT_DIALOG_DATA,
 
 } from '@angular/material';
-
+import { AccountService } from './account.service';
 
 
 @NgModule({
@@ -93,13 +95,12 @@ import {
   entryComponents: [ActivityPostComponent, ActivityPostPreviewComponent, EditProfileComponent, Signup2Component, ShowSpecificActivitiesComponent, UserPortfolioModalComponent],
 
   imports: [
-
+    HttpModule,
     HttpClientModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
     MatAutocompleteModule,
@@ -140,7 +141,7 @@ import {
     SlideshowModule,
   ],
 
-  providers: [SignupService, AlertService],
+  providers: [SignupService, AlertService, AccountService],
   bootstrap: [AppComponent]
 
 })

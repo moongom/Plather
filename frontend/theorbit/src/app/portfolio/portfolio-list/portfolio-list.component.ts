@@ -19,6 +19,15 @@ export class PortfolioListComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private service: ActiivtyPostService) {
 
+    console.log(global.isMobile.iOS())
+    if(global.isMobile.iOS()) {
+      alert("IOS");
+    }
+    
+    if(global.isMobile.Android()) {
+      alert("Android");
+    }
+    console.log(global.isMobile.Android())
   }
 
   /*
@@ -201,7 +210,7 @@ export class PortfolioListComponent implements OnInit {
             this.images[Math.floor(Math.random()*this.images.length)],
             this.images[Math.floor(Math.random()*this.images.length)]
           ],
-          supertag: jsonResponse[i]['superTag'],
+          supertag: jsonResponse[i]['supertag'],
           tag: jsonResponse[i]['subTag'],
           thumbnail: jsonResponse[i]['thumbnail'] ? jsonResponse[i]['thumbnail'] : this.images[Math.floor(Math.random()*this.images.length)],
           user: "김희재",

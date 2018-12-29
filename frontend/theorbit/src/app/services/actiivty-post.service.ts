@@ -11,7 +11,8 @@ import { Observable, of } from 'rxjs';
 export class ActiivtyPostService extends DataService{
 
   constructor(http: HttpClient) {
-    super(global.endpoint + '/activity_posts/', http);
+    // super(global.endpoint + '/activity_posts/', http);
+    super(global.endpoint + '/api/v1/activity_posts/', http);
   }
 
   getActivitiesWithSupertag(supertag: String){

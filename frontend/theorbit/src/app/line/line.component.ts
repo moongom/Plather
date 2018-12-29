@@ -76,13 +76,13 @@ export class LineComponent implements OnInit {
             this.images[Math.floor(Math.random()*this.images.length)],
             this.images[Math.floor(Math.random()*this.images.length)]
           ],
-          supertag: jsonResponse[i]['superTag'],
+          supertag: jsonResponse[i]['supertag'],
           tag: jsonResponse[i]['subTag'],
           user: "김희재",
           filter: true
         };
         result[i] = singleData;
-        tempSuperTagName.push(jsonResponse[i]['superTag']);
+        tempSuperTagName.push(jsonResponse[i]['supertag']);
       }
       
       this.superTags = tempSuperTagName.filter( this.onlyUnique );

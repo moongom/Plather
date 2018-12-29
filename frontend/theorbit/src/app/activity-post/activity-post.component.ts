@@ -52,7 +52,7 @@ export class ActivityPostComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
     ]),
-    superTag: new FormControl('', [
+    supertag: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
     ]),

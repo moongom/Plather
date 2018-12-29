@@ -1,6 +1,6 @@
 <div class="portfolio-cell" *ngFor="let row of this.getRow(this.portfolios); let rowIndex = index ">
   <div class="row">
-    <div class="col s3 m3 l3" style="text-align: center;" *ngFor="let col of getArray(4); let colIndex = index" (click)="toggleComponent(this.getKey(this.portfolios)[rowIndex*4 + colIndex])">
+    <div class="col s12 m12 l3" style="text-align: center;" *ngFor="let col of getArray(4); let colIndex = index" (click)="toggleComponent(this.getKey(this.portfolios)[rowIndex*4 + colIndex])">
       <div class="cell-content" *ngIf="colIndex < this.getCol(rowIndex, this.portfolios).length">
         <mat-card class="example-card hoverable" [ngStyle]="{'padding-bottom':'0px'}">
           <mat-card-header>
